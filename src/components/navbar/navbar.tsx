@@ -27,16 +27,19 @@ const NavBar = () => {
 
   return (
     <div className={`${styles.navbarContainer} ${isScrolled ? styles.shrink : ''}`}>
+      {/* Header Section */}
       <div className={`${styles.headerContainer} ${isScrolled ? styles.shrink : ''}`}>
         <Search />
         <div className={styles.headerContent}>
-          <a className={styles.header} href="/">
-            <span>Natalie's</span>
+          <Link className={`${styles.header} ${isScrolled ? styles.shrinkedHeader : ''}`} href="/">
+            <span>Natalie&apos;s</span>
             <span>Next Stop</span>
-          </a>
+          </Link>
         </div>
         <IoLogoInstagram className={styles.instaLogo} />
       </div>
+
+      {/* Navbar Section */}
       <div className={`${styles.navbar} ${isScrolled ? styles.hide : ''}`}>
         <Link href="/asia" className={styles.link}>ASIA</Link>
         <Link href="/australia" className={styles.link}>AUSTRALIA</Link>

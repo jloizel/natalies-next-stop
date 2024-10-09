@@ -1,52 +1,40 @@
-/* photoGrid.module.css */
-
 .photoGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns */
-  gap: 16px; /* Space between grid items */
-  padding: 16px; /* Padding around the grid */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 16px; 
+  padding: 16px; 
 }
 
 .photoItem {
-  position: relative; /* Position relative for overlay positioning */
-  overflow: hidden; /* Hide overflow for images */
+  position: relative; 
+  overflow: hidden; 
 }
 
 .photoImage {
-  width: 100%; /* Responsive image */
-  height: auto; /* Maintain aspect ratio */
-}
-
-.overlay {
-  position: absolute; /* Position overlay absolutely */
-  top: 50%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Adjust for centering */
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  color: white; /* Text color */
-  padding: 10px; /* Padding around the title and button */
-  text-align: center; /* Center text */
-  border-radius: 8px; /* Rounded corners */
-}
-
-.photoTitle {
-  margin: 0; /* Remove default margin */
-  font-size: 1.2rem; /* Adjust font size */
+  width: 100%; 
+  height: auto; 
 }
 
 .photoButton {
-  margin-top: 8px; /* Space between title and button */
-  padding: 8px 12px; /* Button padding */
-  background-color: #0070f3; /* Button color */
-  color: white; /* Button text color */
-  border: none; /* Remove border */
-  border-radius: 4px; /* Rounded button corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease; /* Smooth background color transition */
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  padding: 10px 30px; 
+  background-color: #73bfb8; 
+  color: white; 
+  border: none; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 20px;
 }
 
 .photoButton:hover {
-  background-color: #005bb5; /* Darker shade on hover */
+  background-color: #3da5d9; 
 }
 
 /* Responsive Styles */
@@ -64,12 +52,12 @@
 
 .customNextArrow,
 .customPrevArrow {
-  position: absolute; /* Use absolute positioning */
-  top: 40%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust for true centering */
-  z-index: 1; /* Ensure arrows are on top */
-  cursor: pointer; /* Change cursor to pointer for better UX */
-  font-size: 50px; /* Adjust icon size */
+  position: absolute; 
+  top: 40%; 
+  transform: translateY(-50%); 
+  z-index: 1; 
+  cursor: pointer; 
+  font-size: 50px;
   color: #008489 !important;
 }
 
@@ -78,9 +66,9 @@
 }
 
 .customNextArrow {
-  right: -20px; /* Position the right arrow */
+  right: -20px; 
 }
 
 .customPrevArrow {
-  left: -50px; /* Position the left arrow */
+  left: -50px; 
 }

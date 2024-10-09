@@ -2,20 +2,21 @@ import React from 'react'
 import styles from "./header.module.css"
 import Search from '../search/search'
 import { IoLogoInstagram } from "react-icons/io5";
+import Link from 'next/link';
 
 const Header = () => {
   return (
     <div className={styles.headerContainer}>
       <Search/>
       <div className={styles.headerContent}>
-        <a className={styles.header} href="/">
+        <Link className={styles.header} href="/">
           <span>
-            Natalie's
+            Natalie&apos;s
           </span>
           <span>
             Next Stop
           </span>
-        </a>
+        </Link>
         {/* <div className={styles.headerText}>
           I haven’t been everywhere, but it’s on my list
         </div> */}

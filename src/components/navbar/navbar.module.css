@@ -1,8 +1,11 @@
 .navbarContainer {
+  position: fixed; /* Ensure the header stays fixed */
+  top: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  justify-content: center;
+  justify-content: flex-start; /* Align items to start */
+  z-index: 100; /* Ensure it stays above other content */
   transition: all 0.3s ease;
 }
 
@@ -11,15 +14,16 @@
   justify-content: space-between;
   display: flex;
   flex-direction: row;
-  padding: 20px;
+  padding: 20px; /* Initial padding for normal state */
   align-items: center;
   transition: all 0.3s ease;
+  background-color: white; /* Ensure background color for visibility */
+  z-index: 101;
 }
 
 .shrink {
-  height: 50px; /* New height when scrolled */
-  padding: 10px 20px; /* Adjust padding as needed */
-  /* Other styles to make the header smaller */
+  height: 60px; /* Ensure enough height for the text */
+  width: 100%;
 }
 
 .headerContent {
@@ -33,6 +37,11 @@
   flex-direction: column;
   text-align: center;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.shrinkedHeader {
+  scale: 0.6;
 }
 
 .header span {
@@ -45,10 +54,9 @@
 }
 
 .header span:last-child {
-  font-size: 35px;
+  font-size: 40px;
   font-family: "Arapey", serif;
   font-weight: 600;
-  font-style: normal;
 }
 
 .headerText {
@@ -75,15 +83,16 @@
   gap: 20px;
   padding: 20px 0;
   font-size: 14px;
-  border-top: solid 1px #3da5d9;
-  border-bottom: solid 1px #3da5d9;
+  border-top: solid 1px #73bfb8;
+  border-bottom: solid 1px #73bfb8;
   justify-content: center;
-  transition: transform 0.3s ease;
+  transition: all 0.6s ease; 
+  background-color: white; 
 }
 
 .hide {
-  transform: translateY(-100%); /* Hide the navbar by sliding it up */
-  opacity: 0; /* Optionally, you can fade out */
+  transform: translateY(-100%); 
+  opacity: 0; 
 }
 
 .link {
