@@ -16,7 +16,6 @@ const Footer = () => {
         </div>
       </div>
       <div className={styles.bottom}>
-        <img></img>
       </div>
       <div className={styles.copyright}>© Natalie&apos;s Next Stop 2024</div>
     </div>
