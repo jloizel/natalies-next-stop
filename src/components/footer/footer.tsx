@@ -11,14 +11,14 @@ const Footer = () => {
             About Me
           </div>
           <div className={styles.text}>
-            I'm Natalie and as someone who loves travel and exploring new places, I’m excited to share my recommendations and experiences through this blog to inspire your next adventure!
+            I'm Natalie and as someone who loves travel and exploring new places, I&apos;m excited to share my recommendations and experiences through this blog to inspire your next adventure!
           </div>
         </div>
       </div>
       <div className={styles.bottom}>
         <img></img>
       </div>
-      <div className={styles.copyright}>© Natalie's Next Stop 2024</div>
+      <div className={styles.copyright}>© Natalie&apos;s Next Stop 2024</div>
     </div>
   )
 }
