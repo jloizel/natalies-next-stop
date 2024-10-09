@@ -1,14 +1,12 @@
 "use client"
 
 import Footer from '@/components/footer/footer';
-import Header from '@/components/header/header';
 import InstagramPostsSlider from '@/components/instagramFeed/instagramPostsSlider';
 import InstagramPosts from '@/components/instagramFeed/instagramPosts';
 import NavBar from '@/components/navbar/navbar';
 import PhotoCardsGrid from '@/components/photoCards/photoCardsGrid';
 import PhotoCardsSlider from '@/components/photoCards/photoCardsSlider';
 import { createTheme, useMediaQuery } from '@mui/material';
-import Link from 'next/link';
 
 const Home = () => {
 
