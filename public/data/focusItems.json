@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "icon": "FaReact",
+    "header": "Fontend Development",
+    "subheader": "React, NextJS",
+    "content": "Skilled in developing dynamic, responsive, and user-centric interfaces using React and Next.js. Proficient in JavaScript and TypeScript, with extensive experience integrating frontend components with backend services. Adept at both functional and object-oriented programming, ensuring high-performance, maintainable code.",
+    "color": "#E18EEC"
+  },
+  {
+    "id": 2,
+    "icon": "HiOutlineServerStack",
+    "header": "Backend Development",
+    "subheader": "MongoDB, Express.js, Node.js, RESTful APIs",
+    "content": "Experienced in architecting and implementing scalable backend systems using the MERN stack. Expertise in database management with MongoDB and efficient API development using Express.js and Node.js. Proficient in applying both functional and object-oriented programming principles across multiple languages, ensuring robust and maintainable server-side solutions.",
+    "color": "#5bcca8"
+  }
+]
