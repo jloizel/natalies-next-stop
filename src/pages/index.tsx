@@ -22,7 +22,7 @@ const Home = () => {
     },
   });
 
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTabletOrBelow = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
