@@ -103,7 +103,7 @@ const InstagramPostsSlider: React.FC = () => {
   return (
     <div className={styles.instaSliderContainer}>
       <div className={styles.header}>
-        <a className={styles.headerContent} href="https://www.instagram.com/nataliemills1">
+        <a className={styles.headerContent} href="https://www.instagram.com/nataliemills1" target='_blank'>
           <IoLogoInstagram className={styles.icon} />
           <span>My Recent Posts</span>
         </a>

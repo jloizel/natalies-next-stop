@@ -36,7 +36,9 @@ const NavBar = () => {
             <span>Next Stop</span>
           </Link>
         </div>
-        <IoLogoInstagram className={styles.instaLogo} />
+        <a href="https://www.instagram.com/nataliemills1" target='_blank'>
+          <IoLogoInstagram className={styles.instaLogo} />
+        </a>
       </div>
 
       {/* Navbar Section */}

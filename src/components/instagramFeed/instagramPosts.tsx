@@ -83,8 +83,10 @@ const InstagramPosts: React.FC = () => {
   return (
     <div className={styles.instaContainer}>
       <div className={styles.header}>
-        <IoLogoInstagram className={styles.icon}/> 
-        <span>My Recent Posts</span>
+        <a className={styles.headerContent} href="https://www.instagram.com/nataliemills1" target='_blank'>
+          <IoLogoInstagram className={styles.icon} />
+          <span>My Recent Posts</span>
+        </a>
       </div>
       <div className={styles.gridContainer}>
         {latestImages.map((image, index) => (
