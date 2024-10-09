@@ -3,7 +3,11 @@
   grid-template-columns: repeat(3, 1fr); 
   gap: 16px; 
   padding: 16px; 
-  margin-top: 200px;
+  margin-top: 200px; 
+  width: 80%; 
+  max-width: 1000px; /* Optional: set a max width for the grid container */
+  margin-left: auto; /* Center the grid */
+  margin-right: auto; /* Center the grid */
 }
 
 .photoItem {
@@ -14,6 +18,8 @@
 .photoImage {
   width: 100%; 
   height: auto; 
+  max-width: 400px; /* Set max width for the images */
+  margin: 0 auto; /* Center the images */
 }
 
 .photoButton {
