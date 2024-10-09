@@ -1,0 +1,9 @@
+.searchIcon {
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.searchIcon:hover {
+  color: #2364aa;
+}

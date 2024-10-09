@@ -14,7 +14,7 @@
 /out/
 
 # production
-# /build (Keep this line to ignore build output)
+/build
 
 # misc
 .DS_Store
