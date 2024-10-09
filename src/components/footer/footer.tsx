@@ -11,7 +11,7 @@ const Footer = () => {
             About Me
           </div>
           <div className={styles.text}>
-            I'm Natalie and as someone who loves travel and exploring new places, I&apos;m excited to share my recommendations and experiences through this blog to inspire your next adventure!
+            I&apos;m Natalie and as someone who loves travel and exploring new places, I&apos;m excited to share my recommendations and experiences through this blog to inspire your next adventure!
           </div>
         </div>
       </div>
