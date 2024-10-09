@@ -10,6 +10,16 @@
   margin-right: auto; /* Center the grid */
 }
 
+.photosContainer {
+  margin-top: 200px; 
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  position: relative;
+  padding: 50px 20px; 
+}
+
 .photoItem {
   position: relative; 
   overflow: hidden; 
@@ -65,7 +75,7 @@
   z-index: 1; 
   cursor: pointer; 
   font-size: 50px;
-  color: #008489 !important;
+  color: #73bfb8 !important;
 }
 
 .customNextArrow:before, .customPrevArrow:before {
@@ -79,3 +89,20 @@
 .customPrevArrow {
   left: -50px; 
 }
+
+.slick-dots li button:before {
+  color: gray !important;  /* Default dot color */
+  font-size: 12px;  /* Adjust the size of the dots */
+}
+
+/* Style for the active dot */
+.slick-dots li.slick-active button:before {
+  color: #008489 !important;  /* Active dot color */
+}
+
+/* Add space between the dots */
+.slick-dots li {
+  margin: 0 5px;
+}
+
+
