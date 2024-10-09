@@ -1,0 +1,178 @@
+.container {
+  /* padding: 40px; */
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  width: 100%;
+  /* justify-content: center; */
+  /* border: solid 1px rgba(128, 128, 128, 0.5); */
+  background-color: #10192ed7;
+  padding: 10px;
+}
+
+.fileContainer {
+  width: 50%;
+}
+
+.modalContainer {
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+}
+
+.selectedFileContainer {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+  gap: 20px;
+  width: 80%;
+  height: 70%;
+  /* padding-left: 20px; */
+  position: relative;
+  background-color: #0F172A;
+  border-radius: 8px;
+  justify-self: baseline;
+  animation: slideUp 0.5s ease-in-out;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%); /* Start from below the screen */
+    opacity: 0; /* Start invisible */
+  }
+  to {
+    transform: translateY(0); /* End at the current position */
+    opacity: 1; /* Fully visible */
+  }
+}
+
+.closeIcon {
+  position: fixed; 
+  top: 10px; 
+  right: 10px; 
+  font-size: 24px; 
+  cursor: pointer;
+  z-index: 1000; 
+  color: white;
+}
+
+.header {
+  color: white;
+  /* font-family: 'Poppins', sans-serif; */
+  font-family: "Roboto Mono", monospace;
+  font-weight: 600;
+  font-size: 30px;
+  
+  @media (min-width: 768px) and (max-width: 1023px) {
+  
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 30px;
+  }
+}
+
+.contentContainer, .contentContainer2 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contentContainer2 {
+  padding-left: 20px;
+  position: relative;
+  padding-left: 30px; /* Adjust for line space */
+  border-left: 2px solid #E18EEC;
+}
+
+.jsonContent {
+  white-space: pre-wrap; /* Preserves whitespace and formatting */
+  font-family: "Consolas" , "monaco" , "monospace"; 
+  color: #E6E6E5;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
+}
+
+.section {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  /* gap: 8px; */
+}
+
+.section2 {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.subHeader, .subHeaderWithCircle {
+  color: #E18EEC;
+  /* font-family: 'Poppins', sans-serif; */
+  font-family: "Consolas" , "monaco" , "monospace"; 
+  font-weight: 600;
+  font-size: 17px;
+  /* padding-left: 20px; */
+  position: relative;
+  
+  @media (min-width: 768px) and (max-width: 1023px) {
+  
+  }
+  
+  @media (min-width: 1024px) {
+    /* font-size: 16px; */
+  }
+}
+
+.subHeaderWithCircle::before {
+  content: "";
+  position: absolute;
+  left: -36px; /* Adjust based on layout */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #E18EEC;
+}
+
+.contentBox {
+  color: #E6E6E5;
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: "Consolas" , "monaco" , "monospace"; 
+}
+
+.contentLine {
+  margin-left: 8px;
+}
+
+.companyName {
+  font-weight: 700;
+}
+
+.descriptionList {
+  list-style-type: disc; 
+  margin: 0px 0 0 30px; 
+  padding: 0;
+}
+
+.descriptionItem {
+  margin: 5px 0; 
+  font-style: italic; 
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}

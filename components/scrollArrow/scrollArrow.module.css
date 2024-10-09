@@ -1,0 +1,36 @@
+.arrowContainer, .arrowContainerDark {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  opacity: 0; 
+  transition: opacity 0.5s ease-in-out; 
+  z-index: 1000; 
+  display: inline-flex; 
+  justify-content: center;
+  align-items: center;
+  width: 3em ; 
+  height: 3em;
+}
+
+.arrowContainer.show, .arrowContainerDark.show {
+  opacity: 1; /* Fully visible when class 'show' is added */
+}
+
+.arrowContainer {
+  background-color: white; 
+}
+
+.arrowContainerDark {
+  background-color: #f1f1f1;
+}
+
+.arrow {
+  color: #E18EEC;
+  font-size: 20px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.arrow:hover {
+  scale: 1.2;
+}

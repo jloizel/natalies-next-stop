@@ -1,0 +1,91 @@
+.fixedNavbar {
+  /* width: 100%; */
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  z-index: 100;
+  justify-content: space-between;
+  background-color: transparent;
+}
+
+.navbar {
+  position: fixed; 
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  z-index: 101;
+  background-color: #0f172a9f; 
+  backdrop-filter: blur(8px);
+  transition: top 0.6s ease-in;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.slideDown {
+  top: 0; 
+}
+
+.hidden {
+  top: -80px; 
+}
+
+.linksContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  z-index: 100;
+}
+
+.link {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: white;
+  z-index: 1000;
+}
+
+.link:hover {
+  color: #E18EEC;
+}
+
+/* Hover effect to make other links transparent */
+.linksContainer:hover .link {
+  opacity: 0.5 !important;
+}
+
+.linksContainer .link:hover {
+  opacity: 1 !important;
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    justify-content: flex-end;
+    padding-right: 20px;
+  }
+}
+
+.downloadButton {
+  /* background-color: #007bff; */
+  color: #E18EEC;
+  cursor: pointer !important;
+  /* font-size: 20px; */
+  font-weight: 500;
+  font-family: "Roboto Mono", monospace;
+  transition: all 0.3s ease-in-out;
+  width: max-content;
+  border: solid 1px #E18EEC;
+  border-radius: 4px;
+  padding: 10px 20px;
+}
+
+.downloadButton:hover {
+  color: black;
+  background-color: #E18EEC;
+}

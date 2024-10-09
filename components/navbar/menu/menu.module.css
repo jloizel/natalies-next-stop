@@ -1,0 +1,81 @@
+.menuContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-shadow: none;
+}
+
+.menuIcon {
+  color: white;
+  /* background-color: rgba(255, 255, 255, 0.08); */
+  cursor: pointer;
+  font-size: 40px !important;
+  justify-self: flex-end;
+  width: 100%;
+  padding: 20px;
+}
+
+.container {
+  width: 75vw;
+  background-color: #1a294a;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.closeIcon {
+  color: white;
+  /* background-color: rgba(255, 255, 255, 0.08); */
+  cursor: pointer;
+  font-size: 30px !important;
+  padding: 10px;
+}
+
+.menuLinks {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+.link {
+  color: white;
+  font-family: "Roboto Mono", monospace;
+  font-weight: 600;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.link:hover {
+  color: #E18EEC;
+}
+
+.downloadButton {
+  /* background-color: #007bff; */
+  color: #E18EEC;
+  cursor: pointer !important;
+  /* font-size: 20px; */
+  font-weight: 500;
+  font-family: "Roboto Mono", monospace;
+  transition: all 0.3s ease-in-out;
+  width: max-content;
+  border: solid 1px #E18EEC;
+  border-radius: 4px;
+  padding: 10px 50px;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.downloadButton:hover {
+  color: black;
+  background-color: #E18EEC;
+}

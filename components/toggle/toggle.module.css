@@ -1,0 +1,44 @@
+.container {
+  position: relative;
+  width: max-content;
+  height: 25px;
+  background-color: #DDDDDE;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 10px;
+  line-height: 1.4;
+  cursor: pointer;
+  gap: 15px;
+
+  @media (min-width: 768px) {
+    transform: rotate(-90deg);   
+  }
+}
+
+.lightIcon, .darkIcon {
+  font-size: 16px;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.lightIcon {
+  color: #787779;
+}
+
+.darkIcon {
+  color: black;
+}
+
+.ball {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%; /* Occupies half of the container */
+  height: 100%;
+  background-color: #fff;
+  border-radius: 25px;
+  transition: transform 0.3s ease; /* Smooth sliding */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
