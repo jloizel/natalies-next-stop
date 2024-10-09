@@ -16,9 +16,9 @@ const Header = () => {
             Next Stop
           </span>
         </a>
-        <div className={styles.headerText}>
-            I haven’t been everywhere, but it’s on my list
-          </div>
+        {/* <div className={styles.headerText}>
+          I haven’t been everywhere, but it’s on my list
+        </div> */}
       </div>
       <IoLogoInstagram className={styles.instaLogo}/>
     </div>

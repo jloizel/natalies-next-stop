@@ -1,0 +1,32 @@
+[
+  {
+    "src": "/images/asia.jpg",
+    "title": "Asia",
+    "href": "/asia"
+  },
+  {
+    "src": "/images/australia.jpg",
+    "title": "Australia",
+    "href": "/australia"
+  },
+  {
+    "src": "/images/centralamerica.jpg",
+    "title": "Central America",
+    "href": "/centralamerica"
+  },
+  {
+    "src": "/images/europe.jpg",
+    "title": "Europe",
+    "href": "/europe"
+  },
+  {
+    "src": "/images/northamerica.jpg",
+    "title": "North America",
+    "href": "/northamerica"
+  },
+  {
+    "src": "/images/southamerica.jpg",
+    "title": "South America",
+    "href": "/southamerica"
+  }
+]

@@ -1,0 +1,86 @@
+/* photoGrid.module.css */
+
+.photoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 16px; /* Space between grid items */
+  padding: 16px; /* Padding around the grid */
+}
+
+.photoItem {
+  position: relative; /* Position relative for overlay positioning */
+  overflow: hidden; /* Hide overflow for images */
+}
+
+.photoImage {
+  width: 100%; /* Responsive image */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.overlay {
+  position: absolute; /* Position overlay absolutely */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for centering */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  color: white; /* Text color */
+  padding: 10px; /* Padding around the title and button */
+  text-align: center; /* Center text */
+  border-radius: 8px; /* Rounded corners */
+}
+
+.photoTitle {
+  margin: 0; /* Remove default margin */
+  font-size: 1.2rem; /* Adjust font size */
+}
+
+.photoButton {
+  margin-top: 8px; /* Space between title and button */
+  padding: 8px 12px; /* Button padding */
+  background-color: #0070f3; /* Button color */
+  color: white; /* Button text color */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded button corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.photoButton:hover {
+  background-color: #005bb5; /* Darker shade on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .photoGrid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .photoGrid {
+    grid-template-columns: 1fr; /* 1 column on small screens */
+  }
+}
+
+.customNextArrow,
+.customPrevArrow {
+  position: absolute; /* Use absolute positioning */
+  top: 40%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for true centering */
+  z-index: 1; /* Ensure arrows are on top */
+  cursor: pointer; /* Change cursor to pointer for better UX */
+  font-size: 50px; /* Adjust icon size */
+  color: #008489 !important;
+}
+
+.customNextArrow:before, .customPrevArrow:before {
+  content: "";
+}
+
+.customNextArrow {
+  right: -20px; /* Position the right arrow */
+}
+
+.customPrevArrow {
+  left: -50px; /* Position the left arrow */
+}
