@@ -91,7 +91,9 @@ const PhotoCardsSlider: React.FC = ({}) => {
       <Slider {...settings}>
         {data.map((photo, index) => (
           <div className={styles.photoItem} key={index}>
-            <img src={photo.src} alt={photo.title} className={styles.photoImage} />
+            <div className={styles.imageWrapper}> 
+              <img src={photo.src} alt={photo.title} className={styles.photoImage} />
+            </div>
             <a className={styles.photoButton} href={photo.href}>{photo.title}</a>
           </div>
         ))}
