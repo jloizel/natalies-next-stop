@@ -19,6 +19,9 @@ const Europe = () => {
           </li>
         ))}
       </ul>
+      <div>
+        Coming soon...
+      </div>
     </div>
   );
 };

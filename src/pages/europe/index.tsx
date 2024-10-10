@@ -1,6 +1,6 @@
-// pages/europe/index.tsx
 import Link from 'next/link';
 import NavBar from '../../components/navbar/navbar'
+import styles from "./europe.module.css"
 
 const blogPosts = [
   { title: 'Exploring Paris', slug: 'exploring-paris' },
@@ -9,7 +9,7 @@ const blogPosts = [
 
 const Europe = () => {
   return (
-    <div>
+    <div className={styles.page}>
       <NavBar />
       <h1>Europe</h1>
       <ul>
@@ -19,6 +19,9 @@ const Europe = () => {
           </li>
         ))}
       </ul>
+      <div>
+        Coming soon...
+      </div>
     </div>
   );
 };

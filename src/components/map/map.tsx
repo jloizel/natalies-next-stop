@@ -94,7 +94,7 @@ const Map: React.FC = () => {
       </ComposableMap>
       {/* Display hovered country name */}
       {hoveredCountry && (
-        <div className={styles.tooltip} style={{ left: mousePosition.x, bottom: mousePosition.y }}>
+        <div className={styles.tooltip} style={{ left: mousePosition.x, top: mousePosition.y }}>
           {hoveredCountry}
         </div>
       )}

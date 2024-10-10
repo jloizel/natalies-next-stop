@@ -1,5 +1,5 @@
 .navbarContainer {
-  position: fixed; /* Ensure the header stays fixed */
+  position: fixed;
   top: 0;
   width: 100%;
   display: flex;
@@ -7,6 +7,8 @@
   justify-content: flex-start; /* Align items to start */
   z-index: 1005; /* Ensure it stays above other content */
   transition: all 0.3s ease;
+  /* margin-bottom: 300px; */
+  background-color: #73bfb8 !important;
 }
 
 .headerContainer {
