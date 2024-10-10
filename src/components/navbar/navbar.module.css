@@ -38,6 +38,7 @@
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  color: black;
 }
 
 .shrinkedHeader {
@@ -46,17 +47,20 @@
 
 .header span {
   font-family: "Montserrat", sans-serif;
+  color: black;
 }
 
 .header span:first-child {
   font-size: 25px;
   font-weight: 400;
+  color: black;
 }
 
 .header span:last-child {
   font-size: 40px;
   font-family: "Arapey", serif;
   font-weight: 600;
+  color: black;
 }
 
 .headerText {
@@ -68,6 +72,7 @@
   font-size: 25px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  color: black;
 }
 
 .instaLogo:hover {
@@ -106,6 +111,7 @@
   font-size: 14px;
   transition: all 0.3s ease-in-out;
   font-weight: 500;
+  color: black;
 }
 
 .link:hover {
