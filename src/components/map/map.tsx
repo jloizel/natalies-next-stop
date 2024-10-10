@@ -21,7 +21,7 @@ const TOTAL_COUNTRIES = 202;
 
 const Map: React.FC = () => {
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
-  const router = useRouter(); // Use Next.js router for navigation
+  // const router = useRouter(); // Use Next.js router for navigation
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 }); // Correctly defined mousePosition state
 
   const handleMouseEnter = (countryName: string) => {
@@ -35,10 +35,10 @@ const Map: React.FC = () => {
     setHoveredCountry(null);
   };
 
-  const handleCountryClick = (countryName: string) => {
-    // Add logic if you want to navigate to a country-specific page
-    // For now, we will not implement this as per your request.
-  };
+  // const handleCountryClick = (countryName: string) => {
+  //   // Add logic if you want to navigate to a country-specific page
+  //   // For now, we will not implement this as per your request.
+  // };
 
   const handleMouseMove = (event: React.MouseEvent) => {
     setMousePosition({ x: event.clientX - 60, y: event.clientY + 60});
@@ -71,7 +71,7 @@ const Map: React.FC = () => {
                   geography={geo}
                   onMouseEnter={() => handleMouseEnter(countryName)}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => handleCountryClick(countryName)} // Add functionality if needed
+                  // onClick={() => handleCountryClick(countryName)} // Add functionality if needed
                   style={{
                     default: {
                       fill: isVisited ? (isHovered ? "#FF5722" : "#FFCC00") : "#D6D6DA", // Visited countries change color, others stay gray

@@ -91,7 +91,7 @@ const PhotoCardsSlider: React.FC = ({}) => {
     <div className={styles.photoCardsContainer}>
       <div className={styles.photoCardsHeader}>
         <FcGlobe/>
-        Read about where I've been
+        Read about where I&apos;ve been
         </div>
       <div className={styles.photosContainer}>
         <Slider {...settings}>
