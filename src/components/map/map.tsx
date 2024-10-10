@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import styles from "./map.module.css"
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 
 // URL to the TopoJSON world map
 const geoUrl = "/data/map.json";

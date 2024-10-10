@@ -284,7 +284,7 @@ const Map: React.FC = () => {
               const countryName = geo.properties.name; // Get the country name
               const continent = countryToContinent[countryName]; // Get the continent based on country
               const isVisited = visitedCountries.includes(countryName); // Check if the country is visited
-              const isHovered = hoveredCountry === countryName; // Check if the current country is hovered
+              // const isHovered = hoveredCountry === countryName; // Check if the current country is hovered
 
               return (
                 <Geography
