@@ -53,7 +53,7 @@ const InstagramPosts: React.FC = () => {
     fetchPosts();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className={styles.loading}>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   // Get the latest 5 posts and reverse the order so the newest one is on the left

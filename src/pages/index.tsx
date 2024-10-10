@@ -7,7 +7,7 @@ import NavBar from '@/components/navbar/navbar';
 import PhotoCardsGrid from '@/components/photoCards/photoCardsGrid';
 import PhotoCardsSlider from '@/components/photoCards/photoCardsSlider';
 import { createTheme, useMediaQuery } from '@mui/material';
-// import Map from '@/components/map/map';
+import Map from '@/components/map/map';
 
 const Home = () => {
 
@@ -29,7 +29,7 @@ const Home = () => {
   return (
     <div>
       <NavBar/>
-      {/* <Map/> */}
+      <Map/>
       {isTabletOrBelow ? 
         ( 
           <PhotoCardsSlider/>

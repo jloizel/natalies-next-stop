@@ -1,4 +1,96 @@
 .mapContainer {
-  margin-top: 200px;
-  width: 80%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  background-color: #73bfb8;
+  padding-bottom: 40px;
+  
+  @media (min-width: 768px) {
+    padding-bottom: 100px;
+  }
 }
+
+.map {
+  width: 100%;
+  background-color: white;
+  padding: 0 10px;
+  max-width: 1000px;
+
+  @media (min-width: 768px) {
+    width: 70%;
+  }
+}
+
+.tooltip {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 14px;
+  z-index: 10;
+  pointer-events: none; /* Prevent mouse events on the tooltip */
+  /* transform: translate(-50%, -50%);  */
+}
+
+.header {
+  /* position: absolute; */
+  top: 25%;
+  color: #fad653;
+  font-size: 30px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #73bfb8;
+  width: 100%;
+  margin-top: 230px;
+  padding-top: 40px;
+  font-style: italic;
+  text-shadow: rgba(0, 0, 0, 0.226) 1px 1px;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    margin-top: 170px;
+  }
+}
+
+.statsContainer {
+  left: 0;
+  right: 0;
+  bottom: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+
+  @media (min-width: 768px) {
+    position: absolute;
+  }
+}
+
+.statText {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 18px;
+  color: white;
+
+  @media (min-width: 768px) {
+    color: #73bfb8;
+  }
+}
+
+.stat {
+  font-weight: 600;
+  font-size: 24px;
+  color: #fad653;
+}
+

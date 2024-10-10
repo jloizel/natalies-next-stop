@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import styles from './photoCards.module.css';
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
+import { FcGlobe } from "react-icons/fc";
 
 const PhotoCardsSlider: React.FC = ({}) => {
   const [data, setData] = useState([
@@ -87,17 +88,23 @@ const PhotoCardsSlider: React.FC = ({}) => {
 
 
   return (
-    <div className={styles.photosContainer}>
-      <Slider {...settings}>
-        {data.map((photo, index) => (
-          <div className={styles.photoItem} key={index}>
-            <div className={styles.imageWrapper}> 
-              <img src={photo.src} alt={photo.title} className={styles.photoImage} />
+    <div className={styles.photoCardsContainer}>
+      <div className={styles.photoCardsHeader}>
+        <FcGlobe/>
+        Read about where I've been
+        </div>
+      <div className={styles.photosContainer}>
+        <Slider {...settings}>
+          {data.map((photo, index) => (
+            <div className={styles.photoItem} key={index}>
+              <div className={styles.imageWrapper}> 
+                <img src={photo.src} alt={photo.title} className={styles.photoImage} />
+              </div>
+              <a className={styles.photoButton} href={photo.href}>{photo.title}</a>
             </div>
-            <a className={styles.photoButton} href={photo.href}>{photo.title}</a>
-          </div>
-        ))}
-      </Slider>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 };
