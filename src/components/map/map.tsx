@@ -41,7 +41,7 @@ const Map: React.FC = () => {
   // };
 
   const handleMouseMove = (event: React.MouseEvent) => {
-    setMousePosition({ x: event.clientX - 60, y: event.clientY + 60});
+    setMousePosition({ x: event.clientX, y: event.clientY});
   };
 
   const visitedCount = visitedCountries.length;
@@ -94,7 +94,7 @@ const Map: React.FC = () => {
       </ComposableMap>
       {/* Display hovered country name */}
       {hoveredCountry && (
-        <div className={styles.tooltip} style={{ left: mousePosition.x, top: mousePosition.y }}>
+        <div className={styles.tooltip} style={{ left: mousePosition.x, bottom: mousePosition.y }}>
           {hoveredCountry}
         </div>
       )}

@@ -69,3 +69,5 @@ next-env.d.ts
 .next/cache/webpack/server-development/index.pack.gz.old
 .next/server/server-reference-manifest.json
 .next/trace
+package.json
+package-lock.json
