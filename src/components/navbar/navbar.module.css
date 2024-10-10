@@ -78,8 +78,8 @@
 /* Navbar */
 
 .navbar {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   padding: 20px 0;
   font-size: 14px;
@@ -88,6 +88,13 @@
   justify-content: center;
   transition: all 0.6s ease; 
   background-color: white; 
+  text-align: center;
+
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+  }
 }
 
 .hide {
