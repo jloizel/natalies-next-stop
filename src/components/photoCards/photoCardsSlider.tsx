@@ -34,7 +34,7 @@ const PhotoCardsSlider: React.FC = ({}) => {
   }
 
   // Custom Arrow components
-  const NextArrow = (props: any) => {
+  const NextArrow: React.FC<ArrowProps> = (props) => {
     const { className, style, onClick } = props;
     return (
       <div
@@ -47,7 +47,7 @@ const PhotoCardsSlider: React.FC = ({}) => {
     );
   };
 
-  const PrevArrow = (props: any) => {
+  const PrevArrow: React.FC<ArrowProps> = (props) => {
     const { className, style, onClick } = props;
     return (
       <div
