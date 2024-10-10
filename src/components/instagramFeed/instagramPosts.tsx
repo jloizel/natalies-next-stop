@@ -7,7 +7,7 @@ import { IoClose } from "react-icons/io5";
 // Define types for the Post structure
 interface Post {
   caption: string;
-  imageUrls: string[];
+  imageUrl: string;
   postUrl: string; // Instagram post URL from the 4th column
 }
 
@@ -26,24 +26,24 @@ const InstagramPosts: React.FC = () => {
       try {
         const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Sheet1?key=${API_KEY}`);
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+          throw new Error('Network response was not ok');
         }
         const data = await response.json();
         const rows: (string | null)[][] = data.values; // Define the type of rows
 
         // Assuming the first row is headers
         const extractedPosts: Post[] = rows.slice(1).map((row: (string | null)[]) => ({
-            caption: row[0] || '', // Caption in the first column
-            imageUrls: row[2] ? row[2].split(',').map(url => url.trim()) : [], // Split the URLs in the third column
-            postUrl: row[3] || '' // Instagram post URL from the fourth column
+          caption: row[0] || '', // Caption in the first column
+          imageUrl: row[1] || '', // Image URL in the second column (no splitting needed)
+          postUrl: row[3] || '' // Instagram post URL from the fourth column
         }));
 
         setPosts(extractedPosts);
       } catch (error) {
         if (error instanceof Error) {
-            setError(error.message);
+          setError(error.message);
         } else {
-            setError('An unknown error occurred');
+          setError('An unknown error occurred');
         }
       } finally {
         setLoading(false);
@@ -56,17 +56,8 @@ const InstagramPosts: React.FC = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  // Create a single array for all images and their captions
-  const allImages: { url: string; caption: string; postUrl: string }[] = [];
-
-  posts.forEach(post => {
-    post.imageUrls.forEach(url => {
-        allImages.push({ url, caption: post.caption, postUrl: post.postUrl });
-    });
-  });
-
-  // Get the latest 5 images only
-  const latestImages = allImages.slice(0, 5);
+  // Get the latest 5 posts and reverse the order so the newest one is on the left
+  const latestPosts = posts.slice(0, 5).reverse();
 
   // Function to open modal with the clicked post's URL
   const openModal = (postUrl: string) => {
@@ -89,19 +80,19 @@ const InstagramPosts: React.FC = () => {
         </a>
       </div>
       <div className={styles.gridContainer}>
-        {latestImages.map((image, index) => (
+        {latestPosts.map((post, index) => (
           <div 
             key={index} 
             className={styles.imageContainer} 
-            onClick={() => openModal(image.postUrl)} // Open modal when image is clicked
+            onClick={() => openModal(post.postUrl)} // Open modal when image is clicked
           >
             <img 
-              src={image.url} 
+              src={post.imageUrl} 
               alt={`Instagram post image ${index + 1}`} 
               className={styles.image} 
             />
             <div className={styles.captionOverlay}>
-              <span className={styles.caption}>{image.caption}</span>
+              <span className={styles.caption}>{post.caption}</span>
             </div>
           </div>
         ))}
@@ -111,7 +102,7 @@ const InstagramPosts: React.FC = () => {
       {modalOpen && currentPostUrl && (
         <div className={styles.modalOverlay} onClick={closeModal}>
           <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <IoClose className={styles.closeButton} onClick={closeModal}/>
+            <IoClose className={styles.closeButton} onClick={closeModal} />
             <InstagramEmbed url={currentPostUrl} width={328} captioned />
           </div>
         </div>

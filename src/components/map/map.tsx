@@ -239,12 +239,12 @@ const continentData: Record<string, string> = {
   Antarctica: "/continents/antarctica",
 };
 
-// Extend GeographyProps to include CONTINENT
-interface ExtendedGeographyProps extends GeographyProps {
-  properties: {
-    name: string;  // Country name
-  };
-}
+// // Extend GeographyProps to include CONTINENT
+// interface ExtendedGeographyProps extends GeographyProps {
+//   properties: {
+//     name: string;  // Country name
+//   };
+// }
 
 const Map: React.FC = () => {
   const [hoveredContinent, setHoveredContinent] = useState<string | null>(null);
