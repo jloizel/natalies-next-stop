@@ -7,6 +7,7 @@ import { createTheme, useMediaQuery } from '@mui/material';
 import InstagramPostsSlider from '@/components/instagramFeed/instagramPostsSlider';
 import InstagramPosts from '@/components/instagramFeed/instagramPosts';
 import Footer from '@/components/footer/footer';
+import AuthProvider from '@/components/AuthProvider/AuthProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -27,16 +28,18 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <NavBar/>
-      <Component {...pageProps} />
-      {isTabletOrBelow ? 
-        ( 
-          <InstagramPostsSlider/>
-        ) : (
-          <InstagramPosts/>
-        )
-      }
-      <Footer/>
+      <AuthProvider>
+        <NavBar/>
+        <Component {...pageProps} />
+        {isTabletOrBelow ? 
+          ( 
+            <InstagramPostsSlider/>
+          ) : (
+            <InstagramPosts/>
+          )
+        }
+        <Footer/>
+      </AuthProvider>
     </>
   );
 }
