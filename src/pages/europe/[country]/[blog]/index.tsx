@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getPostsByContinentAndCountry, Post } from '../../../../app/API'; // Adjust the path as necessary
+import { getAllPostsByContinentAndCountry, Post } from '../../../../app/API'; // Adjust the path as necessary
 
 const BlogIndex = () => {
   const router = useRouter();
@@ -11,7 +11,7 @@ const BlogIndex = () => {
   useEffect(() => {
     if (country && continent) {
       // Fetch posts when country and continent are available
-      getPostsByContinentAndCountry(continent as string, country as string)
+      getAllPostsByContinentAndCountry(continent as string, country as string)
         .then((data) => {
           setPosts(data); // Set the state to the posts
         })

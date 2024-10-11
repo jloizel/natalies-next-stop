@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { getPostsByContinentAndCountry, Post } from '../../../app/API'; // Adjust path as necessary
+import { getAllPostsByContinentAndCountry, Post } from '../../../app/API'; // Adjust path as necessary
 import { useEffect, useState } from 'react';
 
 const CountryPage = () => {
@@ -10,7 +10,7 @@ const CountryPage = () => {
   useEffect(() => {
     if (country) {
       // Fetch posts based on continent and country slug
-      getPostsByContinentAndCountry('Europe', country as string).then((data) => {
+      getAllPostsByContinentAndCountry('Europe', country as string).then((data) => {
         setPosts(data);
       });
     }

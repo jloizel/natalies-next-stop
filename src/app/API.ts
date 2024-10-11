@@ -63,7 +63,7 @@ export const getAllPosts = async (): Promise<Post[]> => {
 };
 
 // Get posts by continent
-export const getPostsByContinent = async (continent: string): Promise<Post[]> => {
+export const getAllPostsByContinent = async (continent: string): Promise<Post[]> => {
   try {
     const response: AxiosResponse<{ post: Post[] }> = await api.get(`/post/continent/${continent}`);
     return response.data.post || [];
@@ -74,7 +74,7 @@ export const getPostsByContinent = async (continent: string): Promise<Post[]> =>
 };
 
 // Get posts by continent and country
-export const getPostsByContinentAndCountry = async (continent: string, country: string): Promise<Post[]> => {
+export const getAllPostsByContinentAndCountry = async (continent: string, country: string): Promise<Post[]> => {
   try {
     const response: AxiosResponse<{ post: Post[] }> = await api.get(`/post/continent/${continent}/country/${country}`);
     return response.data.post || [];

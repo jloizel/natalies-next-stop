@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { getPostById, updatePost, PostInput } from '../../../app/API'; // Make sure you're importing these correctly
+import { getPostById, updatePost, PostInput } from '../../../../app/API'; // Make sure you're importing these correctly
 import styles from './edit.module.css';
 
 const EditPost = () => {
