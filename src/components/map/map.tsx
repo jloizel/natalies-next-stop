@@ -3,19 +3,13 @@ import React, { useState } from "react";
 import styles from "./map.module.css"
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 // import { useRouter } from "next/router";
+import visitedCountriesData from "../../../public/data/visitedCountries.json"; 
 
 // URL to the TopoJSON world map
 const geoUrl = "/data/map.json";
+// const visitedCountriesData = 
 
-// Define the array of visited countries
-const visitedCountries: string[] = [
-  "Algeria",
-  "France",
-  "Japan",
-  "Brazil",
-  "Australia",
-  // Add other visited countries
-];
+const visitedCountries: string[] = visitedCountriesData.visitedCountries;
 
 const TOTAL_COUNTRIES = 202;
 

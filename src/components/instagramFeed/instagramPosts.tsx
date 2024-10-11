@@ -78,6 +78,9 @@ const InstagramPosts: React.FC = () => {
           <IoLogoInstagram className={styles.icon} />
           <span>My Recent Posts</span>
         </a>
+        <a className={styles.instaHandle} href="https://www.instagram.com/nataliemills1">
+          @nataliemills1
+        </a>
       </div>
       <div className={styles.gridContainer}>
         {latestPosts.map((post, index) => (

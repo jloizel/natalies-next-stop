@@ -23,6 +23,8 @@
   background-color: #fad653;
   width: 100%;
   justify-content: center;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .headerContent {
@@ -44,6 +46,12 @@
 
 .header span {
   font-size: 20px;
+}
+
+.instaHandle {
+  font-size: 18px;
+  /* color: white; */
+  /* font-weight: 500; */
 }
 
 .gridContainer {
