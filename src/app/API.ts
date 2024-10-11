@@ -17,15 +17,19 @@ export interface Post {
   desc: string;
   img: string;
   content: string;
+  continent: string;
+  country: string;
   username: string;
-  continent: string; 
-  country: string;    
+  createdAt: Date;
+  updatedAt: Date;
 }
+
+export type PostInput = Omit<Post, '_id' | 'username' | 'createdAt' | 'updatedAt'>;
 
 // API functions
 
 // Create a new post
-export const createPost = async (postData: Post): Promise<Post> => {
+export const createPost = async (postData: PostInput): Promise<Post> => {
   try {
     const response: AxiosResponse<Post> = await api.post('/post/create', postData);
     return response.data;

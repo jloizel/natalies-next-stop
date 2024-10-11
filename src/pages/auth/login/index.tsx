@@ -20,7 +20,7 @@ const Login = () => {
     return <div className={styles.container}>Dashboard</div>; //if logged in, attempting to go to login page won't be possible
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
 
     const email = e.target[0].value;
