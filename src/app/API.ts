@@ -85,7 +85,7 @@ export const getPostsByContinentAndCountry = async (continent: string, country: 
 };
 
 // Update a post by ID
-export const updatePost = async (postId: string, postData: Post): Promise<Post> => {
+export const updatePost = async (postId: string, postData: Partial<PostInput>): Promise<Post> => {
   try {
     const response: AxiosResponse<Post> = await api.patch(`/post/update/${postId}`, postData);
     return response.data;
