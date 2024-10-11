@@ -1,17 +1,11 @@
-import connect from "@/utils/db";
+import connect from "../../../utils/db";
 import NextAuth from "next-auth/next";
-import GithubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/google" //can add any social media, look up documentation to code it
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import User from "@/models/User";
+import User from "../../../../models/User";
 
 const handler = NextAuth({
     providers: [
-        GoogleProvider({ //google authentication provider, could also use github for example
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        }),
         CredentialsProvider({ //this allows people to register with their email and password
             id: "credentials",
             name: "Credentials",
