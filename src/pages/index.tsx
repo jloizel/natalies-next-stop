@@ -1,9 +1,9 @@
 "use client"
 
-import Footer from '@/components/footer/footer';
-import InstagramPostsSlider from '@/components/instagramFeed/instagramPostsSlider';
-import InstagramPosts from '@/components/instagramFeed/instagramPosts';
-import NavBar from '@/components/navbar/navbar';
+// import Footer from '@/components/footer/footer';
+// import InstagramPostsSlider from '@/components/instagramFeed/instagramPostsSlider';
+// import InstagramPosts from '@/components/instagramFeed/instagramPosts';
+// import NavBar from '@/components/navbar/navbar';
 import PhotoCardsGrid from '@/components/photoCards/photoCardsGrid';
 import PhotoCardsSlider from '@/components/photoCards/photoCardsSlider';
 import { createTheme, useMediaQuery } from '@mui/material';
@@ -28,7 +28,6 @@ const Home = () => {
 
   return (
     <div>
-      <NavBar/>
       <Map/>
       {isTabletOrBelow ? 
         ( 
@@ -37,14 +36,14 @@ const Home = () => {
           <PhotoCardsGrid/>
         )
       }
-      {isTabletOrBelow ? 
+      {/* {isTabletOrBelow ? 
         ( 
           <InstagramPostsSlider/>
         ) : (
           <InstagramPosts/>
         )
       }
-      <Footer/>
+      <Footer/> */}
     </div>
   );
 };

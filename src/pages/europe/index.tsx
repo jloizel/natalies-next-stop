@@ -10,8 +10,15 @@ const blogPosts = [
 const Europe = () => {
   return (
     <div className={styles.page}>
-      <NavBar />
-      <h1>Europe</h1>
+      <div className={styles.headerImageContainer}>
+        <img className={styles.headerImage} src="/images/europe.jpg"/>
+        <div className={styles.headerContainer}>
+          <div className={styles.header}>
+            <span>EUROPE</span>
+            <span>TRAVEL BLOGS</span>
+          </div>
+        </div>
+      </div>
       <ul>
         {blogPosts.map((post) => (
           <li key={post.slug}>

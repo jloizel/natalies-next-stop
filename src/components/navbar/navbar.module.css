@@ -8,7 +8,7 @@
   z-index: 1005; /* Ensure it stays above other content */
   transition: all 0.3s ease;
   /* margin-bottom: 300px; */
-  background-color: #73bfb8 !important;
+  background-color: white !important;
 }
 
 .headerContainer {
@@ -121,5 +121,5 @@
 
 .link:hover {
   color: #3da5d9;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
