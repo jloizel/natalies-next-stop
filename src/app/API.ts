@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 
 const BASE_URL = 'https://natalies-next-stop-server.vercel.app/'; // Update with your backend server URL
 
@@ -41,13 +41,19 @@ export const createPost = async (postData: PostInput): Promise<Post> => {
 // Get a single post by ID
 export const getPostById = async (postId: string): Promise<Post | null> => {
   try {
+    console.log(`Fetching post with ID: ${postId}`);
     const response: AxiosResponse<{ post: Post }> = await api.get(`/post/get/${postId}`);
     return response.data.post;
   } catch (error) {
-    if (error === 404) {
+    // Use type assertion to ensure error is AxiosError
+    const axiosError = error as AxiosError;
+    console.error('Error fetching post:', axiosError); // Log the error
+    
+    // Check for 404 error
+    if (axiosError.response && axiosError.response.status === 404) {
       return null; 
     }
-    throw error; // Throw other errors
+    throw error; // Rethrow other errors
   }
 };
 
@@ -63,10 +69,12 @@ export const getAllPosts = async (): Promise<Post[]> => {
 };
 
 // Get posts by continent
-export const getAllPostsByContinent = async (continent: string): Promise<Post[]> => {
+export const getPostsByContinent = async (continent: string): Promise<Post[]> => {
+  console.log(`Fetching posts for continent: ${continent}`);
   try {
-    const response: AxiosResponse<{ post: Post[] }> = await api.get(`/post/continent/${continent}`);
-    return response.data.post || [];
+    const response: AxiosResponse<Post[]> = await api.get(`/post/continent/${continent}`);
+    console.log('Response from API:', response.data); // Log the response from the API
+    return response.data; // Change this line to return response.data directly
   } catch (error) {
     console.error('Error fetching posts by continent:', error);
     return [];
@@ -74,10 +82,10 @@ export const getAllPostsByContinent = async (continent: string): Promise<Post[]>
 };
 
 // Get posts by continent and country
-export const getAllPostsByContinentAndCountry = async (continent: string, country: string): Promise<Post[]> => {
+export const getPostsByContinentAndCountry = async (continent: string, country: string): Promise<Post[]> => {
   try {
-    const response: AxiosResponse<{ post: Post[] }> = await api.get(`/post/continent/${continent}/country/${country}`);
-    return response.data.post || [];
+    const response: AxiosResponse<Post[]> = await api.get(`/post/continent/${continent}/country/${country}`);
+    return response.data || [];
   } catch (error) {
     console.error('Error fetching posts by continent and country:', error);
     return [];
