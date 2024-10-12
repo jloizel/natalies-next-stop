@@ -1,4 +1,4 @@
-// pages/blog/[blogId].tsx
+// pages/blog/[id].tsx
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { Post, getPostById, getAllPosts } from '../../app/API'; // API imports
 
@@ -24,8 +24,8 @@ const BlogPage = ({ post }: BlogPageProps) => {
 
 // Fetch blog data at build time
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { blogId } = context.params as { blogId: string };
-  const post = await getPostById(blogId);
+  const { id } = context.params as { id: string };
+  const post = await getPostById(id);
 
   return {
     props: {
@@ -40,7 +40,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getAllPosts();
 
   const paths = posts.map((post) => ({
-    params: { blogId: post._id },
+    params: { id: post._id },
   }));
 
   return { paths, fallback: 'blocking' };

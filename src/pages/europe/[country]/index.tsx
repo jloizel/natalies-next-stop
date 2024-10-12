@@ -17,7 +17,7 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
           <div key={blog._id}>
             <a href={`/europe/${country}/${blog._id}`}>
               <h3>{blog.title}</h3>
-              <img src={blog.img} alt={blog.title} />
+              {/* <img src={blog.image} alt={blog.title} /> */}
               <p>{blog.desc}</p>
             </a>
           </div>

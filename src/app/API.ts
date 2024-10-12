@@ -10,13 +10,30 @@ const api: AxiosInstance = axios.create({
   },
 });
 
-// Define types for request data and response data
+export interface IContentBlock {
+  type: 'text' | 'image' | 'subheader' | 'list'; // Types of content blocks
+  content: string; // The actual content
+  subContent?: string[]; // Optional array for subcontent, like bullet points
+
+  [key: string]: any; // Allows any other properties
+}
+
+export interface ISubsection {
+  header: string; // Subsection header
+  text: string; // Text content for the subsection
+  images: string[]; // Array of image URLs
+  contentBlocks: IContentBlock[]; // Array of content blocks for each subsection
+
+  [key: string]: any; // Allows any other properties
+}
+
 export interface Post {
   _id: string;
   title: string;
   desc: string;
-  img: string;
-  content: string;
+  introText: string; // New field for intro text
+  introImage: string; // New field for intro image
+  subsections: ISubsection[]; // Updated to include subsections
   continent: string;
   country: string;
   username: string;
@@ -42,13 +59,12 @@ export const createPost = async (postData: PostInput): Promise<Post> => {
 export const getPostById = async (postId: string): Promise<Post | null> => {
   try {
     console.log(`Fetching post with ID: ${postId}`);
-    const response: AxiosResponse<{ post: Post }> = await api.get(`/post/get/${postId}`);
-    return response.data.post;
+    const response: AxiosResponse<Post> = await api.get(`/post/get/${postId}`);
+    return response.data; // Return the post directly
   } catch (error) {
-    // Use type assertion to ensure error is AxiosError
     const axiosError = error as AxiosError;
-    console.error('Error fetching post:', axiosError); // Log the error
-    
+    console.error('Error fetching post:', axiosError);
+
     // Check for 404 error
     if (axiosError.response && axiosError.response.status === 404) {
       return null; 
@@ -56,6 +72,7 @@ export const getPostById = async (postId: string): Promise<Post | null> => {
     throw error; // Rethrow other errors
   }
 };
+
 
 // Get all posts
 export const getAllPosts = async (): Promise<Post[]> => {
