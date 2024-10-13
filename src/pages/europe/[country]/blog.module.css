@@ -88,3 +88,50 @@
 .content-list li {
   margin-bottom: 5px; /* Space between list items */
 }
+
+/* blog.module.css */
+
+/* Main blog post styles */
+.blog-post {
+  /* Add any existing styles you have */
+}
+
+/* Styles for subsection images */
+.subsection-images {
+  display: grid;               /* Use CSS Grid for a consistent layout */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Create responsive grid columns */
+  gap: 10px;                   /* Add some space between images */
+  justify-items: center;       /* Center items in each grid cell */
+}
+
+/* Individual image styles */
+.subsection-image {
+  width: 100%;                 /* Make images responsive */
+  max-width: 250px;            /* Set a maximum width for images */
+  height: auto;                /* Maintain aspect ratio */
+  border-radius: 8px;          /* Rounded corners */
+}
+/* Styles for two images */
+.subsection-images.two-images {
+  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+}
+
+.subsection-images.two-images .subsection-image {
+  flex: 1 1 calc(50% - 10px); /* Two images take up half the width each, minus gap */
+}
+
+/* Styles for three images */
+.subsection-images.three-images {
+  grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+}
+
+.subsection-images.three-images .subsection-image {
+  flex: 1 1 calc(50% - 10px); /* Two images take up half the width each */
+  position: relative;          /* Position relative to center the last image */
+}
+
+.subsection-images.three-images .subsection-image:nth-child(3) {
+  flex-basis: 100%;            /* Last image takes the full width */
+}
+
+/* Adjust for additional images as needed */

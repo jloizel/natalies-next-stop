@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { getPostById, updatePost, PostInput } from '../../../../app/API'; // Ensure the import paths are correct
+import { getPostById, updatePost, deletePost, PostInput } from '../../../../app/API'; // Ensure the import paths are correct
 import styles from './edit.module.css';
 
 const EditPost = () => {
@@ -71,8 +71,24 @@ const EditPost = () => {
     } finally {
         setLoading(false);
     }
-};
+  };
 
+  // Delete the entire post
+  const handleDeletePost = async () => {
+    const confirmed = confirm('Are you sure you want to delete this post?');
+    if (confirmed) {
+      setLoading(true);
+      try {
+        await deletePost(id); // Call your API delete function
+        router.push('/dashboard/manage'); // Redirect after deletion
+      } catch (err) {
+        console.error(err); // Log the actual error for debugging
+        setError('Error deleting post.');
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   // Update form state on change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -103,8 +119,18 @@ const EditPost = () => {
   // Handle adding content blocks to a subsection
   const addContentBlockToSubsection = (index: number) => {
     const updatedSubsections = [...post.subsections];
-    updatedSubsections[index].contentBlocks.push({ type: 'text', content: '', subContent: [] });
+    updatedSubsections[index].contentBlocks.push({ type: 'text', content: '', subContent: [], images: [] }); // Ensure images is an empty array
     setPost({ ...post, subsections: updatedSubsections });
+  };
+
+  // Handle deleting a subsection
+  const handleDeleteSubsection = (index: number) => {
+    const confirmed = confirm('Are you sure you want to delete this subsection?');
+    if (confirmed) {
+      const updatedSubsections = [...post.subsections];
+      updatedSubsections.splice(index, 1); // Remove the subsection
+      setPost({ ...post, subsections: updatedSubsections });
+    }
   };
 
   // Handle changes for content blocks
@@ -113,14 +139,37 @@ const EditPost = () => {
     const block = updatedSubsections[subIndex].contentBlocks[blockIndex];
     if (!block) return;
 
-    block[key] = value;
+    if (key === 'images') {
+        // Handle space-separated images
+        block[key] = typeof value === 'string' ? value.split(' ') : value;
+    } else if (key === 'subContent') {
+        // Handle comma-separated subContent
+        block[key] = typeof value === 'string' ? value.split(',') : value;
+    } else {
+        // Ensure content is handled as a single string
+        block[key] = value; // No split, just assign the value directly
+    }
+
     setPost({ ...post, subsections: updatedSubsections });
+};
+
+  // Handle deleting a content block
+  const handleDeleteContentBlock = (subIndex: number, blockIndex: number) => {
+    const confirmed = confirm('Are you sure you want to delete this content block?');
+    if (confirmed) {
+      const updatedSubsections = [...post.subsections];
+      updatedSubsections[subIndex].contentBlocks.splice(blockIndex, 1); // Remove the content block
+      setPost({ ...post, subsections: updatedSubsections });
+    }
   };
 
   return post ? (
     <div className={styles.container}>
       <h1>Edit Post</h1>
       {error && <p className={styles.error}>{error}</p>}
+      <button onClick={handleDeletePost} className={styles.button}>
+        Delete Post
+      </button>
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
@@ -204,11 +253,14 @@ const EditPost = () => {
               />
               <input
                 type="text"
-                placeholder="Image URLs (comma separated)"
-                value={subsection.images.join(',')} // Join images for input
-                onChange={(e) => handleSubsectionChange(index, 'images', e.target.value.split(','))}
+                placeholder="Image URLs (space separated)"
+                value={subsection.images.join(' ')} // Join images for input
+                onChange={(e) => handleSubsectionChange(index, 'images', e.target.value.split(' '))}
                 className={styles.input}
               />
+              <button type="button" onClick={() => handleDeleteSubsection(index)} className={styles.deleteButton}>
+                &times; {/* Cross icon for delete */}
+              </button>
               <h3>Content Blocks</h3>
               {subsection.contentBlocks.map((block, blockIndex) => (
                 <div key={blockIndex} className={styles.contentBlock}>
@@ -237,6 +289,20 @@ const EditPost = () => {
                       className={styles.input}
                     />
                   )}
+                  {block.type === 'image' && (
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="Image URLs (space separated)"
+                        value={Array.isArray(block.images) ? block.images.join(' ') : ''} // Join images array by space
+                        onChange={(e) => handleContentBlockChange(index, blockIndex, 'images', e.target.value)} // Split input by space
+                        className={styles.input}
+                      />
+                    </div>
+                  )}
+                  <button type="button" onClick={() => handleDeleteContentBlock(index, blockIndex)} className={styles.deleteButton}>
+                    &times; {/* Cross icon for delete */}
+                  </button>
                 </div>
               ))}
               <button type="button" onClick={() => addContentBlockToSubsection(index)} className={styles.button}>
