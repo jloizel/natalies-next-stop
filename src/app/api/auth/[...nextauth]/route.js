@@ -3,8 +3,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 // Hardcoded admin credentials
 const ADMIN_CREDENTIALS = {
-    email: 'admin@example.com',
-    password: 'adminpassword', // In real production, you'd want to keep this in environment variables or securely
+    email: process.env.ADMIN_EMAIL,
+    password: process.env.ADMIN_PASSWORD,
 };
 
 const handler = NextAuth({
