@@ -1,71 +1,90 @@
 .blog-post {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 800px; /* Restrict the maximum width for readability */
+  margin: 20px auto; /* Center the blog post */
   padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff; /* White background for readability */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.title {
+  font-size: 2.5rem; /* Large title */
+  margin-bottom: 10px; /* Space below the title */
 }
 
 .intro-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  width: 100%; /* Full width */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 8px; /* Rounded corners */
+  margin-bottom: 15px; /* Space below the image */
+}
+
+.intro-text {
+  font-size: 1.2rem; /* Intro text size */
+  margin-bottom: 10px; /* Space below each intro paragraph */
 }
 
 .description {
-  font-size: 1.2rem;
-  color: #555;
-  margin-bottom: 20px;
+  font-size: 1.2rem; /* Slightly larger description text */
+  color: #666; /* Grey color for the description */
+  margin-bottom: 20px; /* Space below the description */
+}
+
+.subsection {
+  margin-top: 30px; /* Space between subsections */
+}
+
+.subsection-header {
+  font-size: 1.8rem; /* Subsection header size */
+  margin: 10px 0; /* Space around subheader */
+  color: #333; /* Darker color for emphasis */
+}
+
+.subsection-text {
+  font-size: 1rem; /* Standard text size for subsection text */
+  line-height: 1.5; /* Improve readability with line height */
+  margin-bottom: 10px; /* Space below subsection text */
+}
+
+.subsection-image {
+  width: 100%; /* Full width for subsection images */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 8px; /* Rounded corners */
+  margin: 10px 0; /* Space above and below images */
 }
 
 .content-blocks {
-  margin-top: 20px;
+  margin-top: 20px; /* Space above content blocks */
 }
 
 .content-block {
-  margin-bottom: 15px;
-  padding: 10px;
-  border-radius: 4px;
+  margin-bottom: 15px; /* Space between content blocks */
 }
 
 .content-text {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #333;
+  font-size: 1rem; /* Standard text size */
+  line-height: 1.6; /* Improve readability with line height */
+  margin-bottom: 10px; /* Space below each paragraph */
 }
 
-.content-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
+.content-image {
+  width: 100%; /* Full width */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 8px; /* Rounded corners */
+  margin-top: 10px; /* Space above the image */
 }
 
 .content-subheader {
-  font-size: 1.5rem;
-  color: #444;
-  margin: 15px 0;
+  font-size: 1.5rem; /* Subheader size */
+  margin: 10px 0; /* Space around subheader */
+  color: #333; /* Darker color for emphasis */
 }
 
 .content-list {
-  padding-left: 20px;
+  list-style-type: disc; /* Bullet points for list items */
+  padding-left: 20px; /* Indent list items */
 }
 
 .content-list li {
-  margin: 5px 0;
-}
-
-@media (max-width: 600px) {
-  .blog-post {
-      padding: 15px;
-  }
-
-  .description {
-      font-size: 1rem;
-  }
-
-  .content-block {
-      font-size: 0.9rem;
-  }
+  margin-bottom: 5px; /* Space between list items */
 }

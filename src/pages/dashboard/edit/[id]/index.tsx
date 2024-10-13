@@ -10,9 +10,11 @@ const EditPost = () => {
   const params = useParams(); // Grab the params object
   const id = params?.id as string;
   const [post, setPost] = useState<PostInput>({
+    countryImage: "",
     title: '',
     desc: '',
     introText: '',
+    previewImage: "",
     introImage: '', // For intro image URL
     subsections: [], // Initialize subsections as an empty array
     continent: '',
@@ -29,8 +31,10 @@ const EditPost = () => {
         const fetchedPost = await getPostById(id);
         if (fetchedPost) {
           setPost({
+            countryImage: fetchedPost.countryImage,
             title: fetchedPost.title,
             desc: fetchedPost.desc,
+            previewImage: fetchedPost.previewImage,
             introText: fetchedPost.introText,
             introImage: fetchedPost.introImage,
             subsections: fetchedPost.subsections || [],
@@ -120,9 +124,41 @@ const EditPost = () => {
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
+          name="countryImage"
+          placeholder="Country Image URL"
+          value={post.countryImage}
+          onChange={handleChange}
+          className={styles.input}
+        />
+        <input
+          type="text"
+          name="continent"
+          placeholder="Continent"
+          value={post.continent}
+          onChange={handleChange}
+          className={styles.input}
+        />
+        <input
+          type="text"
+          name="country"
+          placeholder="Country"
+          value={post.country}
+          onChange={handleChange}
+          className={styles.input}
+        />
+        <input
+          type="text"
           name="title"
           placeholder="Title"
           value={post.title}
+          onChange={handleChange}
+          className={styles.input}
+        />
+        <input
+          type="text"
+          name="previewImage"
+          placeholder="Preview Image URL"
+          value={post.previewImage}
           onChange={handleChange}
           className={styles.input}
         />
@@ -148,22 +184,6 @@ const EditPost = () => {
           value={post.introText}
           onChange={handleChange}
           className={styles.textarea}
-        />
-        <input
-          type="text"
-          name="continent"
-          placeholder="Continent"
-          value={post.continent}
-          onChange={handleChange}
-          className={styles.input}
-        />
-        <input
-          type="text"
-          name="country"
-          placeholder="Country"
-          value={post.country}
-          onChange={handleChange}
-          className={styles.input}
         />
         <div>
           <h2>Subsections</h2>

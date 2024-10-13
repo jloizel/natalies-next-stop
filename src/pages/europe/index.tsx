@@ -33,45 +33,90 @@ const EuropePage = () => {
   // Extract unique countries from posts
   const uniqueCountries = Array.from(new Set(posts.map(post => post.country)));
 
-  // Handle button click to navigate to country page
+  // Get the country image for the card from the post data
+  const getCountryImage = (country: string) => {
+    const postForCountry = posts.find(post => post.country === country && post.countryImage);
+    return postForCountry ? postForCountry.countryImage : '/images/default-country.jpg'; // Default image for missing images
+  };
+
+  // Handle card click to navigate to country page
   const handleCountryClick = (country: string) => {
     router.push(`/europe/${country}`); // Update the path to your country-specific page
   };
 
+  const handlePostClick = (country: string, postId: string) => {
+    router.push(`/europe/${country}/${postId}`); // Update the path to your blog post page
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      month: 'short', // Use 'short' for abbreviated month names
+      day: '2-digit',  // Use '2-digit' to always show two digits for the day
+    };
+    return date.toLocaleDateString(undefined, options).replace(',', '');
+  };
+
   return (
     <div className={styles.container}>
-      <h1>Blog Posts About Europe</h1>
-      {error && <p className={styles.error}>{error}</p>}
-      {loading ? (
-        <p>Loading posts...</p>
-      ) : (
-        <div>
-          <div className={styles.countryButtons}>
-            {uniqueCountries.map((country) => (
-              <button
-                key={country}
-                onClick={() => handleCountryClick(country)}
-                className={styles.button}
-              >
-                {country}
-              </button>
-            ))}
-          </div>
-          <div className={styles.posts}>
-            {posts.length > 0 ? (
-              posts.map(post => (
-                <div key={post._id} className={styles.post}>
-                  <h2>{post.title}</h2>
-                  <p>{post.desc}</p>
-                  <img src={post.img} alt={post.title} className={styles.image} />
-                </div>
-              ))
-            ) : (
-              <p>No posts found for Europe.</p>
-            )}
+      <div className={styles.headerImageContainer}>
+        <img className={styles.headerImage} src="/images/europe.jpg" />
+        <div className={styles.headerContainer}>
+          <div className={styles.header}>
+            <span>Destination:</span>
+            <span>EUROPE</span>
           </div>
         </div>
-      )}
+      </div>
+
+      <div className={styles.countriesContainer}>
+        <div className={styles.travelHeader}>TRAVEL BLOGS</div>
+        {error && <p className={styles.error}>{error}</p>}
+        {loading ? (
+          <p>Loading posts...</p>
+        ) : (
+          <div className={styles.countryCardContainer}>
+            {uniqueCountries.map((country) => (
+              <div
+                key={country}
+                className={styles.countryCard}
+                onClick={() => handleCountryClick(country)}
+              >
+                  <img
+                    src={getCountryImage(country)} // Get the country image from the post data
+                    alt={country}
+                    className={styles.countryImage}
+                  />
+                  <div className={styles.countryCardBot}>
+                    <div className={styles.countryCardDetails}>{country} TRAVEL BLOGS</div>
+                  </div>
+                  <div className={styles.countryName}>{country}</div>
+                  <div className={styles.countryCardBorder}/>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className={styles.latestPostsContainer}>
+        <div className={styles.latestPostsHeader}>Latest Europe Blogs</div>
+        <div className={styles.latestPostsGrid}>
+          {posts.slice(0, 3).map(post => (
+            <div key={post._id} className={styles.latestPost} onClick={() => handlePostClick(post.country, post._id)}>
+              <img
+                src={post.previewImage} // Ensure the preview image for posts is displayed
+                alt={post.title}
+                className={styles.postImage}
+              />
+              <div className={styles.overlayContainer}>
+                <div className={styles.postContent}>
+                  <p className={styles.createdAt}>{formatDate(post.createdAt.toString())}</p>
+                  <div className={styles.postTitle}>{post.title}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

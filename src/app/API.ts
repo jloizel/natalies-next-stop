@@ -29,10 +29,12 @@ export interface ISubsection {
 
 export interface Post {
   _id: string;
+  countryImage: string;
   title: string;
   desc: string;
   introText: string; // New field for intro text
   introImage: string; // New field for intro image
+  previewImage: string;
   subsections: ISubsection[]; // Updated to include subsections
   continent: string;
   country: string;

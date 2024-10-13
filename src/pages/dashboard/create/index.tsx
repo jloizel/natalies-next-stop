@@ -7,10 +7,12 @@ import styles from './create.module.css';
 
 const CreatePost = () => {
   const [formData, setFormData] = useState<PostInput>({
+    countryImage: "",
     title: '',
     desc: '',
     introText: '',
     introImage: '', // For intro image URL
+    previewImage: "",
     subsections: [], // Initialize subsections as an empty array
     continent: '',
     country: '',
@@ -95,9 +97,41 @@ const CreatePost = () => {
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
+          name="countryImage"
+          placeholder="Country Image URL"
+          value={formData.countryImage}
+          onChange={handleChange}
+          className={styles.input}
+        />
+        <input
+          type="text"
+          name="continent"
+          placeholder="Continent"
+          value={formData.continent}
+          onChange={handleChange}
+          className={styles.input}
+        />
+        <input
+          type="text"
+          name="country"
+          placeholder="Country"
+          value={formData.country}
+          onChange={handleChange}
+          className={styles.input}
+        />
+        <input
+          type="text"
           name="title"
           placeholder="Title"
           value={formData.title}
+          onChange={handleChange}
+          className={styles.input}
+        />
+        <input
+          type="text"
+          name="previewImage"
+          placeholder="Intro Image URL"
+          value={formData.previewImage}
           onChange={handleChange}
           className={styles.input}
         />
@@ -123,22 +157,6 @@ const CreatePost = () => {
           value={formData.introText}
           onChange={handleChange}
           className={styles.textarea}
-        />
-        <input
-          type="text"
-          name="continent"
-          placeholder="Continent"
-          value={formData.continent}
-          onChange={handleChange}
-          className={styles.input}
-        />
-        <input
-          type="text"
-          name="country"
-          placeholder="Country"
-          value={formData.country}
-          onChange={handleChange}
-          className={styles.input}
         />
         <div>
           <h2>Subsections</h2>
