@@ -21,6 +21,7 @@ const CreatePost = () => {
   const [error, setError] = useState('');
   const router = useRouter();
 
+  // Handle form data changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
@@ -28,21 +29,17 @@ const CreatePost = () => {
     });
   };
 
-  // Handle changes for subsection fields
+  // Handle subsection updates
   const handleSubsectionChange = (index: number, key: string, value: string | string[]) => {
     const updatedSubsections = [...formData.subsections];
     if (!updatedSubsections[index]) {
       updatedSubsections[index] = { header: '', text: '', images: [], contentBlocks: [] };
     }
-    if (key === 'images') {
-      updatedSubsections[index][key] = typeof value === 'string' ? value.split(' ') : value; // Split by space for images
-    } else {
-      updatedSubsections[index][key] = value;
-    }
+    updatedSubsections[index][key] = value;
     setFormData({ ...formData, subsections: updatedSubsections });
   };
 
-  // Add a new subsection
+  // Add new subsection
   const addSubsection = () => {
     setFormData({
       ...formData,
@@ -56,21 +53,7 @@ const CreatePost = () => {
     setFormData({ ...formData, subsections: updatedSubsections });
   };
 
-  // Handle adding content blocks to a subsection
-  const addContentBlockToSubsection = (index: number) => {
-    const updatedSubsections = [...formData.subsections];
-    updatedSubsections[index].contentBlocks.push({ type: 'text', content: '', subContent: [] });
-    setFormData({ ...formData, subsections: updatedSubsections });
-  };
-
-  // Handle removing content blocks
-  const removeContentBlock = (subIndex: number, blockIndex: number) => {
-    const updatedSubsections = [...formData.subsections];
-    updatedSubsections[subIndex].contentBlocks.splice(blockIndex, 1);
-    setFormData({ ...formData, subsections: updatedSubsections });
-  };
-
-  // Handle changes for content blocks
+  // Handle content block updates
   const handleContentBlockChange = (subIndex: number, blockIndex: number, key: string, value: string | string[]) => {
     const updatedSubsections = [...formData.subsections];
     const block = updatedSubsections[subIndex].contentBlocks[blockIndex];
@@ -88,16 +71,25 @@ const CreatePost = () => {
     setFormData({ ...formData, subsections: updatedSubsections });
   };
 
+  // Add content block to a subsection
+  const addContentBlockToSubsection = (index: number) => {
+    const updatedSubsections = [...formData.subsections];
+    updatedSubsections[index].contentBlocks.push({ type: 'text', content: '', subContent: [], images: [] });
+    setFormData({ ...formData, subsections: updatedSubsections });
+  };
+
+  // Remove content block
+  const removeContentBlock = (subIndex: number, blockIndex: number) => {
+    const updatedSubsections = [...formData.subsections];
+    updatedSubsections[subIndex].contentBlocks.splice(blockIndex, 1);
+    setFormData({ ...formData, subsections: updatedSubsections });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // Validate image URL - Optional: You can add more checks here
-      if (!/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)$/.test(formData.introImage)) {
-        throw new Error('Invalid intro image URL. Please provide a valid URL.');
-      }
-
       console.log('Posting data:', formData); // Log formData before sending
 
       await createPost(formData);
@@ -149,7 +141,7 @@ const CreatePost = () => {
         <input
           type="text"
           name="previewImage"
-          placeholder="Intro Image URL"
+          placeholder="Preview Image URL"
           value={formData.previewImage}
           onChange={handleChange}
           className={styles.input}

@@ -10,13 +10,17 @@ interface IContentBlock {
   content: string; // The actual content
   subContent?: string[]; // Optional array for subcontent, like bullet points
   images?: string[];
+  nestedBlocks?: INestedContentBlock[]; // Allow nested blocks
 }
+
+// Extend the IContentBlock to include nested subContent
+interface INestedContentBlock extends IContentBlock {}
 
 interface ISubsection {
   header: string; // Subsection header
   text: string; // Text content for the subsection
   images: string[]; // Array of image URLs for the subsection
-  contentBlocks: IContentBlock[]; // Array of content blocks for each subsection
+  contentBlocks: INestedContentBlock[]; // Array of content blocks for each subsection
 }
 
 // Define the Post interface
@@ -74,7 +78,6 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
       <div className={`${styles['subsection-images']} ${styles[layoutClass]}`}>
         {images.map((imageUrl, index) => {
           const trimmedUrl = imageUrl.trim(); // Trim whitespace
-          console.log('Rendering image:', trimmedUrl); // Debug: log the image URL being rendered
           return (
             <img 
               key={index} 
@@ -88,8 +91,42 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     );
   };
 
+  // Function to render text content as paragraphs
+  const renderTextContent = (content: string | undefined) => {
+    if (!content) {
+      return null; // Return nothing if content is undefined or empty
+    }
+    return content.split(/",\s*"/).map((text, index) => (
+      <p key={index} className={styles['content-text']}>{text.trim().replace(/^"|"$/g, '')}</p>
+    ));
+  };
+
+  // Function to render a list block, including nested subContent
+  const renderListBlock = (block: INestedContentBlock) => {
+    return (
+      <ul className={styles['content-list']}>
+        {block.content && <li className={styles['list-item']}>{block.content}</li>}
+        {block.subContent && block.subContent.length > 0 && block.subContent.map((item, idx) => (
+          <li key={idx} className={styles['list-item'] + ' ' + styles['sub-item']}>
+            {item}
+            {/* Render nested blocks if they exist */}
+            {block.nestedBlocks && block.nestedBlocks.length > 0 && (
+              <ul>
+                {block.nestedBlocks.map((nestedBlock, nestedIndex) => (
+                  <li key={nestedIndex}>
+                    {renderContentBlock(nestedBlock)}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
   // Function to render content blocks
-  const renderContentBlock = (block: IContentBlock) => {
+  const renderContentBlock = (block: INestedContentBlock) => {
     switch (block.type) {
       case 'text':
         return renderTextContent(block.content); // Render text content
@@ -102,31 +139,18 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
       case 'subheader':
         return <h2 className={styles['content-subheader']}>{block.content}</h2>; // Render subheader
       case 'list':
-        // Check if subContent exists and render as list items
-        if (block.subContent && block.subContent.length > 0) {
-          const listItems = block.subContent.map((item, idx) => (
-            <li key={idx} className={styles['list-item']}>{item}</li> // Render list items from subContent
-          ));
-          return <ul className={styles['content-list']}>{listItems}</ul>;
-        } else {
-          return (
-            <ul className={styles['content-list']}>
-              <li className={styles['list-item']}>{block.content}</li>
-            </ul>
-          );
-        }
+        return renderListBlock(block); // Use the new function for rendering lists
       default:
         return null; // Fallback
     }
   };
-  
-  // Function to render text content as paragraphs
-  const renderTextContent = (content: string | undefined) => {
-    if (!content) {
-      return null; // Return nothing if content is undefined or empty
-    }
-    return content.split(/",\s*"/).map((text, index) => (
-      <p key={index} className={styles['content-text']}>{text.trim().replace(/^"|"$/g, '')}</p>
+
+  // Function to render nested content blocks
+  const renderNestedContentBlocks = (blocks: INestedContentBlock[]) => {
+    return blocks.map((block, blockIndex) => (
+      <div key={blockIndex} className={styles['content-block']}>
+        {renderContentBlock(block)}
+      </div>
     ));
   };
 
@@ -144,11 +168,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
             {renderSubsectionImages(subsection.images)} 
           </div>
           <div className={styles['content-blocks']}>
-            {subsection.contentBlocks.map((block, blockIndex) => (
-              <div key={blockIndex} className={styles['content-block']}>
-                {renderContentBlock(block)}
-              </div>
-            ))}
+            {renderNestedContentBlocks(subsection.contentBlocks)} {/* Render content blocks, including nested ones */}
           </div>
         </div>
       ))}

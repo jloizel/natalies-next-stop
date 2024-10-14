@@ -17,7 +17,7 @@ export const Dashboard = () => {
 
   // Handle unauthenticated or unauthorized users (non-admins)
   if (session.status === 'unauthenticated' || session.data?.user?.role !== 'admin') {
-    router.push('/dashboard/login'); // Redirect to login if not authenticated or not admin
+    router.push('/dashboard/signin'); // Redirect to login if not authenticated or not admin
     return null;
   }
 

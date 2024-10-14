@@ -12,10 +12,11 @@ const api: AxiosInstance = axios.create({
 
 export interface IContentBlock {
   type: 'text' | 'image' | 'subheader' | 'list'; // Types of content blocks
-  content: string; // The actual content
-  subContent?: string[]; // Optional array for subcontent, like bullet points
-  [key: string]: any; // Allows any other properties
+  content: string; // Main content
+  subContent?: string[]; // Sub-items for the list
   images?: string[];
+  subItems?: IContentBlock[]; // Allow nested content blocks
+  [key: string]: any;
 }
 
 export interface ISubsection {

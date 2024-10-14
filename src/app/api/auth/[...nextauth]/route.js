@@ -33,7 +33,7 @@ const handler = NextAuth({
         })
     ],
     pages: {
-        error: "/dashboard/login", // Custom error page
+        error: "/dashboard/signin", // Custom error page
     },
     callbacks: {
         async jwt({ token, user }) {
