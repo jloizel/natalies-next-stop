@@ -14,7 +14,6 @@ export interface IContentBlock {
   type: 'text' | 'image' | 'subheader' | 'list'; // Types of content blocks
   content: string; // The actual content
   subContent?: string[]; // Optional array for subcontent, like bullet points
-  [key: string]: any; // Allows any other properties
   images?: string[];
 }
 
@@ -23,7 +22,6 @@ export interface ISubsection {
   text: string; // Text content for the subsection
   images: string[]; // Array of image URLs
   contentBlocks: IContentBlock[]; // Array of content blocks for each subsection
-  [key: string]: any; // Allows any other properties
 }
 
 export interface Post {

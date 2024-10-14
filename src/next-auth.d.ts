@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+// import NextAuth from 'next-auth';
 
 declare module 'next-auth' {
   interface Session {
@@ -6,7 +6,7 @@ declare module 'next-auth' {
       name?: string | null;
       email?: string | null;
       image?: string | null;
-      role?: string | null; // Add the role property here
+      role?: string | null; 
     };
   }
 }
