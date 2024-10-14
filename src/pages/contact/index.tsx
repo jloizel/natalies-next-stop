@@ -5,7 +5,7 @@ import styles from './contact.module.css'
 import { MdPhoneEnabled } from "react-icons/md";
 import { MdOutlineMail } from "react-icons/md";
 import { FaLinkedin } from "react-icons/fa";
-import ContactForm from './contactForm/contactForm';
+import ContactForm from '../../components/contactForm/contactForm';
 
 export default function Contact() {
  

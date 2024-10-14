@@ -2,10 +2,10 @@ import { type NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
 import { render } from "@react-email/render";
-import { EmailTemplate } from '../../../components/contact/contactForm/emailTemplate';
+import { EmailTemplate } from '../../../components/contactForm/emailTemplate';
 
 export async function POST(request: NextRequest) {
-  const { company, job, file, message, name, email, phoneNumber } = await request.json();
+  const { company, job, message, name, email, phoneNumber } = await request.json();
 
   const transport = nodemailer.createTransport({
     service: 'gmail',

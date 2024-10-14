@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React, { FC, useRef, useState } from 'react';
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { sendEmail } from '../../../app/utils/sendEmail';
+import { sendEmail } from '../../app/utils/sendEmail';
 import styles from './page.module.css'
 import { TextareaAutosize } from "@mui/material";
 import { IoIosArrowForward } from "react-icons/io";
