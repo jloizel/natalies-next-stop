@@ -1,25 +1,19 @@
 "use client";
 
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import styles from './contact.module.css'
 import { MdPhoneEnabled } from "react-icons/md";
 import { MdOutlineMail } from "react-icons/md";
 import { FaLinkedin } from "react-icons/fa";
-import { MdOutlineLocalPhone } from "react-icons/md";
 import ContactForm from './contactForm/contactForm';
-import Slide from '../scrollAnimations/slide';
-import Bounce from '../scrollAnimations/bounce';
 
 export default function Contact() {
  
   return (
     <div className={styles.contactContainer} id="contact">
-      <Slide>
         <div className={styles.header}>
           Get in Touch
         </div>
-      </Slide>
-      <Bounce className={styles.content}>
       <div className={styles.content}>
         <div className={styles.contactForm}>
           <span>Send me an email<span style={{color: "#E18EEC"}}>.</span></span>
@@ -43,7 +37,6 @@ export default function Contact() {
           </div>
         </div>
       </div>
-      </Bounce>
     </div>
     
   );

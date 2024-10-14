@@ -1,12 +1,9 @@
 import * as React from 'react';
-import { Button } from '@react-email/button';
 import styles from './page.module.css'
 
 import {
-  Body,
   Container,
   Head,
-  Heading,
   Hr,
   Html,
   Preview,

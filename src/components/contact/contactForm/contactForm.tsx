@@ -4,9 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React, { FC, useRef, useState } from 'react';
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { sendEmail } from '../../../src/app/utils/sendEmail';
+import { sendEmail } from '../../../app/utils/sendEmail';
 import styles from './page.module.css'
-import { createTheme, TextareaAutosize, useMediaQuery } from "@mui/material";
+import { TextareaAutosize } from "@mui/material";
 import { IoIosArrowForward } from "react-icons/io";
 
 const formSchema = z.object({
@@ -28,12 +28,7 @@ const ContactForm: FC = () => {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
-    setValue,
-    reset,
-    trigger,
-    clearErrors
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
