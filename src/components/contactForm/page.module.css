@@ -37,9 +37,6 @@
   white-space: nowrap;
 }
 
-.icon {
-  
-}
 
 .input {
   /* background-color: #1a294a; */
@@ -121,9 +118,6 @@
   background-color: #5bcca8;
 }
 
-.successMessageContainer {
-
-}
 
 .successMessage {
   font-family: "Roboto Mono", monospace;
