@@ -49,7 +49,10 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   }
 
   // Function to render paragraphs split by '", "'
-  const renderIntroText = (introText: string) => {
+  const renderIntroText = (introText: string | undefined) => {
+    if (!introText) {
+      return null; // Return nothing if introText is undefined or empty
+    }
     return introText.split(/",\s*"/).map((text, index) => (
       <p key={index} className={styles['intro-text']}>{text.trim().replace(/^"|"$/g, '')}</p>
     ));
@@ -118,7 +121,10 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   };
   
   // Function to render text content as paragraphs
-  const renderTextContent = (content: string) => {
+  const renderTextContent = (content: string | undefined) => {
+    if (!content) {
+      return null; // Return nothing if content is undefined or empty
+    }
     return content.split(/",\s*"/).map((text, index) => (
       <p key={index} className={styles['content-text']}>{text.trim().replace(/^"|"$/g, '')}</p>
     ));
