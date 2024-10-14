@@ -142,23 +142,23 @@ const EditPost = () => {
 
     // Handle changes for content blocks
     const handleContentBlockChange = (subIndex: number, blockIndex: number, key: string, value: string | string[]) => {
-        const updatedSubsections = [...post.subsections];
-        const block = updatedSubsections[subIndex].contentBlocks[blockIndex];
-        if (!block) return;
-
-        if (key === 'images') {
-            // Handle space-separated images
-            block[key] = typeof value === 'string' ? value.split(' ') : value;
-        } else if (key === 'subContent') {
-            // Handle line-separated subContent
-            block[key] = typeof value === 'string' ? value.split('\n') : value;
-        } else {
-            // Assign the value directly for other keys
-            block[key] = value;
-        }
-
-        setPost({ ...post, subsections: updatedSubsections });
-    };
+      const updatedSubsections = [...post.subsections];
+      const block = updatedSubsections[subIndex].contentBlocks[blockIndex];
+      if (!block) return;
+  
+      if (key === 'images') {
+        // Handle space-separated images
+        block[key] = typeof value === 'string' ? value.split('\n') : value;
+      } else if (key === 'subContent') {
+          // Split subContent by new lines and trim each value
+          block[key] = typeof value === 'string' ? value.split('\n').map(item => item.trim()) : value;
+      } else {
+          // Assign the value directly for other keys
+          block[key] = value;
+      }
+  
+      setPost({ ...post, subsections: updatedSubsections });
+  };
 
     // Handle deleting a content block
     const handleDeleteContentBlock = (subIndex: number, blockIndex: number) => {
@@ -354,13 +354,13 @@ const handleDeleteNestedContent = (subIndex: number, blockIndex: number, nestedI
                                         </button>
                                     </div>
                                 ) : block.type === 'image' ? (
-                                    <input
-                                        type="text"
-                                        placeholder="Image URL"
-                                        value={block.content}
-                                        onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e.target.value)}
-                                        className={styles.input}
-                                    />
+                                  <textarea
+                                      // type="text"
+                                      placeholder="Image URLs (space separated)"
+                                      value={Array.isArray(block.images) ? block.images.join('\n') : ''}
+                                      onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'images', e.target.value)}
+                                      className={styles.input}
+                                  />
                                 ) : block.type === 'subheader' ? (
                                     <input
                                         type="text"
