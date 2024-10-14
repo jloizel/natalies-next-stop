@@ -1,13 +1,12 @@
-import NextAuth from "next-auth";
+import type { DefaultSession } from "next-auth"; // Import the types explicitly for augmentation
 
 declare module "next-auth" {
-  interface Session {
+  interface Session extends DefaultSession {
     user: {
-      /** The user's role. */
-      role?: string; // Add your custom role here
+      role?: string; // Your custom role field
       name?: string | null;
       email?: string | null;
       image?: string | null;
-    };
+    } & DefaultSession["user"]; // Include default user fields
   }
 }
