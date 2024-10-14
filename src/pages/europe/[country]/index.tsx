@@ -1,7 +1,7 @@
 // pages/europe/[country]/index.tsx
 import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { getPostsByContinentAndCountry, Post } from '../../../app/API'; // Adjust the import path based on your file structure
+import { getPostsByContinent, getPostsByContinentAndCountry, Post } from '../../../app/API'; // Adjust the import path based on your file structure
 
 interface CountryPageProps {
   country: string;
@@ -47,14 +47,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 // Generate dynamic paths for countries with blogs in Europe
 export const getStaticPaths: GetStaticPaths = async () => {
-  const continents = ['Europe'];
-  const countries = ['France', 'Germany', 'Italy']; // List all the countries you want to support
-  const paths: { params: { country: string } }[] = [];
+  // Fetch all posts in Europe to get a list of countries with posts
+  const posts = await getPostsByContinent('Europe');
 
-  // Loop through each country and generate paths
-  for (const country of countries) {
-    paths.push({ params: { country } });
-  }
+  // Create a set to ensure countries are unique
+  const countriesSet = new Set<string>();
+
+  // Loop through each post and add the country to the set
+  posts.forEach(post => countriesSet.add(post.country));
+
+  // Convert the set back to an array and create paths
+  const paths = Array.from(countriesSet).map(country => ({
+    params: { country }
+  }));
 
   return {
     paths,
