@@ -146,3 +146,23 @@
   padding: 0.5em;
   border: 1px dashed #ccc; /* Dashed border for nested blocks */
 }
+
+.content-list {
+  list-style-type: disc; /* Main list bullets */
+  padding-left: 20px; /* Indent main list items */
+}
+
+.sub-item {
+  margin-top: 0.5em; /* Space between sub-items */
+}
+
+.nested-list {
+  list-style-type: circle; /* Change bullet style for nested lists */
+  padding-left: 20px; /* Indent nested items further */
+}
+
+.nested-list-item {
+  margin-top: 0.5em; /* Space between nested items */
+  list-style-type: none;
+}
+

@@ -1,119 +1,95 @@
 import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { getPostById, getAllPosts } from '@/app/API'; // Adjust this according to your folder structure
+import { getPostById, getAllPosts } from '@/app/API';
 import { ParsedUrlQuery } from 'querystring';
-import styles from './blog.module.css'; // Import the CSS styles
+import styles from './blog.module.css';
 
-// Define the ContentBlock interface for content rendering
 interface IContentBlock {
-  type: 'text' | 'image' | 'subheader' | 'list'; // Types of content blocks
-  content: string; // The actual content
-  subContent?: string[]; // Optional array for subcontent, like bullet points
+  type: 'text' | 'image' | 'subheader' | 'list';
+  content: string;
+  subContent?: string[];
   images?: string[];
-  nestedBlocks?: INestedContentBlock[]; // Allow nested blocks
+  nestedBlocks?: INestedContentBlock[];
 }
 
-// Extend the IContentBlock to include nested subContent
 interface INestedContentBlock extends IContentBlock {}
 
 interface ISubsection {
-  header: string; // Subsection header
-  text: string; // Text content for the subsection
-  images: string[]; // Array of image URLs for the subsection
-  contentBlocks: INestedContentBlock[]; // Array of content blocks for each subsection
+  header: string;
+  text: string;
+  images: string[];
+  contentBlocks: INestedContentBlock[];
 }
 
-// Define the Post interface
 interface IPost {
   countryImage: string;
   title: string;
   desc: string;
-  introText: string; // Intro text
-  introImage: string; // Intro image URL (required)
+  introText: string;
+  introImage: string;
   previewImage: string;
-  subsections: ISubsection[]; // Array of subsections
-  continent: string; // Continent field
-  country: string; // Country field
+  subsections: ISubsection[];
+  continent: string;
+  country: string;
 }
 
-// Define the props for the component
 interface BlogPostProps {
-  post: IPost | null; // Allow null if post not found
+  post: IPost | null;
 }
 
-// Define Params interface for URL parameters
 interface Params extends ParsedUrlQuery {
-  country: string; // This represents the country in the URL
-  id: string; // This represents the blog ID in the URL
+  country: string;
+  id: string;
 }
 
 const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   if (!post) {
-    return <div>Post not found.</div>; // Handle case where post is not found
+    return <div>Post not found.</div>;
   }
 
-  // Function to render paragraphs split by '", "'
   const renderIntroText = (introText: string | undefined) => {
-    if (!introText) {
-      return null; // Return nothing if introText is undefined or empty
-    }
+    if (!introText) return null;
     return introText.split(/",\s*"/).map((text, index) => (
       <p key={index} className={styles['intro-text']}>{text.trim().replace(/^"|"$/g, '')}</p>
     ));
   };
 
-  // Function to render subsection images
   const renderSubsectionImages = (images: string[]) => {
-    const imageCount = images.length; // Get the number of images
-
-    // Determine the appropriate class for layout based on image count
-    let layoutClass = '';
-    if (imageCount === 2) {
-      layoutClass = 'two-images';
-    } else if (imageCount === 3) {
-      layoutClass = 'three-images';
-    }
+    const imageCount = images.length;
+    let layoutClass = imageCount === 2 ? 'two-images' : imageCount === 3 ? 'three-images' : '';
 
     return (
       <div className={`${styles['subsection-images']} ${styles[layoutClass]}`}>
-        {images.map((imageUrl, index) => {
-          const trimmedUrl = imageUrl.trim(); // Trim whitespace
-          return (
-            <img 
-              key={index} 
-              src={trimmedUrl} 
-              alt={`Subsection Image ${index + 1}`} 
-              className={styles['subsection-image']} 
-            />
-          );
-        })}
+        {images.map((imageUrl, index) => (
+          <img 
+            key={index} 
+            src={imageUrl.trim()} 
+            alt={`Subsection Image ${index + 1}`} 
+            className={styles['subsection-image']} 
+          />
+        ))}
       </div>
     );
   };
 
-  // Function to render text content as paragraphs
   const renderTextContent = (content: string | undefined) => {
-    if (!content) {
-      return null; // Return nothing if content is undefined or empty
-    }
+    if (!content) return null;
     return content.split(/",\s*"/).map((text, index) => (
       <p key={index} className={styles['content-text']}>{text.trim().replace(/^"|"$/g, '')}</p>
     ));
   };
 
-  // Function to render a list block, including nested subContent
   const renderListBlock = (block: INestedContentBlock) => {
     return (
-      <ul className={styles['content-list']}>
+      <ul className={`${styles['content-list']} ${styles['custom-list']}`}>
         {block.content && <li className={styles['list-item']}>{block.content}</li>}
         {block.subContent && block.subContent.length > 0 && block.subContent.map((item, idx) => (
-          <li key={idx} className={styles['list-item'] + ' ' + styles['sub-item']}>
+          <li key={idx} className={`${styles['list-item']} ${styles['sub-item']}`}>
             {item}
-            {/* Render nested blocks if they exist */}
             {block.nestedBlocks && block.nestedBlocks.length > 0 && (
-              <ul>
+              <ul className={styles['nested-list']}> {/* Apply custom class here if needed */}
                 {block.nestedBlocks.map((nestedBlock, nestedIndex) => (
-                  <li key={nestedIndex}>
+                  <li key={nestedIndex} className={styles['nested-list-item']}>
                     {renderContentBlock(nestedBlock)}
                   </li>
                 ))}
@@ -124,28 +100,24 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
       </ul>
     );
   };
+  
+  
 
-  // Function to render content blocks
   const renderContentBlock = (block: INestedContentBlock) => {
     switch (block.type) {
       case 'text':
-        return renderTextContent(block.content); // Render text content
+        return renderTextContent(block.content);
       case 'image':
-        return (
-          <div>
-            {block.images && renderSubsectionImages(block.images)}
-          </div>
-        );
+        return block.images && renderSubsectionImages(block.images);
       case 'subheader':
-        return <h2 className={styles['content-subheader']}>{block.content}</h2>; // Render subheader
+        return <h2 className={styles['content-subheader']}>{block.content}</h2>;
       case 'list':
-        return renderListBlock(block); // Use the new function for rendering lists
+        return renderListBlock(block);
       default:
-        return null; // Fallback
+        return null;
     }
   };
 
-  // Function to render nested content blocks
   const renderNestedContentBlocks = (blocks: INestedContentBlock[]) => {
     return blocks.map((block, blockIndex) => (
       <div key={blockIndex} className={styles['content-block']}>
@@ -158,7 +130,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     <div className={styles['blog-post']}>
       <h1 className={styles['title']}>{post.title}</h1>
       <img src={post.introImage} alt={post.title} className={styles['intro-image']} />
-      {renderIntroText(post.introText)} {/* Render the intro text here */}
+      {renderIntroText(post.introText)}
       <p className={styles['description']}>{post.desc}</p>
       {post.subsections.map((subsection, index) => (
         <div key={index} className={styles['subsection']}>
@@ -168,7 +140,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
             {renderSubsectionImages(subsection.images)} 
           </div>
           <div className={styles['content-blocks']}>
-            {renderNestedContentBlocks(subsection.contentBlocks)} {/* Render content blocks, including nested ones */}
+            {renderNestedContentBlocks(subsection.contentBlocks)}
           </div>
         </div>
       ))}
@@ -177,29 +149,24 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getAllPosts(); // Fetch all posts
-
+  const posts = await getAllPosts();
   const paths = posts.map(post => ({
-    params: { country: post.country, id: post._id.toString() }, // Make sure _id is string
+    params: { country: post.country, id: post._id.toString() },
   }));
-
-  return { paths, fallback: 'blocking' }; // Use 'blocking' for fallback
+  return { paths, fallback: 'blocking' };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { id } = params as Params; // Assert that params is of type Params
-
-  const post = await getPostById(id); // Fetch post by ID
+  const { id } = params as Params;
+  const post = await getPostById(id);
 
   if (!post) {
-    return {
-      notFound: true, // Return 404 if post not found
-    };
+    return { notFound: true };
   }
 
   return {
-    props: { post }, // Pass post to the component
-    revalidate: 10, // Optional revalidation
+    props: { post },
+    revalidate: 10,
   };
 };
 
