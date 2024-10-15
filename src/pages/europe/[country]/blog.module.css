@@ -141,6 +141,13 @@
   border-left: 4px solid #0070f3; /* Highlight nested content */
 }
 
+.nested-nested-blocks {
+  margin-top: 1em;
+  background-color: #f9f9f9;
+  padding: 1em;
+  border-left: 4px solid #0070f3; /* Highlight nested content */
+}
+
 .nested-block {
   margin: 0.5em 0;
   padding: 0.5em;

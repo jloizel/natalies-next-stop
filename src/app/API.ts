@@ -11,11 +11,11 @@ const api: AxiosInstance = axios.create({
 });
 
 export interface IContentBlock {
-  type: 'text' | 'image' | 'subheader' | 'list'; // Types of content blocks
-  content: string; // Main content
-  subContent?: string[]; // Sub-items for the list
+  type: 'text' | 'image' | 'subheader' | 'list';
+  content: string;
+  subContent?: string[];
   images?: string[];
-  subItems?: IContentBlock[]; // Allow nested content blocks
+  nestedBlocks?: IContentBlock[]; // Use nestedBlocks instead of subItems
   [key: string]: any;
 }
 

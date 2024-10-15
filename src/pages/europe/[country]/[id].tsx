@@ -12,7 +12,9 @@ interface IContentBlock {
   nestedBlocks?: INestedContentBlock[];
 }
 
-interface INestedContentBlock extends IContentBlock {}
+interface INestedContentBlock extends IContentBlock {
+  nestedNestedBlocks?: INestedContentBlock[]; // Include nestedNestedBlocks here
+}
 
 interface ISubsection {
   header: string;
@@ -87,7 +89,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           <li key={idx} className={`${styles['list-item']} ${styles['sub-item']}`}>
             {item}
             {block.nestedBlocks && block.nestedBlocks.length > 0 && (
-              <ul className={styles['nested-list']}> {/* Apply custom class here if needed */}
+              <ul className={styles['nested-list']}>
                 {block.nestedBlocks.map((nestedBlock, nestedIndex) => (
                   <li key={nestedIndex} className={styles['nested-list-item']}>
                     {renderContentBlock(nestedBlock)}
@@ -100,8 +102,6 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
       </ul>
     );
   };
-  
-  
 
   const renderContentBlock = (block: INestedContentBlock) => {
     return (
@@ -116,6 +116,13 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         {block.nestedBlocks && block.nestedBlocks.length > 0 && (
           <div className={styles['nested-blocks']}>
             {renderNestedContentBlocks(block.nestedBlocks)}
+          </div>
+        )}
+
+        {/* New rendering for nestedNestedBlocks */}
+        {block.nestedNestedBlocks && block.nestedNestedBlocks.length > 0 && (
+          <div className={styles['nested-nested-blocks']}>
+            {renderNestedContentBlocks(block.nestedNestedBlocks)}
           </div>
         )}
       </div>

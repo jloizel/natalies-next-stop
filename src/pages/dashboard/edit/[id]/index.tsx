@@ -62,6 +62,7 @@ const EditPost = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    console.log("Submitting post data:", post);
 
     try {
       await updatePost(id, post); // Send the form data to the update API
@@ -222,6 +223,88 @@ const EditPost = () => {
       setPost({ ...post, subsections: updatedSubsections });
     }
   };
+
+  const addNestedNestedContentBlock = (subIndex: number, blockIndex: number, nestedIndex: number) => {
+    const updatedSubsections = [...post.subsections];
+  
+    // Check if subsections, contentBlocks, and nestedBlocks exist
+    const contentBlock = updatedSubsections[subIndex]?.contentBlocks?.[blockIndex];
+    const nestedBlock = contentBlock?.nestedBlocks?.[nestedIndex];
+  
+    // Ensure the nestedBlock exists
+    if (nestedBlock) {
+      if (!nestedBlock.nestedNestedBlocks) {
+        nestedBlock.nestedNestedBlocks = []; // Initialize nestedNestedBlocks if it doesn't exist
+      }
+      // Add a new nestedNested block
+      nestedBlock.nestedNestedBlocks.push({
+        type: 'list', // or 'text', 'image', depending on your default
+        content: '',  // Initialize content for nested nested block
+        subContent: [],  // Ensure subContent is initialized
+      });
+  
+      // Update the post state
+      setPost({ ...post, subsections: updatedSubsections });
+    }
+  };
+  
+
+  const handleNestedNestedContentChange = (
+    subIndex: number, 
+    blockIndex: number, 
+    nestedIndex: number, 
+    nestedNestedIndex: number, 
+    key: string, 
+    value: string
+  ) => {
+    const updatedSubsections = [...post.subsections];
+    
+    // Safely check if subsections, contentBlocks, and nestedBlocks exist
+    const contentBlock = updatedSubsections[subIndex]?.contentBlocks?.[blockIndex];
+    const nestedBlock = contentBlock?.nestedBlocks?.[nestedIndex];
+    const nestedNestedBlock = nestedBlock?.nestedNestedBlocks?.[nestedNestedIndex];
+  
+    if (nestedNestedBlock) {
+      // Handle subContent as a list or other keys
+      if (key === 'subContent') {
+        // Correctly split the value into an array if key is 'subContent'
+        nestedNestedBlock[key] = typeof value === 'string' ? value.split('\n') : []; 
+      } else {
+        nestedNestedBlock[key] = value; // Correct assignment
+      }
+  
+      // Update the post state
+      setPost({ ...post, subsections: updatedSubsections });
+    }
+  };
+  
+  
+  
+  const handleDeleteNestedNestedContent = (
+    subIndex: number, 
+    blockIndex: number, 
+    nestedIndex: number, 
+    nestedNestedIndex: number
+  ) => {
+    const confirmed = confirm('Are you sure you want to delete this nested nested content block?');
+    if (confirmed) {
+      const updatedSubsections = [...post.subsections];
+      
+      // Safely check if subsections, contentBlocks, and nestedBlocks exist
+      const contentBlock = updatedSubsections[subIndex]?.contentBlocks?.[blockIndex];
+      const nestedBlock = contentBlock?.nestedBlocks?.[nestedIndex];
+      const nestedNestedBlocks = nestedBlock?.nestedNestedBlocks;
+  
+      if (nestedNestedBlocks) {
+        nestedNestedBlocks.splice(nestedNestedIndex, 1); // Remove the nested nested content block
+  
+        // Update the post state
+        setPost({ ...post, subsections: updatedSubsections });
+      }
+    }
+  };
+  
+  
 
   return post ? (
     <div className={styles.wrapper}>
@@ -447,9 +530,12 @@ const EditPost = () => {
                                   <li key={itemIndex}>{item}</li>
                               ))}
                             </ul>
-                            <button type="button" onClick={() => addNestedContentBlock(subIndex, blockIndex)} className={styles.button}>
-                              Add Nested Content
-                            </button>
+                            <button
+                            type="button"
+                            onClick={() => addNestedNestedContentBlock(subIndex, blockIndex, nestedIndex)}
+                            >
+                              Add Nested Nested Block
+                          </button>
                           </div>
                         ) : nestedBlock.type === 'image' ? (
                           <input
@@ -476,9 +562,72 @@ const EditPost = () => {
                             className={styles.input}
                           />
                         )}
+                        {/* Render nestedNestedBlocks */}
+                          {nestedBlock.nestedNestedBlocks && nestedBlock.nestedNestedBlocks.map((nestedNestedBlock:any, nestedNestedIndex:any) => (
+                            <div key={nestedNestedIndex} className={styles.nestedNestedBlock}>
+                              <button type="button" onClick={() => handleDeleteNestedNestedContent(subIndex, blockIndex, nestedIndex, nestedNestedIndex)} className={styles.deleteButton}>
+                                <MdDeleteForever className={styles.deleteIcon}/>
+                                <span>Delete Nested Nested Block</span>
+                              </button>
+
+                              <div className={styles.selector}>
+                                <span>Select type of Nested Nested Block</span>
+                                <select
+                                  value={nestedNestedBlock.type}
+                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'type', e.target.value)}
+                                  className={styles.select}
+                                >
+                                  <option value="text">Text</option>
+                                  <option value="image">Image</option>
+                                  <option value="subheader">Subheader</option>
+                                  <option value="list">List</option>
+                                </select>
+                              </div>
+
+                              {nestedNestedBlock.type === 'list' ? (
+                                <div>
+                                  <textarea
+                                    placeholder="Nested Nested List Items (line separated)"
+                                    value={Array.isArray(nestedNestedBlock.subContent) ? nestedNestedBlock.subContent.join('\n') : ''}
+                                    onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'subContent', e.target.value)}
+                                    className={styles.textarea}
+                                  />
+                                  <ul>
+                                    {nestedNestedBlock.subContent?.map((item:any, itemIndex:any) => (
+                                      <li key={itemIndex}>{item}</li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ) : nestedNestedBlock.type === 'image' ? (
+                                <input
+                                  type="text"
+                                  placeholder="Nested Nested Image URL"
+                                  value={nestedNestedBlock.content}
+                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e.target.value)}
+                                  className={styles.input}
+                                />
+                              ) : nestedNestedBlock.type === 'subheader' ? (
+                                <input
+                                  type="text"
+                                  placeholder="Nested Nested Subheader"
+                                  value={nestedNestedBlock.content}
+                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e.target.value)}
+                                  className={styles.input}
+                                />
+                              ) : (
+                                <input
+                                  type="text"
+                                  placeholder="Nested Nested Content"
+                                  value={nestedNestedBlock.content}
+                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e.target.value)}
+                                  className={styles.input}
+                                />
+                              )}
+                            </div>
+                          ))}
+
                       </div>
                     ))}
-                  
                 </div>
               ))}
             </div>
