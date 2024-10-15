@@ -104,18 +104,22 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   
 
   const renderContentBlock = (block: INestedContentBlock) => {
-    switch (block.type) {
-      case 'text':
-        return renderTextContent(block.content);
-      case 'image':
-        return block.images && renderSubsectionImages(block.images);
-      case 'subheader':
-        return <h2 className={styles['content-subheader']}>{block.content}</h2>;
-      case 'list':
-        return renderListBlock(block);
-      default:
-        return null;
-    }
+    return (
+      <div className={styles['content-block']}>
+        {/* Handle different types of blocks */}
+        {block.type === 'text' && renderTextContent(block.content)}
+        {block.type === 'image' && block.images && renderSubsectionImages(block.images)}
+        {block.type === 'subheader' && <h2 className={styles['content-subheader']}>{block.content}</h2>}
+        {block.type === 'list' && renderListBlock(block)}
+        
+        {/* If there are nested blocks, render them recursively */}
+        {block.nestedBlocks && block.nestedBlocks.length > 0 && (
+          <div className={styles['nested-blocks']}>
+            {renderNestedContentBlocks(block.nestedBlocks)}
+          </div>
+        )}
+      </div>
+    );
   };
 
   const renderNestedContentBlocks = (blocks: INestedContentBlock[]) => {
