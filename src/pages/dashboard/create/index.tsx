@@ -183,129 +183,129 @@ const CreatePost = () => {
             Create your blog post and make sure you follow the instructions if any
           </div>
         </div>
-          {error && <p className={styles.error}>{error}</p>}
-          <form onSubmit={handleSubmit} className={styles.form}>
-            <div className={styles.inputContainer}>
-              <input
-                type="text"
-                name="countryImage"
-                placeholder="Country Image URL"
-                value={post.countryImage}
-                onChange={handleChange}
-                className={styles.input}
-              />
-              <span className={styles.instruction}>
-                Once you've added a URL for the country image once you won't need to again
-              </span>
-            </div>
-            <div className={styles.inputContainer}>
-              <input
-                type="text"
-                name="continent"
-                placeholder="Continent"
-                value={post.continent}
-                onChange={handleChange}
-                className={styles.input}
-              />
-              <span className={styles.instruction}>
-                Make sure the spelling is correct and matches other posts from the same continent
-              </span>
-            </div>
-            <div className={styles.inputContainer}>
-              <input
-                type="text"
-                name="country"
-                placeholder="Country"
-                value={post.country}
-                onChange={handleChange}
-                className={styles.input}
-              />
-              <span className={styles.instruction}>
-                Make sure the spelling is correct and matches other posts from the same country
-              </span>
-            </div>
-            <div className={styles.inputContainer}>
-              <input
-                type="text"
-                name="previewImage"
-                placeholder="Preview Image URL"
-                value={post.previewImage}
-                onChange={handleChange}
-                className={styles.input}
-              />
-              <span className={styles.instruction}>
-                This is the image that appears in the blog card in latest posts
-              </span>
-            </div>
-            <div className={styles.inputContainer}>
-              <textarea
-                name="desc"
-                placeholder="Description"
-                value={post.desc}
-                onChange={handleChange}
-                className={styles.textarea}
-              />
-              <span className={styles.instruction}>
-                This appears in the latest blogs section on the home page
-              </span>
-            </div>
+        {error && <p className={styles.error}>{error}</p>}
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.inputContainer}>
             <input
               type="text"
-              name="title"
-              placeholder="Title"
-              value={post.title}
+              name="countryImage"
+              placeholder="Country image URL"
+              value={post.countryImage}
               onChange={handleChange}
               className={styles.input}
             />
+            <span className={styles.instruction}>
+              Once you've added a URL for the country image once you won't need to again
+            </span>
+          </div>
+          <div className={styles.inputContainer}>
+            <input
+              type="text"
+              name="continent"
+              placeholder="Continent"
+              value={post.continent}
+              onChange={handleChange}
+              className={styles.input}
+            />
+            <span className={styles.instruction}>
+              Make sure the spelling is correct and matches other posts from the same continent
+            </span>
+          </div>
+          <div className={styles.inputContainer}>
+            <input
+              type="text"
+              name="country"
+              placeholder="Country"
+              value={post.country}
+              onChange={handleChange}
+              className={styles.input}
+            />
+            <span className={styles.instruction}>
+              Make sure the spelling is correct and matches other posts from the same country
+            </span>
+          </div>
+          <div className={styles.inputContainer}>
+            <input
+              type="text"
+              name="previewImage"
+              placeholder="Preview image URL"
+              value={post.previewImage}
+              onChange={handleChange}
+              className={styles.input}
+            />
+            <span className={styles.instruction}>
+              This is the image that appears in the blog card in latest posts
+            </span>
+          </div>
+          <div className={styles.inputContainer}>
             <textarea
-              name="introText"
-              placeholder="Intro text"
-              value={post.introText}
+              name="desc"
+              placeholder="Description"
+              value={post.desc}
               onChange={handleChange}
               className={styles.textarea}
             />
-            <input
-              type="text"
-              name="introImage"
-              placeholder="Intro image URL"
-              value={post.introImage}
-              onChange={handleChange}
-              className={styles.input}
-            />
+            <span className={styles.instruction}>
+              This appears in the latest blogs section on the home page
+            </span>
+          </div>
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            value={post.title}
+            onChange={handleChange}
+            className={styles.input}
+          />
+          <textarea
+            name="introText"
+            placeholder="Intro text"
+            value={post.introText}
+            onChange={handleChange}
+            className={styles.textarea}
+          />
+          <input
+            type="text"
+            name="introImage"
+            placeholder="Intro image URL"
+            value={post.introImage}
+            onChange={handleChange}
+            className={styles.input}
+          />
 
-            {/* Render subsections */}
-            {post.subsections.map((subsection, subIndex) => (
-              <div key={subIndex} className={styles.subsection}>
-                <button type="button" onClick={() => handleDeleteSubsection(subIndex)} className={styles.deleteButton}>
-                  <MdDeleteForever className={styles.deleteIcon}/>
-                  <span>Delete Subsection</span>
-                </button>
-                <input
-                  type="text"
-                  placeholder="Subsection header"
-                  value={subsection.header}
-                  onChange={(e) => handleSubsectionChange(subIndex, 'header', e.target.value)}
-                  className={styles.input}
-                />
-                <textarea
-                  placeholder="Subsection text"
-                  value={subsection.text}
-                  onChange={(e) => handleSubsectionChange(subIndex, 'text', e.target.value)}
-                  className={styles.textarea}
-                />
-                <button type="button" onClick={() => addContentBlockToSubsection(subIndex)} className={styles.button}>
-                  Add Content Block
-                </button>
-                      
-                {/* Render content blocks */}
-                {subsection.contentBlocks.map((block, blockIndex) => (
-                  <div key={blockIndex} className={styles.contentBlock}>
-                    <button type="button" onClick={() => handleDeleteContentBlock(subIndex, blockIndex)} className={styles.deleteButton}>
-                      <MdDeleteForever className={styles.deleteIcon}/>
-                      <span>Delete Content Block</span>
-                    </button>
-                    <div className={styles.selector}>
-                      <span>Select type of Content Block</span>
+          {/* Render subsections */}
+          {post.subsections.map((subsection, subIndex) => (
+            <div key={subIndex} className={styles.subsection}>
+              <button type="button" onClick={() => handleDeleteSubsection(subIndex)} className={styles.deleteButton}>
+                <MdDeleteForever className={styles.deleteIcon}/>
+                <span>Delete Subsection</span>
+              </button>
+              <input
+                type="text"
+                placeholder="Subsection header"
+                value={subsection.header}
+                onChange={(e) => handleSubsectionChange(subIndex, 'header', e.target.value)}
+                className={styles.input}
+              />
+              <textarea
+                placeholder="Subsection text"
+                value={subsection.text}
+                onChange={(e) => handleSubsectionChange(subIndex, 'text', e.target.value)}
+                className={styles.textarea}
+              />
+              <button type="button" onClick={() => addContentBlockToSubsection(subIndex)} className={styles.button}>
+                Add Content Block
+              </button>
+                    
+              {/* Render content blocks */}
+              {subsection.contentBlocks.map((block, blockIndex) => (
+                <div key={blockIndex} className={styles.contentBlock}>
+                  <button type="button" onClick={() => handleDeleteContentBlock(subIndex, blockIndex)} className={styles.deleteButton}>
+                    <MdDeleteForever className={styles.deleteIcon}/>
+                    <span>Delete Content Block</span>
+                  </button>
+                  <div className={styles.selector}>
+                    <span>Select type of Content Block</span>
                     <select
                       value={block.type}
                       onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'type', e.target.value)}
@@ -316,118 +316,118 @@ const CreatePost = () => {
                       <option value="subheader">Subheader</option>
                       <option value="list">List</option>
                     </select>
-                    </div>
-                    {block.type === 'list' ? (
-                      <div>
-                        <textarea
-                          placeholder="List items (new bullet point on a new line)"
-                          value={block.subContent ? block.subContent.join('\n') : ''}
-                          onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'subContent', e.target.value)}
-                          className={styles.textarea}
-                        />
-                        <ul>
-                          {block.subContent?.map((item, itemIndex) => (
-                            <li key={itemIndex}>{item}</li>
-                          ))}
-                        </ul>
-                        <button type="button" onClick={() => addNestedContentBlock(subIndex, blockIndex)} className={styles.button}>
-                          Add Nested Content
-                        </button>
-                      </div>
-                    ) : block.type === 'image' ? (
+                  </div>
+                  {block.type === 'list' ? (
+                    <div>
                       <textarea
-                        // type="text"
-                        placeholder="Image URLs (new image on a new line)"
-                        value={Array.isArray(block.images) ? block.images.join('\n') : ''}
-                        onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'images', e.target.value)}
+                        placeholder="List items (new bullet point on a new line)"
+                        value={block.subContent ? block.subContent.join('\n') : ''}
+                        onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'subContent', e.target.value)}
                         className={styles.textarea}
                       />
-                    ) : block.type === 'subheader' ? (
-                      <input
-                        type="text"
-                        placeholder="Subheader"
-                        value={block.content}
-                        onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e.target.value)}
-                        className={styles.input}
-                      />
-                    ) : (
-                      <input
-                        type="text"
-                        placeholder="Content"
-                        value={block.content}
-                        onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e.target.value)}
-                        className={styles.input}
-                      />
-                    )}
+                      <ul>
+                        {block.subContent?.map((item, itemIndex) => (
+                          <li key={itemIndex}>{item}</li>
+                        ))}
+                      </ul>
+                      <button type="button" onClick={() => addNestedContentBlock(subIndex, blockIndex)} className={styles.button}>
+                        Add Nested Content
+                      </button>
+                    </div>
+                  ) : block.type === 'image' ? (
+                    <textarea
+                      // type="text"
+                      placeholder="Image URLs (new image on a new line)"
+                      value={Array.isArray(block.images) ? block.images.join('\n') : ''}
+                      onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'images', e.target.value)}
+                      className={styles.textarea}
+                    />
+                  ) : block.type === 'subheader' ? (
+                    <input
+                      type="text"
+                      placeholder="Subheader"
+                      value={block.content}
+                      onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e.target.value)}
+                      className={styles.input}
+                    />
+                  ) : (
+                    <input
+                      type="text"
+                      placeholder="Content"
+                      value={block.content}
+                      onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e.target.value)}
+                      className={styles.input}
+                    />
+                  )}
 
-                      {/* Render nested blocks */}
-                      {block.nestedBlocks && block.nestedBlocks.map((nestedBlock:any, nestedIndex:any) => (
-                        <div key={nestedIndex} className={styles.nestedBlock}>
-                          <button type="button" onClick={() => handleDeleteNestedContent(subIndex, blockIndex, nestedIndex)} className={styles.deleteButton}>
-                            <MdDeleteForever className={styles.deleteIcon}/>
-                            <span>Delete Nested Block</span>
-                          </button>
-                          <div className={styles.selector}>
-                            <span>Select type of nested Content Block</span>
-                            <select
-                              value={nestedBlock.type}
-                              onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'type', e.target.value)}
-                              className={styles.select}
-                            >
-                              <option value="text">Text</option>
-                              <option value="image">Image</option>
-                              <option value="subheader">Subheader</option>
-                              <option value="list">List</option>
-                            </select>
-                          </div>
-                          {nestedBlock.type === 'list' ? (
-                            <div>
-                              <textarea
-                                placeholder="Nested Sub Items (line separated)"
-                                value={Array.isArray(nestedBlock.subContent) ? nestedBlock.subContent.join('\n') : ''}
-                                onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'subContent', e.target.value)}
-                                className={styles.textarea}
-                              />
-                              <ul>
-                                {nestedBlock.subContent?.map((item:any, itemIndex:any) => (
-                                    <li key={itemIndex}>{item}</li>
-                                ))}
-                              </ul>
-                              <button type="button" onClick={() => addNestedContentBlock(subIndex, blockIndex)} className={styles.button}>
-                                Add Nested Content
-                              </button>
-                            </div>
-                          ) : nestedBlock.type === 'image' ? (
-                            <input
-                              type="text"
-                              placeholder="Nested Image URL"
-                              value={nestedBlock.content}
-                              onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
-                              className={styles.input}
-                            />
-                          ) : nestedBlock.type === 'subheader' ? (
-                            <input
-                              type="text"
-                              placeholder="Nested Subheader"
-                              value={nestedBlock.content}
-                              onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
-                              className={styles.input}
-                            />
-                          ) : (
-                            <input
-                              type="text"
-                              placeholder="Nested Content"
-                              value={nestedBlock.content}
-                              onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
-                              className={styles.input}
-                            />
-                          )}
+                    {/* Render nested blocks */}
+                    {block.nestedBlocks && block.nestedBlocks.map((nestedBlock:any, nestedIndex:any) => (
+                      <div key={nestedIndex} className={styles.nestedBlock}>
+                        <button type="button" onClick={() => handleDeleteNestedContent(subIndex, blockIndex, nestedIndex)} className={styles.deleteButton}>
+                          <MdDeleteForever className={styles.deleteIcon}/>
+                          <span>Delete Nested Block</span>
+                        </button>
+                        <div className={styles.selector}>
+                          <span>Select type of nested Content Block</span>
+                          <select
+                            value={nestedBlock.type}
+                            onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'type', e.target.value)}
+                            className={styles.select}
+                          >
+                            <option value="text">Text</option>
+                            <option value="image">Image</option>
+                            <option value="subheader">Subheader</option>
+                            <option value="list">List</option>
+                          </select>
                         </div>
-                      ))}
-                  </div>
-                ))}
-              </div>
-            ))}
+                        {nestedBlock.type === 'list' ? (
+                          <div>
+                            <textarea
+                              placeholder="Nested Sub Items (line separated)"
+                              value={Array.isArray(nestedBlock.subContent) ? nestedBlock.subContent.join('\n') : ''}
+                              onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'subContent', e.target.value)}
+                              className={styles.textarea}
+                            />
+                            <ul>
+                              {nestedBlock.subContent?.map((item:any, itemIndex:any) => (
+                                  <li key={itemIndex}>{item}</li>
+                              ))}
+                            </ul>
+                            <button type="button" onClick={() => addNestedContentBlock(subIndex, blockIndex)} className={styles.button}>
+                              Add Nested Content
+                            </button>
+                          </div>
+                        ) : nestedBlock.type === 'image' ? (
+                          <input
+                            type="text"
+                            placeholder="Nested Image URL"
+                            value={nestedBlock.content}
+                            onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
+                            className={styles.input}
+                          />
+                        ) : nestedBlock.type === 'subheader' ? (
+                          <input
+                            type="text"
+                            placeholder="Nested Subheader"
+                            value={nestedBlock.content}
+                            onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
+                            className={styles.input}
+                          />
+                        ) : (
+                          <input
+                            type="text"
+                            placeholder="Nested Content"
+                            value={nestedBlock.content}
+                            onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
+                            className={styles.input}
+                          />
+                        )}
+                      </div>
+                    ))}
+                </div>
+              ))}
+            </div>
+          ))}
           <div className={styles.buttonContainer}>
             <button type="button" onClick={addSubsection} className={styles.addButton}>
               Add Subsection

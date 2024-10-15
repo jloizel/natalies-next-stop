@@ -1,99 +1,195 @@
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 60px 0;
+  flex-direction: column;
+  align-items: center;
 }
 
-.h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #333;
+.container {
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background-color: #f9f9f9;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  gap: 20px;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.headertext {
+  font-size: 18px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.instruction {
+  font-size: 14px;
+  font-style: italic;
 }
 
 .error {
   color: red;
-  margin-bottom: 20px;
-  font-weight: bold;
+  margin-bottom: 1rem;
+  font-size: 16px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
 }
 
-.input {
-  padding: 10px;
-  margin: 10px 0;
+.input, .textarea {
+  width: 100%;
+  padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+.input:focus, .textarea:focus, .select:focus {
+  border-color: #73bfb8;
+  outline: none;
 }
 
 .textarea {
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
+  height: 100px;
+  min-height: 80px;
+  resize: vertical;
+  overflow: auto;
+}
+
+.subsection, .contentBlock, .nestedBlock {
+  padding: 1rem;
+  background-color: #f1f1f1;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.deleteButton {
+  width: max-content;
+  font-family: "Montserrat", sans-serif;
+  color: black;
+  border: none;
   border-radius: 4px;
-  font-size: 1rem;
-  resize: vertical; /* Allow vertical resizing */
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.deleteButton:hover {
+  font-weight: 600;
+}
+
+.deleteIcon {
+  font-size: 20px;
 }
 
 .button {
-  padding: 10px;
-  margin: 10px 0;
+  width: max-content;
+  color: white;
   border: none;
   border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  font-size: 1rem;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  padding: 6px 10px;
+  transition: all 0.3s ease;
+  font-family: "Montserrat", sans-serif;
+  background-color: #73bfb8;
 }
 
 .button:hover {
-  background-color: #0056b3;
+  background-color: #2364aa;
 }
 
-.subsection {
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  background-color: #fff;
-}
-
-.contentBlock {
-  padding: 10px;
-  border: 1px dashed #ccc;
-  border-radius: 4px;
+.selector {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
   margin-top: 10px;
-  background-color: #f1f1f1;
 }
 
-.h2 {
-  font-size: 1.5rem;
-  margin-top: 20px;
-  color: #444;
+.selector span {
+  width: max-content;
 }
 
-.h3 {
-  font-size: 1.2rem;
-  margin-top: 15px;
-  color: #666;
+.select {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  width: fit-content;
 }
 
-/* Add responsive design */
-@media (max-width: 600px) {
-  .container {
-    padding: 10px;
-  }
 
-  .input,
-  .textarea,
-  .button {
-    font-size: 0.9rem;
-  }
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  align-items: center;
+}
+
+.addButton, .submitButton {
+  width: 200px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+  font-family: "Montserrat", sans-serif;
+}
+
+.addButton {
+  background-color: #73bfb8;
+}
+
+.submitButton {
+  background-color: #2364aa;
+}
+
+.addButton:hover, .submitButton:hover {
+  opacity: 0.8;
+  color: black;
+}
+
+.submitButton:disabled {
+  background-color: #999;
+  cursor: not-allowed;
 }
