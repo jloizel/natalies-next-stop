@@ -76,11 +76,17 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
 
   const renderTextContent = (content: string | undefined) => {
     if (!content) return null;
+  
+    // Convert your text content with basic HTML tags (like <b>, <i>, etc.) to formatted HTML
     return content.split(/",\s*"/).map((text, index) => (
-      <p key={index} className={styles['content-text']}>{text.trim().replace(/^"|"$/g, '')}</p>
+      <p 
+        key={index} 
+        className={styles['content-text']} 
+        dangerouslySetInnerHTML={{ __html: text.trim().replace(/^"|"$/g, '') }} // Use dangerouslySetInnerHTML to render HTML
+      />
     ));
   };
-
+  
   const renderListBlock = (block: INestedContentBlock) => {
     return (
       <ul className={`${styles['content-list']} ${styles['custom-list']}`}>

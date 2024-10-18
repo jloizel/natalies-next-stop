@@ -41,7 +41,7 @@ const NavBar = () => {
         <div className={styles.headerRightContainer}>
           {status === 'authenticated' && session && (
             <div>
-              <Link href="/dashboard">Dashboard</Link>
+              <Link href="/admin/dashboard">Dashboard</Link>
               <button onClick={() => signOut()} className={styles.button}>
                 Sign Out
               </button>

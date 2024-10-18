@@ -7,7 +7,8 @@ import styles from './edit.module.css';
 import { MdDeleteForever } from 'react-icons/md';
 import { FaArrowLeftLong } from 'react-icons/fa6';
 import withAuth from '@/utils/withAuth';
-
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 
 const EditPost = () => {
@@ -487,11 +488,11 @@ const EditPost = () => {
                       className={styles.input}
                     />
                   ) : (
-                    <input
-                      type="text"
+                    <ReactQuill
+                      // type="text"
                       placeholder="Content"
                       value={block.content}
-                      onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e.target.value)}
+                      onChange={(value) => handleContentBlockChange(subIndex, blockIndex, 'content', value)}
                       className={styles.input}
                     />
                   )}
