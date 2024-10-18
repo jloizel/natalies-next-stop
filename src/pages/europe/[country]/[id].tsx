@@ -58,7 +58,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
 
   const renderSubsectionImages = (images: string[]) => {
     const imageCount = images.length;
-    let layoutClass = imageCount === 2 ? 'two-images' : imageCount === 3 ? 'three-images' : '';
+    const layoutClass = imageCount === 2 ? 'two-images' : imageCount === 3 ? 'three-images' : '';
 
     return (
       <div className={`${styles['subsection-images']} ${styles[layoutClass]}`}>

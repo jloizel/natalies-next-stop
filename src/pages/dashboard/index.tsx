@@ -4,7 +4,6 @@ import React from 'react';
 import styles from './dashboard.module.css';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { FaArrowDownLong } from "react-icons/fa6";
 
 export const Dashboard = () => {
   const session = useSession();

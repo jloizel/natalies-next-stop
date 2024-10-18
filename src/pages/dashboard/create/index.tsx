@@ -11,7 +11,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 const CreatePost = () => {
   const router = useRouter();
   const params = useParams(); // Grab the params object
-  const id = params?.id as string;
+  // const id = params?.id as string;
   const [post, setPost] = useState<PostInput>({
     countryImage: "",
     title: '',
@@ -280,7 +280,7 @@ const CreatePost = () => {
               className={styles.input}
             />
             <span className={styles.instruction}>
-              Once you've added a URL for the country image once you won't need to again
+              Once you&apos;ve added a URL for the country image once you won&apos;t need to again
             </span>
           </div>
           <div className={styles.inputContainer}>

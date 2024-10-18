@@ -77,21 +77,21 @@ const EditPost = () => {
   };
 
   // Delete the entire post
-  const handleDeletePost = async () => {
-    const confirmed = confirm('Are you sure you want to delete this post?');
-    if (confirmed) {
-      setLoading(true);
-      try {
-        await deletePost(id); // Call your API delete function
-        router.push('/dashboard/manage'); // Redirect after deletion
-      } catch (err) {
-        console.error(err); // Log the actual error for debugging
-        setError('Error deleting post.');
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
+  // const handleDeletePost = async () => {
+  //   const confirmed = confirm('Are you sure you want to delete this post?');
+  //   if (confirmed) {
+  //     setLoading(true);
+  //     try {
+  //       await deletePost(id); // Call your API delete function
+  //       router.push('/dashboard/manage'); // Redirect after deletion
+  //     } catch (err) {
+  //       console.error(err); // Log the actual error for debugging
+  //       setError('Error deleting post.');
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  // };
 
   // Update form state on change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -335,7 +335,7 @@ const EditPost = () => {
               className={styles.input}
             />
             <span className={styles.instruction}>
-              Once you've added a URL for the country image once you won't need to again
+              Once you&apos;ve added a URL for the country image once you won&apos;t need to again
             </span>
           </div>
           <div className={styles.inputContainer}>
