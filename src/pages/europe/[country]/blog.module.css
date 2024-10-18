@@ -1,10 +1,31 @@
-.blog-post {
-  max-width: 800px; /* Restrict the maximum width for readability */
-  margin: 20px auto; /* Center the blog post */
-  padding: 20px;
-  background-color: #ffffff; /* White background for readability */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+.container {
+  max-width: 1000px; 
+  margin: 0px auto; 
+  padding: 60px 30px;
+  background-color: #ffffff; 
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.topInfo {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.topInfo a {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.topInfo a:hover {
+  color: #73bfb8;
+}
+
+.blogPost {
+  padding: 40px 100px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
 }
 
 .title {

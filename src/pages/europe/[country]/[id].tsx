@@ -1,4 +1,6 @@
-import React from 'react';
+"use client"
+
+import React, { useEffect, useState } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { getPostById, getAllPosts } from '@/app/API';
 import { ParsedUrlQuery } from 'querystring';
@@ -33,6 +35,7 @@ interface IPost {
   subsections: ISubsection[];
   continent: string;
   country: string;
+  createdAt: string;
 }
 
 interface BlogPostProps {
@@ -44,10 +47,18 @@ interface Params extends ParsedUrlQuery {
   id: string;
 }
 
-const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
+const BlogPost: React.FC<BlogPostProps> = ({ post }) => {  
+
   if (!post) {
     return <div>Post not found.</div>;
   }
+
+  useEffect(() => {
+    // Access `document` safely here
+    if (typeof document !== 'undefined') {
+      console.log(document.title); // Safe to use document
+    }
+  }, []);
 
   const renderIntroText = (introText: string | undefined) => {
     if (!introText) return null;
@@ -79,13 +90,14 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   
     // Convert your text content with basic HTML tags (like <b>, <i>, etc.) to formatted HTML
     return content.split(/",\s*"/).map((text, index) => (
-      <p 
-        key={index} 
-        className={styles['content-text']} 
-        dangerouslySetInnerHTML={{ __html: text.trim().replace(/^"|"$/g, '') }} // Use dangerouslySetInnerHTML to render HTML
+      <div
+        key={index}
+        className={styles['content-text']}
+        suppressHydrationWarning={true} // Suppresses the hydration warning
+        dangerouslySetInnerHTML={{ __html: text.trim().replace(/^"|"$/g, '') }}
       />
     ));
-  };
+  }
   
   const renderListBlock = (block: INestedContentBlock) => {
     return (
@@ -144,23 +156,30 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   };
 
   return (
-    <div className={styles['blog-post']}>
-      <h1 className={styles['title']}>{post.title}</h1>
-      <img src={post.introImage} alt={post.title} className={styles['intro-image']} />
-      {renderIntroText(post.introText)}
-      <p className={styles['description']}>{post.desc}</p>
-      {post.subsections.map((subsection, index) => (
-        <div key={index} className={styles['subsection']}>
-          <h2 className={styles['subsection-header']}>{subsection.header}</h2>
-          {renderTextContent(subsection.text)} 
-          <div className={styles['subsection-images']}>
-            {renderSubsectionImages(subsection.images)} 
-          </div>
-          <div className={styles['content-blocks']}>
-            {renderNestedContentBlocks(subsection.contentBlocks)}
-          </div>
+    <div className={styles.container}>
+      <div className={styles.topInfo}>
+          <a href={`/${post.continent.toLowerCase()}`}>{post.continent}</a>
+          <a href={`/${post.continent.toLowerCase()}/${post.country}`}>{post.country}</a>
         </div>
-      ))}
+      <div className={styles.blogPost}>
+        <div className={styles.createdDate}>{post.createdAt}</div>
+        <div className={styles.title}>{post.title}</div>
+        <img src={post.introImage} alt={post.title} className={styles['intro-image']} />
+        {renderIntroText(post.introText)}
+        <p className={styles['description']}>{post.desc}</p>
+        {post.subsections.map((subsection, index) => (
+          <div key={index} className={styles['subsection']}>
+            <h2 className={styles['subsection-header']}>{subsection.header}</h2>
+            {renderTextContent(subsection.text)} 
+            <div className={styles['subsection-images']}>
+              {renderSubsectionImages(subsection.images)} 
+            </div>
+            <div className={styles['content-blocks']}>
+              {renderNestedContentBlocks(subsection.contentBlocks)}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

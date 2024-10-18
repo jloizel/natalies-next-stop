@@ -7,8 +7,8 @@ import styles from './edit.module.css';
 import { MdDeleteForever } from 'react-icons/md';
 import { FaArrowLeftLong } from 'react-icons/fa6';
 import withAuth from '@/utils/withAuth';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 
 
 const EditPost = () => {
@@ -69,7 +69,7 @@ const EditPost = () => {
 
     try {
       await updatePost(id, post); // Send the form data to the update API
-      router.push('/admin/dashboard/manage'); // Redirect after successful update
+      // router.push('/admin/dashboard/manage'); // Redirect after successful update
     } catch (err) {
       console.error(err); // Log the actual error for debugging
       setError('Error updating post.');
@@ -312,8 +312,8 @@ const EditPost = () => {
   return post ? (
     <div className={styles.wrapper}>
       <div className={styles.navButtonContainer}>
-        <button onClick={() => router.push('/admin/dashboard')} className={styles.navButton}>
-          <FaArrowLeftLong  /> Back to dashboard
+        <button onClick={() => router.push('/admin/dashboard/manage')} className={styles.navButton}>
+          <FaArrowLeftLong /> Back to managing
         </button>
       </div>
       <div className={styles.container}>
@@ -429,10 +429,10 @@ const EditPost = () => {
                 onChange={(e) => handleSubsectionChange(subIndex, 'header', e.target.value)}
                 className={styles.input}
               />
-              <textarea
+              <ReactQuill
                 placeholder="Subsection text"
                 value={subsection.text}
-                onChange={(e) => handleSubsectionChange(subIndex, 'text', e.target.value)}
+                onChange={(value) => handleSubsectionChange(subIndex, 'text', value)}
                 className={styles.textarea}
               />
               <button type="button" onClick={() => addContentBlockToSubsection(subIndex)} className={styles.button}>
@@ -480,11 +480,11 @@ const EditPost = () => {
                       className={styles.textarea}
                     />
                   ) : block.type === 'subheader' ? (
-                    <input
-                      type="text"
+                    <ReactQuill
+                      // type="text"
                       placeholder="Subheader"
                       value={block.content}
-                      onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e.target.value)}
+                      onChange={(value) => handleContentBlockChange(subIndex, blockIndex, 'content', value)}
                       className={styles.input}
                     />
                   ) : (
@@ -552,11 +552,11 @@ const EditPost = () => {
                             className={styles.input}
                           />
                         ) : (
-                          <input
-                            type="text"
+                          <ReactQuill
+                            // type="text"
                             placeholder="Nested Content"
                             value={nestedBlock.content}
-                            onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
+                            onChange={(value) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', value)}
                             className={styles.input}
                           />
                         )}
@@ -608,11 +608,11 @@ const EditPost = () => {
                                   className={styles.input}
                                 />
                               ) : (
-                                <input
-                                  type="text"
+                                <ReactQuill
+                                  // type="text"
                                   placeholder="Nested Nested Content"
                                   value={nestedNestedBlock.content}
-                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e.target.value)}
+                                  onChange={(value) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', value)}
                                   className={styles.input}
                                 />
                               )}
