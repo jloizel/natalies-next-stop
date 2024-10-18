@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { getPostById, updatePost, deletePost, PostInput } from '../../../../app/API'; // Ensure the import paths are correct
+import { getPostById, updatePost, PostInput } from '../../../../../app/API'; // Ensure the import paths are correct
 import styles from './edit.module.css';
 import { MdDeleteForever } from 'react-icons/md';
 import { FaArrowLeftLong } from 'react-icons/fa6';
+import withAuth from '@/utils/withAuth';
 
 
 
@@ -640,4 +641,4 @@ const EditPost = () => {
   );
 };
 
-export default EditPost;
+export default withAuth(EditPost);

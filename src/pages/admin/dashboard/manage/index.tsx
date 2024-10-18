@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { getAllPosts, deletePost, Post } from '../../../app/API';
+import { getAllPosts, deletePost, Post } from '../../../../app/API';
 import { useRouter } from 'next/navigation';
 import styles from './manage.module.css';
 import { FaArrowLeftLong } from 'react-icons/fa6';
+import withAuth from '@/utils/withAuth';
 
 const ManagePosts = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -102,4 +103,4 @@ const ManagePosts = () => {
   );
 };
 
-export default ManagePosts;
+export default withAuth(ManagePosts);

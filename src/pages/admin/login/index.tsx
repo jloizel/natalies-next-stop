@@ -36,7 +36,7 @@ const Login = () => {
       alert('Invalid email or password'); // Alert the user about the error
     } else {
       // Successful login
-      router.push('/dashboard'); // Redirect to the dashboard after login
+      router.push('/admin/dashboard'); // Redirect to the dashboard after login
     }
   };
 

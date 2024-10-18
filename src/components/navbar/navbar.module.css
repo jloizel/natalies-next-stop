@@ -23,6 +23,13 @@
   z-index: 101;
 }
 
+.headerRightContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
 .shrink {
   height: 60px; /* Ensure enough height for the text */
   width: 100%;

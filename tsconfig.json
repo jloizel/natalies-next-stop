@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/instagramFeed/instagramPostsSlider.tsx", "src/app/api/auth/[...nextauth].js/route.js", "src/components/AuthProvider/AuthProvider.jsx", "src/pages/dashboard/index.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/instagramFeed/instagramPostsSlider.tsx", "src/app/api/auth/[...nextauth].js/route.js", "src/components/AuthProvider/AuthProvider.jsx", "src/pages/admin/dashboard/index.tsx"],
   "exclude": ["node_modules"]
 }

@@ -4,6 +4,7 @@ import React from 'react';
 import styles from './dashboard.module.css';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import withAuth from '@/utils/withAuth';
 
 export const Dashboard = () => {
   const session = useSession();
@@ -17,7 +18,7 @@ export const Dashboard = () => {
 
   // Handle unauthenticated or unauthorized users (non-admins)
   if (session.status === 'unauthenticated' || session.data?.user?.role !== 'admin') {
-    router.push('/signin'); // Redirect to login if not authenticated or not admin
+    router.push('/dashboard/auth/login'); // Redirect to login if not authenticated or not admin
     return null;
   }
 
@@ -52,4 +53,4 @@ export const Dashboard = () => {
   return null;
 };
 
-export default Dashboard;
+export default withAuth(Dashboard);

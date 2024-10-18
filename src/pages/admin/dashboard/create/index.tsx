@@ -2,15 +2,16 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createPost, PostInput } from '../../../app/API'; // Ensure the import paths are correct
+import { createPost, PostInput } from '../../../../app/API'; // Ensure the import paths are correct
 import styles from './create.module.css';
 import { useParams } from 'next/navigation';
 import { MdDeleteForever } from "react-icons/md";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import withAuth from '@/utils/withAuth';
 
 const CreatePost = () => {
   const router = useRouter();
-  const params = useParams(); // Grab the params object
+  // const params = useParams(); // Grab the params object
   // const id = params?.id as string;
   const [post, setPost] = useState<PostInput>({
     countryImage: "",
@@ -582,4 +583,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default withAuth(CreatePost);

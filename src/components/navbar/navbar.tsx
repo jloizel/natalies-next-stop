@@ -3,9 +3,11 @@ import styles from "./navbar.module.css";
 import Link from 'next/link';
 import Search from '../search/search';
 import { IoLogoInstagram } from "react-icons/io5";
+import { signOut, useSession } from 'next-auth/react';
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { data: session, status } = useSession();
 
   // Add scroll event listener
   useEffect(() => {
@@ -36,9 +38,19 @@ const NavBar = () => {
             <span>Next Stop</span>
           </Link>
         </div>
-        <a href="https://www.instagram.com/nataliemills1" target='_blank'>
-          <IoLogoInstagram className={styles.instaLogo} />
-        </a>
+        <div className={styles.headerRightContainer}>
+          {status === 'authenticated' && (
+            <div>
+              <Link href="/dashboard">Dashboard</Link>
+              <button onClick={() => signOut()} className={styles.button}>
+                Sign Out
+              </button>
+            </div>
+          )}
+          <a href="https://www.instagram.com/nataliemills1" target='_blank'>
+            <IoLogoInstagram className={styles.instaLogo} />
+          </a>
+        </div>
       </div>
 
       {/* Navbar Section */}
