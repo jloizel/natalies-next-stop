@@ -39,8 +39,8 @@ export interface Post {
   continent: string;
   country: string;
   username: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type PostInput = Omit<Post, '_id' | 'username' | 'createdAt' | 'updatedAt'>;

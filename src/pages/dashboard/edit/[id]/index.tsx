@@ -5,6 +5,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { getPostById, updatePost, deletePost, PostInput } from '../../../../app/API'; // Ensure the import paths are correct
 import styles from './edit.module.css';
 import { MdDeleteForever } from 'react-icons/md';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 
 
 
@@ -308,9 +309,11 @@ const EditPost = () => {
 
   return post ? (
     <div className={styles.wrapper}>
-      <button onClick={handleDeletePost} className={styles.button}>
-            Delete Post
+      <div className={styles.navButtonContainer}>
+        <button onClick={() => router.push('/dashboard')} className={styles.navButton}>
+          <FaArrowLeftLong  /> Back to dashboard
         </button>
+      </div>
       <div className={styles.container}>
         <div className={styles.headerContainer}>
           <div className={styles.header}>
@@ -439,10 +442,10 @@ const EditPost = () => {
                 <div key={blockIndex} className={styles.contentBlock}>
                   <button type="button" onClick={() => handleDeleteContentBlock(subIndex, blockIndex)} className={styles.deleteButton}>
                     <MdDeleteForever className={styles.deleteIcon}/>
-                    <span>Delete Content Block</span>
+                    <span>Delete Nested Block</span>
                   </button>
                   <div className={styles.selector}>
-                    <span>Select type of Content Block</span>
+                    <span>Select type of Nested Block</span>
                     <select
                       value={block.type}
                       onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'type', e.target.value)}
@@ -462,11 +465,6 @@ const EditPost = () => {
                         onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'subContent', e.target.value)}
                         className={styles.textarea}
                       />
-                      <ul>
-                        {block.subContent?.map((item, itemIndex) => (
-                            <li key={itemIndex}>{item}</li>
-                        ))}
-                      </ul>
                       <button type="button" onClick={() => addNestedContentBlock(subIndex, blockIndex)} className={styles.button}>
                         Add Nested Content
                       </button>
@@ -477,7 +475,7 @@ const EditPost = () => {
                       placeholder="Image URLs (new image on a new line)"
                       value={Array.isArray(block.images) ? block.images.join('\n') : ''}
                       onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'images', e.target.value)}
-                      className={styles.input}
+                      className={styles.textarea}
                     />
                   ) : block.type === 'subheader' ? (
                     <input
@@ -502,10 +500,10 @@ const EditPost = () => {
                       <div key={nestedIndex} className={styles.nestedBlock}>
                         <button type="button" onClick={() => handleDeleteNestedContent(subIndex, blockIndex, nestedIndex)} className={styles.deleteButton}>
                           <MdDeleteForever className={styles.deleteIcon}/>
-                          <span>Delete Nested Block</span>
+                          <span>Delete Nested Content </span>
                         </button>
                         <div className={styles.selector}>
-                          <span>Select type of nested Content Block</span>
+                          <span>Select type of Nested Content</span>
                           <select
                             value={nestedBlock.type}
                             onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'type', e.target.value)}
@@ -525,17 +523,15 @@ const EditPost = () => {
                               onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'subContent', e.target.value)}
                               className={styles.textarea}
                             />
-                            <ul>
-                              {nestedBlock.subContent?.map((item:any, itemIndex:any) => (
-                                  <li key={itemIndex}>{item}</li>
-                              ))}
-                            </ul>
-                            <button
-                            type="button"
-                            onClick={() => addNestedNestedContentBlock(subIndex, blockIndex, nestedIndex)}
-                            >
-                              Add Nested Nested Block
-                          </button>
+                            {(!nestedBlock.nestedNestedBlocks || nestedBlock.nestedNestedBlocks.length === 0) && (
+                              <button
+                                type="button"
+                                onClick={() => addNestedNestedContentBlock(subIndex, blockIndex, nestedIndex)}
+                                className={styles.button}
+                              >
+                                Add Nested Block
+                              </button>
+                            )}
                           </div>
                         ) : nestedBlock.type === 'image' ? (
                           <input
@@ -543,7 +539,7 @@ const EditPost = () => {
                             placeholder="Nested Image URL"
                             value={nestedBlock.content}
                             onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
-                            className={styles.input}
+                            className={styles.textarea}
                           />
                         ) : nestedBlock.type === 'subheader' ? (
                           <input
@@ -567,11 +563,11 @@ const EditPost = () => {
                             <div key={nestedNestedIndex} className={styles.nestedNestedBlock}>
                               <button type="button" onClick={() => handleDeleteNestedNestedContent(subIndex, blockIndex, nestedIndex, nestedNestedIndex)} className={styles.deleteButton}>
                                 <MdDeleteForever className={styles.deleteIcon}/>
-                                <span>Delete Nested Nested Block</span>
+                                <span>Delete Nested Block</span>
                               </button>
 
                               <div className={styles.selector}>
-                                <span>Select type of Nested Nested Block</span>
+                                <span>Select type of Nested Block</span>
                                 <select
                                   value={nestedNestedBlock.type}
                                   onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'type', e.target.value)}
@@ -592,11 +588,6 @@ const EditPost = () => {
                                     onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'subContent', e.target.value)}
                                     className={styles.textarea}
                                   />
-                                  <ul>
-                                    {nestedNestedBlock.subContent?.map((item:any, itemIndex:any) => (
-                                      <li key={itemIndex}>{item}</li>
-                                    ))}
-                                  </ul>
                                 </div>
                               ) : nestedNestedBlock.type === 'image' ? (
                                 <input
@@ -604,7 +595,7 @@ const EditPost = () => {
                                   placeholder="Nested Nested Image URL"
                                   value={nestedNestedBlock.content}
                                   onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e.target.value)}
-                                  className={styles.input}
+                                  className={styles.textarea}
                                 />
                               ) : nestedNestedBlock.type === 'subheader' ? (
                                 <input

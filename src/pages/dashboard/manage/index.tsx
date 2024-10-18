@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { getAllPosts, deletePost, Post } from '../../../app/API';
 import { useRouter } from 'next/navigation';
 import styles from './manage.module.css';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 
 const ManagePosts = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -45,9 +46,23 @@ const ManagePosts = () => {
     router.push(`/dashboard/edit/${id}`);
   };
 
+  const calculateDaysAgo = (postedAt: string) => {
+    const postedDate = new Date(postedAt);
+    const currentDate = new Date();
+    const timeDifference = currentDate.getTime() - postedDate.getTime();
+    return Math.floor(timeDifference / (1000 * 3600 * 24));
+  };
+
   return (
     <div className={styles.container}>
-      <h1>Manage Blog Posts</h1>
+      <div className={styles.navButtonContainer}>
+        <button onClick={() => router.push('/dashboard')} className={styles.navButton}>
+          <FaArrowLeftLong  /> Back to dashboard
+        </button>
+      </div>
+      <div className={styles.header}>
+        Manage your posts
+      </div>
       {error && <p className={styles.error}>{error}</p>}
       {loading ? (
         <p>Loading posts...</p>
@@ -56,15 +71,25 @@ const ManagePosts = () => {
           {posts.length > 0 ? (
             posts.map(post => (
               <div key={post._id} className={styles.post}>
-                <h2>{post.title}</h2>
-                <p>{post.desc}</p>
-                <div className={styles.actions}>
-                  <button onClick={() => handleEdit(post._id)} className={styles.button}>
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(post._id)} className={styles.button}>
-                    Delete
-                  </button>
+                <div className={styles.postTop}>
+                  <div className={styles.postTitle}>{post.title}</div>
+                  <div className={styles.postLabels}>
+                    <div className={styles.label}>{post.continent}</div>
+                    <div className={styles.label}>{post.country}</div>
+                  </div>
+                </div>
+                <div className={styles.postBottom}>
+                  <div className={styles.postedDate}>
+                    {calculateDaysAgo(post.createdAt)} days ago
+                  </div>
+                  <div className={styles.buttonContainer}>
+                    <button onClick={() => handleEdit(post._id)} className={styles.editButton}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleDelete(post._id)} className={styles.deleteButton}>
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             ))

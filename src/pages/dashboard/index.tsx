@@ -4,6 +4,7 @@ import React from 'react';
 import styles from './dashboard.module.css';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { FaArrowDownLong } from "react-icons/fa6";
 
 export const Dashboard = () => {
   const session = useSession();
@@ -17,7 +18,7 @@ export const Dashboard = () => {
 
   // Handle unauthenticated or unauthorized users (non-admins)
   if (session.status === 'unauthenticated' || session.data?.user?.role !== 'admin') {
-    router.push('/dashboard/signin'); // Redirect to login if not authenticated or not admin
+    router.push('/signin'); // Redirect to login if not authenticated or not admin
     return null;
   }
 
@@ -26,14 +27,24 @@ export const Dashboard = () => {
   if (session.status === 'authenticated' && session.data?.user?.role === 'admin') {
     return (
       <div className={styles.container}>
-        <h1>Admin Dashboard</h1>
-        <div className={styles.buttonGroup}>
-          <button onClick={() => router.push('/dashboard/create')} className={styles.button}>
-            Create New Post
-          </button>
-          <button onClick={() => router.push('/dashboard/manage')} className={styles.button}>
-            Manage Posts
-          </button>
+        <div className={styles.header}>Admin Dashboard</div>
+        <div className={styles.contentContainer}>
+          <div className={styles.content} onClick={() => router.push('/dashboard/create')}>
+            <span>
+              Create a new post
+            </span>
+            <div  className={styles.click}>
+              Click me
+            </div>
+          </div>
+          <div className={styles.content} onClick={() => router.push('/dashboard/manage')}>
+            <span>
+              Manage your existing posts
+            </span>
+            <button  className={styles.click}>
+              Click me
+            </button>
+          </div>
         </div>
       </div>
     );

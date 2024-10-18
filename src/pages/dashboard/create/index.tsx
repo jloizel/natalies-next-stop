@@ -6,6 +6,7 @@ import { createPost, PostInput } from '../../../app/API'; // Ensure the import p
 import styles from './create.module.css';
 import { useParams } from 'next/navigation';
 import { MdDeleteForever } from "react-icons/md";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const CreatePost = () => {
   const router = useRouter();
@@ -172,8 +173,92 @@ const CreatePost = () => {
     }
   };
 
+  const addNestedNestedContentBlock = (subIndex: number, blockIndex: number, nestedIndex: number) => {
+    const updatedSubsections = [...post.subsections];
+  
+    // Check if subsections, contentBlocks, and nestedBlocks exist
+    const contentBlock = updatedSubsections[subIndex]?.contentBlocks?.[blockIndex];
+    const nestedBlock = contentBlock?.nestedBlocks?.[nestedIndex];
+  
+    // Ensure the nestedBlock exists
+    if (nestedBlock) {
+      if (!nestedBlock.nestedNestedBlocks) {
+        nestedBlock.nestedNestedBlocks = []; // Initialize nestedNestedBlocks if it doesn't exist
+      }
+      // Add a new nestedNested block
+      nestedBlock.nestedNestedBlocks.push({
+        type: 'list', // or 'text', 'image', depending on your default
+        content: '',  // Initialize content for nested nested block
+        subContent: [],  // Ensure subContent is initialized
+      });
+  
+      // Update the post state
+      setPost({ ...post, subsections: updatedSubsections });
+    }
+  };
+  
+
+  const handleNestedNestedContentChange = (
+    subIndex: number, 
+    blockIndex: number, 
+    nestedIndex: number, 
+    nestedNestedIndex: number, 
+    key: string, 
+    value: string
+  ) => {
+    const updatedSubsections = [...post.subsections];
+    
+    // Safely check if subsections, contentBlocks, and nestedBlocks exist
+    const contentBlock = updatedSubsections[subIndex]?.contentBlocks?.[blockIndex];
+    const nestedBlock = contentBlock?.nestedBlocks?.[nestedIndex];
+    const nestedNestedBlock = nestedBlock?.nestedNestedBlocks?.[nestedNestedIndex];
+  
+    if (nestedNestedBlock) {
+      // Handle subContent as a list or other keys
+      if (key === 'subContent') {
+        // Correctly split the value into an array if key is 'subContent'
+        nestedNestedBlock[key] = typeof value === 'string' ? value.split('\n') : []; 
+      } else {
+        nestedNestedBlock[key] = value; // Correct assignment
+      }
+  
+      // Update the post state
+      setPost({ ...post, subsections: updatedSubsections });
+    }
+  };
+  
+  const handleDeleteNestedNestedContent = (
+    subIndex: number, 
+    blockIndex: number, 
+    nestedIndex: number, 
+    nestedNestedIndex: number
+  ) => {
+    const confirmed = confirm('Are you sure you want to delete this nested nested content block?');
+    if (confirmed) {
+      const updatedSubsections = [...post.subsections];
+      
+      // Safely check if subsections, contentBlocks, and nestedBlocks exist
+      const contentBlock = updatedSubsections[subIndex]?.contentBlocks?.[blockIndex];
+      const nestedBlock = contentBlock?.nestedBlocks?.[nestedIndex];
+      const nestedNestedBlocks = nestedBlock?.nestedNestedBlocks;
+  
+      if (nestedNestedBlocks) {
+        nestedNestedBlocks.splice(nestedNestedIndex, 1); // Remove the nested nested content block
+  
+        // Update the post state
+        setPost({ ...post, subsections: updatedSubsections });
+      }
+    }
+  };
+
+
   return (
     <div className={styles.wrapper}>
+      <div className={styles.navButtonContainer}>
+        <button onClick={() => router.push('/dashboard')} className={styles.navButton}>
+          <FaArrowLeftLong/> Back to dashboard
+        </button>
+      </div>
       <div className={styles.container}>
         <div className={styles.headerContainer}>
           <div className={styles.header}>
@@ -325,11 +410,6 @@ const CreatePost = () => {
                         onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'subContent', e.target.value)}
                         className={styles.textarea}
                       />
-                      <ul>
-                        {block.subContent?.map((item, itemIndex) => (
-                          <li key={itemIndex}>{item}</li>
-                        ))}
-                      </ul>
                       <button type="button" onClick={() => addNestedContentBlock(subIndex, blockIndex)} className={styles.button}>
                         Add Nested Content
                       </button>
@@ -368,7 +448,7 @@ const CreatePost = () => {
                           <span>Delete Nested Block</span>
                         </button>
                         <div className={styles.selector}>
-                          <span>Select type of nested Content Block</span>
+                          <span>Select type of Nested Block</span>
                           <select
                             value={nestedBlock.type}
                             onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'type', e.target.value)}
@@ -388,14 +468,15 @@ const CreatePost = () => {
                               onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'subContent', e.target.value)}
                               className={styles.textarea}
                             />
-                            <ul>
-                              {nestedBlock.subContent?.map((item:any, itemIndex:any) => (
-                                  <li key={itemIndex}>{item}</li>
-                              ))}
-                            </ul>
-                            <button type="button" onClick={() => addNestedContentBlock(subIndex, blockIndex)} className={styles.button}>
-                              Add Nested Content
-                            </button>
+                            {(!nestedBlock.nestedNestedBlocks || nestedBlock.nestedNestedBlocks.length === 0) && (
+                              <button
+                                type="button"
+                                onClick={() => addNestedNestedContentBlock(subIndex, blockIndex, nestedIndex)}
+                                className={styles.button}
+                              >
+                                Add Nested Block
+                              </button>
+                            )}
                           </div>
                         ) : nestedBlock.type === 'image' ? (
                           <input
@@ -403,7 +484,7 @@ const CreatePost = () => {
                             placeholder="Nested Image URL"
                             value={nestedBlock.content}
                             onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
-                            className={styles.input}
+                            className={styles.textarea}
                           />
                         ) : nestedBlock.type === 'subheader' ? (
                           <input
@@ -422,6 +503,65 @@ const CreatePost = () => {
                             className={styles.input}
                           />
                         )}
+                        {/* Render nestedNestedBlocks */}
+                          {nestedBlock.nestedNestedBlocks && nestedBlock.nestedNestedBlocks.map((nestedNestedBlock:any, nestedNestedIndex:any) => (
+                            <div key={nestedNestedIndex} className={styles.nestedNestedBlock}>
+                              <button type="button" onClick={() => handleDeleteNestedNestedContent(subIndex, blockIndex, nestedIndex, nestedNestedIndex)} className={styles.deleteButton}>
+                                <MdDeleteForever className={styles.deleteIcon}/>
+                                <span>Delete Nested Content</span>
+                              </button>
+
+                              <div className={styles.selector}>
+                                <span>Select type of Nested Content</span>
+                                <select
+                                  value={nestedNestedBlock.type}
+                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'type', e.target.value)}
+                                  className={styles.select}
+                                >
+                                  <option value="text">Text</option>
+                                  <option value="image">Image</option>
+                                  <option value="subheader">Subheader</option>
+                                  <option value="list">List</option>
+                                </select>
+                              </div>
+
+                              {nestedNestedBlock.type === 'list' ? (
+                                <div>
+                                  <textarea
+                                    placeholder="Nested Nested List Items (line separated)"
+                                    value={Array.isArray(nestedNestedBlock.subContent) ? nestedNestedBlock.subContent.join('\n') : ''}
+                                    onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'subContent', e.target.value)}
+                                    className={styles.textarea}
+                                  />
+                                </div>
+                              ) : nestedNestedBlock.type === 'image' ? (
+                                <input
+                                  type="text"
+                                  placeholder="Nested Nested Image URL"
+                                  value={nestedNestedBlock.content}
+                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e.target.value)}
+                                  className={styles.textarea}
+                                />
+                              ) : nestedNestedBlock.type === 'subheader' ? (
+                                <input
+                                  type="text"
+                                  placeholder="Nested Nested Subheader"
+                                  value={nestedNestedBlock.content}
+                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e.target.value)}
+                                  className={styles.input}
+                                />
+                              ) : (
+                                <input
+                                  type="text"
+                                  placeholder="Nested Nested Content"
+                                  value={nestedNestedBlock.content}
+                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e.target.value)}
+                                  className={styles.input}
+                                />
+                              )}
+                            </div>
+                          ))}
+
                       </div>
                     ))}
                 </div>
