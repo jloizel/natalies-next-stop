@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createPost, PostInput } from '../../../../app/API'; // Ensure the import paths are correct
 import styles from './create.module.css';
-import { useParams } from 'next/navigation';
 import { MdDeleteForever } from "react-icons/md";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import withAuth from '@/utils/withAuth';
@@ -34,7 +33,7 @@ const CreatePost = () => {
 
     try {
       await createPost(post); // Send the form data to the create API
-      router.push('/dashboard/manage'); // Redirect after successful creation
+      router.push('/admin/dashboard/manage'); // Redirect after successful creation
     } catch (err) {
       console.error(err); // Log the actual error for debugging
       setError('Error creating post.');
@@ -256,7 +255,7 @@ const CreatePost = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.navButtonContainer}>
-        <button onClick={() => router.push('/dashboard')} className={styles.navButton}>
+        <button onClick={() => router.push('/admin/dashboard')} className={styles.navButton}>
           <FaArrowLeftLong/> Back to dashboard
         </button>
       </div>

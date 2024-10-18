@@ -18,7 +18,7 @@ export const Dashboard = () => {
 
   // Handle unauthenticated or unauthorized users (non-admins)
   if (session.status === 'unauthenticated' || session.data?.user?.role !== 'admin') {
-    router.push('/dashboard/auth/login'); // Redirect to login if not authenticated or not admin
+    router.push('/admin/login'); // Redirect to login if not authenticated or not admin
     return null;
   }
 
@@ -29,7 +29,7 @@ export const Dashboard = () => {
       <div className={styles.container}>
         <div className={styles.header}>Admin Dashboard</div>
         <div className={styles.contentContainer}>
-          <div className={styles.content} onClick={() => router.push('/dashboard/create')}>
+          <div className={styles.content} onClick={() => router.push('/admin/dashboard/create')}>
             <span>
               Create a new post
             </span>
@@ -37,7 +37,7 @@ export const Dashboard = () => {
               Click me
             </div>
           </div>
-          <div className={styles.content} onClick={() => router.push('/dashboard/manage')}>
+          <div className={styles.content} onClick={() => router.push('/admin/dashboard/manage')}>
             <span>
               Manage your existing posts
             </span>

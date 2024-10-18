@@ -68,7 +68,7 @@ const EditPost = () => {
 
     try {
       await updatePost(id, post); // Send the form data to the update API
-      router.push('/dashboard/manage'); // Redirect after successful update
+      router.push('/admin/dashboard/manage'); // Redirect after successful update
     } catch (err) {
       console.error(err); // Log the actual error for debugging
       setError('Error updating post.');
@@ -311,7 +311,7 @@ const EditPost = () => {
   return post ? (
     <div className={styles.wrapper}>
       <div className={styles.navButtonContainer}>
-        <button onClick={() => router.push('/dashboard')} className={styles.navButton}>
+        <button onClick={() => router.push('/admin/dashboard')} className={styles.navButton}>
           <FaArrowLeftLong  /> Back to dashboard
         </button>
       </div>

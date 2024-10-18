@@ -1,7 +1,7 @@
 "use client"; // Client-side
 
 import React, { useEffect } from 'react';
-import styles from './page.module.css';
+import styles from './login.module.css';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ const Login = () => {
   // Check if the user is already authenticated and redirect to dashboard if so
   useEffect(() => {
     if (session.status === "authenticated") {
-      router.push('/dashboard'); // Redirect to the dashboard
+      router.push('/admin/dashboard'); // Redirect to the dashboard
     }
   }, [session.status, router]); // Run this effect if session status changes
 
@@ -42,6 +42,9 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
+      {/* <div className={styles.header}>
+        Log in
+      </div> */}
       <form className={styles.form} onSubmit={handleSubmit}>
         <input
           type="email"
@@ -57,13 +60,6 @@ const Login = () => {
         />
         <button className={styles.button}>Login</button>
       </form>
-      <button onClick={() => signIn('google')} className={styles.button + ' ' + styles.google}>
-        Login with Google
-      </button>
-      <span className={styles.or}>- OR -</span>
-      <Link className={styles.link} href="/dashboard/register">
-        Create new account
-      </Link>
     </div>
   );
 };

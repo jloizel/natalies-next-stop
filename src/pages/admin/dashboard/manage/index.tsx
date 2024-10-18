@@ -44,7 +44,7 @@ const ManagePosts = () => {
   };
 
   const handleEdit = (id: string) => {
-    router.push(`/dashboard/edit/${id}`);
+    router.push(`/admin/dashboard/edit/${id}`);
   };
 
   const calculateDaysAgo = (postedAt: string) => {
@@ -57,7 +57,7 @@ const ManagePosts = () => {
   return (
     <div className={styles.container}>
       <div className={styles.navButtonContainer}>
-        <button onClick={() => router.push('/dashboard')} className={styles.navButton}>
+        <button onClick={() => router.push('/admin/admin/dashboard')} className={styles.navButton}>
           <FaArrowLeftLong  /> Back to dashboard
         </button>
       </div>
