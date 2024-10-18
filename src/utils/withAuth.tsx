@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 // Higher-Order Component for authentication
 const withAuth = (WrappedComponent: React.ComponentType) => {
   const AuthenticatedComponent = (props: any) => {
-    const { data: session, status } = useSession();
+    const { status } = useSession(); // Only destructure status since session is not used
     const router = useRouter();
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
       }
     }, [status, router]);
 
-    // Show loading state if session is loading or unauthenticated
+    // Show loading state if session is loading
     if (status === "loading") {
       return <p>Loading...</p>;
     }

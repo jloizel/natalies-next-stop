@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 import styles from './login.module.css';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 
 const Login = () => {
   const session = useSession();

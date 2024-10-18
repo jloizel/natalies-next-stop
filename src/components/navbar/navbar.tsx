@@ -47,6 +47,9 @@ const NavBar = () => {
               </button>
             </div>
           )}
+          <div>
+            Contact Me
+          </div>
           <a href="https://www.instagram.com/nataliemills1" target='_blank'>
             <IoLogoInstagram className={styles.instaLogo} />
           </a>
