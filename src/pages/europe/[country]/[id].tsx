@@ -6,11 +6,13 @@ import { getPostById, getAllPosts } from '@/app/API';
 import { ParsedUrlQuery } from 'querystring';
 import styles from './blog.module.css';
 
+
 interface IContentBlock {
   type: 'text' | 'image' | 'subheader' | 'list';
   content: string;
   subContent?: string[];
   images?: string[];
+  imageCaption: string;
   nestedBlocks?: INestedContentBlock[];
 }
 
@@ -22,6 +24,7 @@ interface ISubsection {
   header: string;
   text: string;
   images: string[];
+  imageCaption: string;
   contentBlocks: INestedContentBlock[];
 }
 
@@ -31,6 +34,8 @@ interface IPost {
   desc: string;
   introText: string;
   introImage: string;
+  introImageLink: string;
+  introImageCaption: string;
   previewImage: string;
   subsections: ISubsection[];
   continent: string;
@@ -55,9 +60,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   }
 
   useEffect(() => {
-    // Access `document` safely here
     if (typeof document !== 'undefined') {
-      console.log(document.title); // Safe to use document
     }
   }, []);
 
@@ -68,33 +71,38 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     ));
   };
 
-  const renderSubsectionImages = (images: string[]) => {
+  const renderSubsectionImages = (images: string[], imageCaption: string) => { // Default empty array
     const imageCount = images.length;
     const layoutClass = imageCount === 2 ? 'two-images' : imageCount === 3 ? 'three-images' : '';
-
+  
     return (
-      <div className={`${styles['subsection-images']} ${styles[layoutClass]}`}>
+      <div className={`${styles.subsectionImages} ${styles[layoutClass]}`}>
         {images.map((imageUrl, index) => (
-          <img 
-            key={index} 
-            src={imageUrl.trim()} 
-            alt={`Subsection Image ${index + 1}`} 
-            className={styles['subsection-image']} 
-          />
+          <div key={index} className={styles.imageContainer}>
+            <img 
+              src={imageUrl.trim()} 
+              alt={`Subsection Image ${index + 1}`} 
+              className={styles.subsectionImage} 
+            />
+          </div>
         ))}
+        {imageCaption && (
+              <div className={styles.imageCaption}>{imageCaption}</div>
+            )}
       </div>
     );
   };
+  
+  
 
   const renderTextContent = (content: string | undefined) => {
     if (!content) return null;
   
-    // Convert your text content with basic HTML tags (like <b>, <i>, etc.) to formatted HTML
     return content.split(/",\s*"/).map((text, index) => (
       <div
         key={index}
-        className={styles['content-text']}
-        suppressHydrationWarning={true} // Suppresses the hydration warning
+        className={styles.contentText}
+        suppressHydrationWarning={true}
         dangerouslySetInnerHTML={{ __html: text.trim().replace(/^"|"$/g, '') }}
       />
     ));
@@ -102,13 +110,22 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   
   const renderListBlock = (block: INestedContentBlock) => {
     return (
-      <ul className={`${styles['content-list']} ${styles['custom-list']}`}>
-        {block.content && <li className={styles['list-item']}>{block.content}</li>}
-        {block.subContent && block.subContent.length > 0 && block.subContent.map((item, idx) => (
-          <li key={idx} className={`${styles['list-item']} ${styles['sub-item']}`}>
+      <ul className={styles.contentList}>
+        {block.content && 
+          <li className={styles.listItem}>
+            {block.content}
+          </li>
+        }
+        {block.subContent && 
+          <li className={styles.listItem}>
+            {block.subContent}
+          </li>
+        }
+        {/* {block.subContent && block.subContent.length > 0 && block.subContent.map((item, idx) => (
+          <li key={idx} className={`${styles.listItem} ${styles['sub-item']}`}>
             {item}
             {block.nestedBlocks && block.nestedBlocks.length > 0 && (
-              <ul className={styles['nested-list']}>
+              <ul className={styles.nestedList}> 
                 {block.nestedBlocks.map((nestedBlock, nestedIndex) => (
                   <li key={nestedIndex} className={styles['nested-list-item']}>
                     {renderContentBlock(nestedBlock)}
@@ -117,28 +134,26 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
               </ul>
             )}
           </li>
-        ))}
+        ))} */}
       </ul>
     );
   };
 
   const renderContentBlock = (block: INestedContentBlock) => {
     return (
-      <div className={styles['content-block']}>
+      <div className={styles.contentBlock}>
         {/* Handle different types of blocks */}
         {block.type === 'text' && renderTextContent(block.content)}
-        {block.type === 'image' && block.images && renderSubsectionImages(block.images)}
-        {block.type === 'subheader' && <h2 className={styles['content-subheader']}>{block.content}</h2>}
+        {block.type === 'image' && block.images && renderSubsectionImages(block.images, block.imageCaption)}
+        {block.type === 'subheader' && <h2 className={styles.contentSubheader}>{block.content}</h2>}
         {block.type === 'list' && renderListBlock(block)}
         
-        {/* If there are nested blocks, render them recursively */}
         {block.nestedBlocks && block.nestedBlocks.length > 0 && (
           <div className={styles['nested-blocks']}>
             {renderNestedContentBlocks(block.nestedBlocks)}
           </div>
         )}
 
-        {/* New rendering for nestedNestedBlocks */}
         {block.nestedNestedBlocks && block.nestedNestedBlocks.length > 0 && (
           <div className={styles['nested-nested-blocks']}>
             {renderNestedContentBlocks(block.nestedNestedBlocks)}
@@ -150,7 +165,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
 
   const renderNestedContentBlocks = (blocks: INestedContentBlock[]) => {
     return blocks.map((block, blockIndex) => (
-      <div key={blockIndex} className={styles['content-block']}>
+      <div key={blockIndex} className={styles.contentBlock}>
         {renderContentBlock(block)}
       </div>
     ));
@@ -204,16 +219,23 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           Updated: {formatCreatedAt(post.updatedAt)}
         </div>
         {renderIntroText(post.introText)}
-        <img src={post.introImage} alt={post.title} className={styles.introImage} />
-        <p className={styles['description']}>{post.desc}</p>
+        <a href={post.introImageLink} target='_blank'>
+          <img src={post.introImage} alt={post.title} className={styles.introImage} />
+        </a>
+        <div className={styles.imageCaption}>
+          {post.introImageCaption}
+        </div>
         {post.subsections.map((subsection, index) => (
-          <div key={index} className={styles['subsection']}>
-            <h2 className={styles['subsection-header']}>{subsection.header}</h2>
-            {renderTextContent(subsection.text)} 
-            <div className={styles['subsection-images']}>
-              {renderSubsectionImages(subsection.images)} 
+          <div key={index} className={styles.subsection}>
+            <div className={styles.subsectionHeader}>
+              {subsection.header}
             </div>
-            <div className={styles['content-blocks']}>
+            {renderTextContent(subsection.text)} 
+            <div className={styles.subsectionImages}>
+              {renderSubsectionImages(subsection.images, subsection.imageCaption)} 
+            </div>
+            <span>{subsection.imageCaption}</span>
+            <div className={styles.contentBlocks}>
               {renderNestedContentBlocks(subsection.contentBlocks)}
             </div>
           </div>

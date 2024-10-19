@@ -55,147 +55,130 @@
 .introImage {
   width: 100%; 
   height: auto; 
-  border-radius: 8px; 
-  margin-bottom: 15px; 
+  /* border-radius: 8px;  */
+  margin-top: 40px;
+  margin-bottom: 15px;
 }
 
-.description {
-  font-size: 1.2rem; /* Slightly larger description text */
-  color: #666; /* Grey color for the description */
-  margin-bottom: 20px; /* Space below the description */
+.imageCaption {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
 }
+
 
 .subsection {
-  margin-top: 30px; /* Space between subsections */
+  margin-top: 30px; 
 }
 
-.subsection-header {
-  font-size: 1.8rem; /* Subsection header size */
-  margin: 10px 0; /* Space around subheader */
-  color: #333; /* Darker color for emphasis */
+.subsectionHeader {
+  font-size: 22px;
+  font-weight: 500; 
+  margin: 20px 0; 
+  color: #333; 
 }
 
-.subsection-text {
-  font-size: 1rem; /* Standard text size for subsection text */
-  line-height: 1.5; /* Improve readability with line height */
-  margin-bottom: 10px; /* Space below subsection text */
+.contentText {
+  font-size: 16px; 
+  line-height: 1.6; 
+  margin-bottom: 10px; 
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.subsection-image {
-  width: 100%; /* Full width for subsection images */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 8px; /* Rounded corners */
-  margin: 10px 0; /* Space above and below images */
+.subsectionImages {
+  display: grid;               
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  justify-items: center;
 }
 
-.content-blocks {
-  margin-top: 20px; /* Space above content blocks */
+.subsectionImage {
+  width: 100%;                 
+  max-width: 250px;
+  height: auto;
+  border-radius: 8px;
 }
 
-.content-block {
-  margin-bottom: 15px; /* Space between content blocks */
+.subsectionImages.two-images {
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.content-text {
-  font-size: 1rem; /* Standard text size */
-  line-height: 1.6; /* Improve readability with line height */
-  margin-bottom: 10px; /* Space below each paragraph */
+.subsectionImages.two-images .subsectionImage {
+  flex: 1 1 calc(50% - 10px);
 }
 
-.content-image {
-  width: 100%; /* Full width */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 8px; /* Rounded corners */
-  margin-top: 10px; /* Space above the image */
+.subsectionImages.three-images {
+  grid-template-columns: repeat(3, 1fr); 
 }
 
-.content-subheader {
-  font-size: 1.5rem; /* Subheader size */
-  margin: 10px 0; /* Space around subheader */
-  color: #333; /* Darker color for emphasis */
+.subsectionImages.three-images .subsectionImage {
+  flex: 1 1 calc(50% - 10px); 
+  position: relative;         
 }
 
-.content-list {
-  list-style-type: disc; /* Bullet points for list items */
-  padding-left: 20px; /* Indent list items */
+.subsectionImages.three-images .subsectionImage:nth-child(3) {
+  flex-basis: 100%;      
 }
 
-.content-list li {
-  margin-bottom: 5px; /* Space between list items */
+
+.contentBlocks {
+  margin-top: 20px;
 }
 
-/* blog.module.css */
-
-/* Main blog post styles */
-.blog-post {
-  /* Add any existing styles you have */
+.contentBlock {
+  margin-bottom: 15px;
 }
 
-/* Styles for subsection images */
-.subsection-images {
-  display: grid;               /* Use CSS Grid for a consistent layout */
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Create responsive grid columns */
-  gap: 10px;                   /* Add some space between images */
-  justify-items: center;       /* Center items in each grid cell */
+.contentSubheader {
+  font-size: 20px; 
+  margin: 10px 0; 
+  color: #333;
+  font-weight: 500;
 }
 
-/* Individual image styles */
-.subsection-image {
-  width: 100%;                 /* Make images responsive */
-  max-width: 250px;            /* Set a maximum width for images */
-  height: auto;                /* Maintain aspect ratio */
-  border-radius: 8px;          /* Rounded corners */
-}
-/* Styles for two images */
-.subsection-images.two-images {
-  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+.contentList {
+  list-style-type: disc;
+  padding-left: 20px;
 }
 
-.subsection-images.two-images .subsection-image {
-  flex: 1 1 calc(50% - 10px); /* Two images take up half the width each, minus gap */
+.listItem {
+  color: red;
 }
 
-/* Styles for three images */
-.subsection-images.three-images {
-  grid-template-columns: repeat(3, 1fr); /* Three equal columns */
-}
 
-.subsection-images.three-images .subsection-image {
-  flex: 1 1 calc(50% - 10px); /* Two images take up half the width each */
-  position: relative;          /* Position relative to center the last image */
-}
-
-.subsection-images.three-images .subsection-image:nth-child(3) {
-  flex-basis: 100%;            /* Last image takes the full width */
-}
 
 .nested-content {
   margin-top: 1em;
   background-color: #f9f9f9;
   padding: 1em;
-  border-left: 4px solid #0070f3; /* Highlight nested content */
+  border-left: 4px solid #0070f3;
 }
 
 .nested-nested-blocks {
   margin-top: 1em;
   background-color: #f9f9f9;
   padding: 1em;
-  border-left: 4px solid #0070f3; /* Highlight nested content */
+  border-left: 4px solid #0070f3;
 }
 
 .nested-block {
   margin: 0.5em 0;
   padding: 0.5em;
   border: 1px dashed #ccc; /* Dashed border for nested blocks */
+  
 }
 
-.content-list {
-  list-style-type: disc; /* Main list bullets */
-  padding-left: 20px; /* Indent main list items */
+.nestedList {
+  color: green;
 }
+
 
 .sub-item {
   margin-top: 0.5em; /* Space between sub-items */
+  color: grey !important;
+  
 }
 
 .nested-list {
@@ -206,5 +189,6 @@
 .nested-list-item {
   margin-top: 0.5em; /* Space between nested items */
   list-style-type: none;
+  color: blue;
 }
 

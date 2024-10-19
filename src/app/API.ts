@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 
-const BASE_URL = 'https://natalies-next-stop-server.vercel.app/'; // Update with your backend server URL
+const BASE_URL = 'https://natalies-next-stop-server.vercel.app/'; 
 
 // Create an Axios instance with custom configurations
 const api: AxiosInstance = axios.create({
@@ -15,16 +15,18 @@ export interface IContentBlock {
   content: string;
   subContent?: string[];
   images?: string[];
-  nestedBlocks?: IContentBlock[]; // Use nestedBlocks instead of subItems
+  imageCaption: string;
+  nestedBlocks?: IContentBlock[]; 
   [key: string]: any;
 }
 
 export interface ISubsection {
-  header: string; // Subsection header
-  text: string; // Text content for the subsection
-  images: string[]; // Array of image URLs
-  contentBlocks: IContentBlock[]; // Array of content blocks for each subsection
-  [key: string]: any; // Allows any other properties
+  header: string; 
+  text: string; 
+  images: string[]; 
+  imageCaption: string;
+  contentBlocks: IContentBlock[];
+  [key: string]: any;
 }
 
 export interface Post {
@@ -34,6 +36,8 @@ export interface Post {
   desc: string;
   introText: string; // New field for intro text
   introImage: string; // New field for intro image
+  introImageLink: string;
+  introImageCaption: string;
   previewImage: string;
   subsections: ISubsection[]; // Updated to include subsections
   continent: string;

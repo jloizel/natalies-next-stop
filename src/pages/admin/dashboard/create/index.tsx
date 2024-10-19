@@ -19,6 +19,8 @@ const CreatePost = () => {
     introText: '',
     previewImage: "",
     introImage: '', // For intro image URL
+    introImageLink: '',
+    introImageCaption: '',
     subsections: [], // Initialize subsections as an empty array
     continent: '',
     country: '',
@@ -54,7 +56,7 @@ const CreatePost = () => {
   const handleSubsectionChange = (index: number, key: string, value: string | string[]) => {
     const updatedSubsections = [...post.subsections];
     if (!updatedSubsections[index]) {
-      updatedSubsections[index] = { header: '', text: '', images: [], contentBlocks: [] };
+      updatedSubsections[index] = { header: '', text: '', images: [], imageCaption: '', contentBlocks: [] };
     }
     updatedSubsections[index][key] = value;
     setPost({ ...post, subsections: updatedSubsections });
@@ -64,7 +66,7 @@ const CreatePost = () => {
   const addSubsection = () => {
     setPost({
       ...post,
-      subsections: [...post.subsections, { header: '', text: '', images: [], contentBlocks: [] }],
+      subsections: [...post.subsections, { header: '', text: '', images: [], imageCaption: '', contentBlocks: [] }],
     });
   };
 
@@ -75,7 +77,8 @@ const CreatePost = () => {
       type: 'text', 
       content: '', 
       subContent: [], // Ensure subContent is initialized
-      images: [] 
+      images: [],
+      imageCaption: ''
     });
     setPost({ ...post, subsections: updatedSubsections });
   };
@@ -132,9 +135,10 @@ const CreatePost = () => {
       }
       // Add a new nested block of type list or text
       block.nestedBlocks.push({
-        type: 'list', // You can change this default type if needed
-        content: '', // Initialize content for nested block
-        subContent: [], // Ensure subContent is initialized as an empty array
+        type: 'list', 
+        content: '', 
+        subContent: [], 
+        imageCaption: ''
       });
     }
 
@@ -354,6 +358,22 @@ const CreatePost = () => {
             name="introImage"
             placeholder="Intro image URL"
             value={post.introImage}
+            onChange={handleChange}
+            className={styles.input}
+          />
+          <input
+            type="text"
+            name="introImageLink"
+            placeholder="Title image link"
+            value={post.introImageLink}
+            onChange={handleChange}
+            className={styles.input}
+          />
+          <input
+            type="text"
+            name="introImageCaption"
+            placeholder="Title image caption"
+            value={post.introImageCaption}
             onChange={handleChange}
             className={styles.input}
           />
