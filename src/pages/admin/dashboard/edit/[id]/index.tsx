@@ -480,11 +480,11 @@ const EditPost = () => {
                       className={styles.textarea}
                     />
                   ) : block.type === 'subheader' ? (
-                    <ReactQuill
-                      // type="text"
+                    <input
+                      type="text"
                       placeholder="Subheader"
                       value={block.content}
-                      onChange={(value) => handleContentBlockChange(subIndex, blockIndex, 'content', value)}
+                      onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e.target.value)}
                       className={styles.input}
                     />
                   ) : (

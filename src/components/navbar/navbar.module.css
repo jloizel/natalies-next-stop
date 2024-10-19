@@ -4,8 +4,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align items to start */
-  z-index: 1005; /* Ensure it stays above other content */
+  justify-content: flex-start; 
+  z-index: 1005; 
   transition: all 0.3s ease;
   /* margin-bottom: 300px; */
   background-color: white !important;
@@ -16,10 +16,10 @@
   justify-content: space-between;
   display: flex;
   flex-direction: row;
-  padding: 20px; /* Initial padding for normal state */
+  padding: 20px; 
   align-items: center;
   transition: all 0.3s ease;
-  background-color: white; /* Ensure background color for visibility */
+  background-color: white; 
   z-index: 101;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .shrink {
-  height: 60px; /* Ensure enough height for the text */
+  height: 60px; 
   width: 100%;
 }
 
@@ -88,8 +88,6 @@
   color: #2364aa;
 }
 
-
-/* Navbar */
 
 .navbar {
   display: grid;

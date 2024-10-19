@@ -36,6 +36,7 @@ interface IPost {
   continent: string;
   country: string;
   createdAt: string;
+  updatedAt: string;
 }
 
 interface BlogPostProps {
@@ -63,7 +64,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   const renderIntroText = (introText: string | undefined) => {
     if (!introText) return null;
     return introText.split(/",\s*"/).map((text, index) => (
-      <p key={index} className={styles['intro-text']}>{text.trim().replace(/^"|"$/g, '')}</p>
+      <div key={index} className={styles.introText}>{text.trim().replace(/^"|"$/g, '')}</div>
     ));
   };
 
@@ -155,6 +156,35 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     ));
   };
 
+  const formatCreatedAt = (createdAt: string) => {
+    const date = new Date(createdAt);
+    const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+  };
+
+  const calculateReadingTime = (text: string) => {
+    const wordsPerMinute = 200; // You can adjust this to 250 for faster reading speed
+    const wordCount = text.split(/\s+/).length; // Count words by splitting the text by spaces
+    const minutes = Math.ceil(wordCount / wordsPerMinute);
+    return minutes; // Return the number of minutes rounded up
+  };
+
+  const getFullText = () => {
+    let text = post.introText || '';
+    post.subsections.forEach(subsection => {
+      text += ' ' + subsection.text;
+      subsection.contentBlocks.forEach(block => {
+        if (block.type === 'text' && block.content) {
+          text += ' ' + block.content;
+        }
+      });
+    });
+    return text;
+  };
+
+  const fullText = getFullText(); // Get all the text content from the post
+  const readingTime = calculateReadingTime(fullText); 
+
   return (
     <div className={styles.container}>
       <div className={styles.topInfo}>
@@ -162,10 +192,19 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           <a href={`/${post.continent.toLowerCase()}/${post.country}`}>{post.country}</a>
         </div>
       <div className={styles.blogPost}>
-        <div className={styles.createdDate}>{post.createdAt}</div>
-        <div className={styles.title}>{post.title}</div>
-        <img src={post.introImage} alt={post.title} className={styles['intro-image']} />
+        <div className={styles.blogDetails}>
+          <span>{formatCreatedAt(post.createdAt)}</span>
+          <span>•</span>
+          <span>{readingTime} min read</span>
+        </div>
+        <div className={styles.title}>
+          {post.title}
+        </div>
+        <div className={styles.updated}>
+          Updated: {formatCreatedAt(post.updatedAt)}
+        </div>
         {renderIntroText(post.introText)}
+        <img src={post.introImage} alt={post.title} className={styles.introImage} />
         <p className={styles['description']}>{post.desc}</p>
         {post.subsections.map((subsection, index) => (
           <div key={index} className={styles['subsection']}>
