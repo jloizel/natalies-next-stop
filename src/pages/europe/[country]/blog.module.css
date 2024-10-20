@@ -32,12 +32,90 @@
 .blogDetails {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 40px;
 }
 
-.blogDetails span, .updated {
+.blogDetailsLeft {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  /* margin-bottom: 40px; */
+}
+
+.blogDetailsLeft span, .updated {
   font-size: 14px;
+}
+
+.shareButtonContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.shareButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.shareMenu {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.shareIcon {
+  width: 32px;
+}
+
+.linkIconContainer {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.shareLink {
+  font-size: 32px;
+  background-color: #333;
+  color: white;
+  border-radius: 50%;
+  padding: 8px;
+  align-self: center;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.copiedMessage {
+  position: absolute;
+  top: 55px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  white-space: nowrap;
 }
 
 .title {
@@ -60,12 +138,12 @@
   margin-bottom: 15px;
 }
 
-.imageCaption {
+.introImageCaption {
   width: 100%;
   text-align: center;
   font-size: 14px;
+  font-style: italic;
 }
-
 
 .subsection {
   margin-top: 30px; 
@@ -122,13 +200,56 @@
   flex-basis: 100%;      
 }
 
+.imageCaption {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.contentList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.listItem {
+
+}
+
+.nestedContentList {
+  list-style-type: circle; 
+  margin-left: 10px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nestedListItem {
+
+}
+
+.nestedNestedContentList {
+  list-style-type: square; 
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+.nestedNestedListItem {
+  font-size: 14px;
+}
 
 .contentBlocks {
   margin-top: 20px;
 }
 
 .contentBlock {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .contentSubheader {
@@ -138,18 +259,14 @@
   font-weight: 500;
 }
 
-.contentList {
-  list-style-type: disc;
-  padding-left: 20px;
-}
-
-.listItem {
-  color: red;
-}
 
 
 
-.nested-content {
+
+
+
+
+/* .nested-content {
   margin-top: 1em;
   background-color: #f9f9f9;
   padding: 1em;
@@ -161,7 +278,7 @@
   background-color: #f9f9f9;
   padding: 1em;
   border-left: 4px solid #0070f3;
-}
+} */
 
 .nested-block {
   margin: 0.5em 0;
@@ -170,9 +287,7 @@
   
 }
 
-.nestedList {
-  color: green;
-}
+y
 
 
 .sub-item {
@@ -188,7 +303,14 @@
 
 .nested-list-item {
   margin-top: 0.5em; /* Space between nested items */
-  list-style-type: none;
+  /* list-style-type: none; */
   color: blue;
 }
 
+/* blog.module.css */
+
+
+
+.subItem {
+  padding-left: 20px; /* Indent for nested items */
+}

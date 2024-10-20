@@ -549,10 +549,10 @@
                           </div>
                           {nestedBlock.type === 'list' ? (
                             <div>
-                              <textarea
+                              <ReactQuill
                                 placeholder="Nested Sub Items (line separated)"
                                 value={Array.isArray(nestedBlock.subContent) ? nestedBlock.subContent.join('\n') : ''}
-                                onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'subContent', e.target.value)}
+                                onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'subContent', e)}
                                 className={styles.textarea}
                               />
                               {(!nestedBlock.nestedNestedBlocks || nestedBlock.nestedNestedBlocks.length === 0) && (
@@ -614,10 +614,10 @@
 
                                 {nestedNestedBlock.type === 'list' ? (
                                   <div>
-                                    <textarea
+                                    <ReactQuill
                                       placeholder="Nested Nested List Items (line separated)"
                                       value={Array.isArray(nestedNestedBlock.subContent) ? nestedNestedBlock.subContent.join('\n') : ''}
-                                      onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'subContent', e.target.value)}
+                                      onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'subContent', e)}
                                       className={styles.textarea}
                                     />
                                   </div>
