@@ -68,7 +68,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   }
 
   useEffect(() => {
-    if (typeof document !== 'undefined') {  // Ensure the document object is available
+    if (typeof document !== 'undefined') {  
       const handleClickOutside = (event: MouseEvent) => {
         if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
           setShowShareMenu(false);  // Close the share menu if the click is outside
