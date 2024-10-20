@@ -71,6 +71,22 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     return null;
   }
 
+  useEffect(() => {  
+    const handleClickOutside = (event: MouseEvent) => {
+      if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
+        setShowShareMenu(false);  // Close the share menu if the click is outside
+      }
+    };
+  
+    // Attach the event listener
+    document.addEventListener('mousedown', handleClickOutside);
+  
+    return () => {
+      // Clean up the event listener on component unmount
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [shareMenuRef]);
+
   const renderIntroText = (introText: string | undefined) => {
     if (!introText) return null;
     return introText.split(/",\s*"/).map((text, index) => (
@@ -284,24 +300,6 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
       console.error('Error sharing:', error);
     }
   };
-
-  useEffect(() => {
-    if (!shareMenuRef.current) return;  // Add a condition inside the effect
-  
-    const handleClickOutside = (event: MouseEvent) => {
-      if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
-        setShowShareMenu(false);  // Close the share menu if the click is outside
-      }
-    };
-  
-    // Attach the event listener
-    document.addEventListener('mousedown', handleClickOutside);
-  
-    return () => {
-      // Clean up the event listener on component unmount
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [shareMenuRef]);
 
   return (
     <div className={styles.container}>
