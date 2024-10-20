@@ -7,7 +7,7 @@
   import { MdDeleteForever } from 'react-icons/md';
   import { FaArrowLeftLong } from 'react-icons/fa6';
   import withAuth from '@/utils/withAuth';
-  import ReactQuill, { Quill } from 'react-quill-new';
+  import ReactQuill from 'react-quill-new';
   import 'react-quill-new/dist/quill.snow.css';
 
 

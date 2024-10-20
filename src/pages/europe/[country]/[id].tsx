@@ -5,7 +5,6 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import { getPostById, getAllPosts } from '@/app/API';
 import { ParsedUrlQuery } from 'querystring';
 import styles from './blog.module.css';
-import { FaShare } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, WhatsappShareButton } from 'react-share';
 import { FacebookIcon, TwitterIcon, LinkedinIcon, WhatsappIcon } from 'react-share';
@@ -60,7 +59,6 @@ interface Params extends ParsedUrlQuery {
 }
 
 const BlogPost: React.FC<BlogPostProps> = ({ post }) => {  
-  const [isShareMenuOpen, setIsShareMenuOpen] = useState(false);
   const [showShareMenu, setShowShareMenu] = useState(false); 
   const [copied, setCopied] = useState(false);
   const shareMenuRef = useRef<HTMLDivElement>(null);
