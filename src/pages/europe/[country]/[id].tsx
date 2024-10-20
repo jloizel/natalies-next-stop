@@ -63,29 +63,29 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   const [copied, setCopied] = useState(false);
   const shareMenuRef = useRef<HTMLDivElement>(null);
 
-  if (!post) {
-    return <div>Post not found.</div>;
-  }
-
   // if (typeof document !== 'undefined') {
   //   return null;
   // }
 
   useEffect(() => {  
+    if (!shareMenuRef.current) return;
+
     const handleClickOutside = (event: MouseEvent) => {
       if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
         setShowShareMenu(false);  // Close the share menu if the click is outside
       }
     };
   
-    // Attach the event listener
     document.addEventListener('mousedown', handleClickOutside);
   
     return () => {
-      // Clean up the event listener on component unmount
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [shareMenuRef]);
+
+  if (!post) {
+    return <div>Post not found.</div>;
+  }
 
   const renderIntroText = (introText: string | undefined) => {
     if (!introText) return null;
