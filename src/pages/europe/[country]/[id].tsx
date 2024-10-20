@@ -63,12 +63,12 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   const [copied, setCopied] = useState(false);
   const shareMenuRef = useRef<HTMLDivElement>(null);
 
-  if (typeof document !== 'undefined') {
-    return null;
-  }
+  // if (typeof document !== 'undefined') {
+  //   return null;
+  // }
 
   useEffect(() => {
-    if (typeof document !== 'undefined') {  
+    if (typeof document !== 'undefined') {
       const handleClickOutside = (event: MouseEvent) => {
         if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
           setShowShareMenu(false);  // Close the share menu if the click is outside
@@ -84,6 +84,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
       };
     }
   }, [shareMenuRef]);
+  
   
 
   if (!post) {
