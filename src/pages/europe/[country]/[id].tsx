@@ -67,21 +67,24 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   //   return null;
   // }
 
-  useEffect(() => {  
-    if (!shareMenuRef.current) return;
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
-        setShowShareMenu(false);  // Close the share menu if the click is outside
-      }
-    };
+  useEffect(() => {
+    if (typeof document !== 'undefined') {  // Ensure the document object is available
+      const handleClickOutside = (event: MouseEvent) => {
+        if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
+          setShowShareMenu(false);  // Close the share menu if the click is outside
+        }
+      };
   
-    document.addEventListener('mousedown', handleClickOutside);
+      // Attach the event listener
+      document.addEventListener('mousedown', handleClickOutside);
   
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+      return () => {
+        // Clean up the event listener on component unmount
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
   }, [shareMenuRef]);
+  
 
   if (!post) {
     return <div>Post not found.</div>;
