@@ -74,10 +74,10 @@
 
 
       try {
-        await updatePost(id, post); // Send the form data to the update API
-        // router.push('/admin/dashboard/manage'); // Redirect after successful update
+        await updatePost(id, post);
+        router.push('/admin/dashboard/manage'); 
       } catch (err) {
-        console.error(err); // Log the actual error for debugging
+        console.error(err); 
         setError('Error updating post.');
       } finally {
         setLoading(false);
@@ -288,8 +288,6 @@
         setPost({ ...post, subsections: updatedSubsections });
       }
     };
-    
-    
     
     const handleDeleteNestedNestedContent = (
       subIndex: number, 

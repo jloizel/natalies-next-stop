@@ -7,6 +7,7 @@ import styles from './create.module.css';
 import { MdDeleteForever } from "react-icons/md";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import withAuth from '@/utils/withAuth';
+import ReactQuill from 'react-quill-new';
 
 const CreatePost = () => {
   const router = useRouter();
@@ -398,9 +399,6 @@ const CreatePost = () => {
                 onChange={(e) => handleSubsectionChange(subIndex, 'text', e.target.value)}
                 className={styles.textarea}
               />
-              <button type="button" onClick={() => addContentBlockToSubsection(subIndex)} className={styles.button}>
-                Add Content Block
-              </button>
                     
               {/* Render content blocks */}
               {subsection.contentBlocks.map((block, blockIndex) => (
@@ -424,10 +422,10 @@ const CreatePost = () => {
                   </div>
                   {block.type === 'list' ? (
                     <div>
-                      <textarea
+                      <ReactQuill
                         placeholder="List items (new bullet point on a new line)"
                         value={block.subContent ? block.subContent.join('\n') : ''}
-                        onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'subContent', e.target.value)}
+                        onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'subContent', e)}
                         className={styles.textarea}
                       />
                       <button type="button" onClick={() => addNestedContentBlock(subIndex, blockIndex)} className={styles.button}>
@@ -451,11 +449,11 @@ const CreatePost = () => {
                       className={styles.input}
                     />
                   ) : (
-                    <input
-                      type="text"
+                    <ReactQuill
+                      // type="text"
                       placeholder="Content"
                       value={block.content}
-                      onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e.target.value)}
+                      onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e)}
                       className={styles.input}
                     />
                   )}
@@ -482,10 +480,10 @@ const CreatePost = () => {
                         </div>
                         {nestedBlock.type === 'list' ? (
                           <div>
-                            <textarea
+                            <ReactQuill
                               placeholder="Nested Sub Items (line separated)"
                               value={Array.isArray(nestedBlock.subContent) ? nestedBlock.subContent.join('\n') : ''}
-                              onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'subContent', e.target.value)}
+                              onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'subContent', e)}
                               className={styles.textarea}
                             />
                             {(!nestedBlock.nestedNestedBlocks || nestedBlock.nestedNestedBlocks.length === 0) && (
@@ -515,11 +513,11 @@ const CreatePost = () => {
                             className={styles.input}
                           />
                         ) : (
-                          <input
-                            type="text"
+                          <ReactQuill
+                            // type="text"
                             placeholder="Nested Content"
                             value={nestedBlock.content}
-                            onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
+                            onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e)}
                             className={styles.input}
                           />
                         )}
@@ -547,10 +545,10 @@ const CreatePost = () => {
 
                               {nestedNestedBlock.type === 'list' ? (
                                 <div>
-                                  <textarea
+                                  <ReactQuill
                                     placeholder="Nested Nested List Items (line separated)"
                                     value={Array.isArray(nestedNestedBlock.subContent) ? nestedNestedBlock.subContent.join('\n') : ''}
-                                    onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'subContent', e.target.value)}
+                                    onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'subContent', e)}
                                     className={styles.textarea}
                                   />
                                 </div>
@@ -571,11 +569,11 @@ const CreatePost = () => {
                                   className={styles.input}
                                 />
                               ) : (
-                                <input
-                                  type="text"
+                                <ReactQuill
+                                  // type="text"
                                   placeholder="Nested Nested Content"
                                   value={nestedNestedBlock.content}
-                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e.target.value)}
+                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e)}
                                   className={styles.input}
                                 />
                               )}
@@ -586,6 +584,9 @@ const CreatePost = () => {
                     ))}
                 </div>
               ))}
+              <button type="button" onClick={() => addContentBlockToSubsection(subIndex)} className={styles.button}>
+                Add Content Block
+              </button>
             </div>
           ))}
           <div className={styles.buttonContainer}>
