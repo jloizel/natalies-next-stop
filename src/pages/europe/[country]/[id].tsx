@@ -67,10 +67,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     return <div>Post not found.</div>;
   }
 
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-    }
-  }, []);
+  if (typeof document !== 'undefined') {
+    return null;
+  }
 
   const renderIntroText = (introText: string | undefined) => {
     if (!introText) return null;
