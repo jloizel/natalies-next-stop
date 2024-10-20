@@ -7,7 +7,11 @@ import styles from './create.module.css';
 import { MdDeleteForever } from "react-icons/md";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import withAuth from '@/utils/withAuth';
-import ReactQuill from 'react-quill-new';
+// import ReactQuill from 'react-quill-new';
+import dynamic from 'next/dynamic';
+
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+
 
 const CreatePost = () => {
   const router = useRouter();
@@ -29,9 +33,7 @@ const CreatePost = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  if (typeof document !== 'undefined') {
-    return null;
-  }
+  
 
   // Handle form submission to create post
   const handleSubmit = async (e: React.FormEvent) => {
