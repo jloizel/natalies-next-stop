@@ -63,9 +63,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   const [copied, setCopied] = useState(false);
   const shareMenuRef = useRef<HTMLDivElement>(null);
 
-  // if (typeof document !== 'undefined') {
-  //   return null;
-  // }
+  if (typeof document !== 'undefined') {
+    return null;
+  }
 
   useEffect(() => {
     if (typeof document !== 'undefined') {  // Ensure the document object is available
