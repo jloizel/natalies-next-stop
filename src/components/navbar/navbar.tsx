@@ -39,14 +39,6 @@ const NavBar = () => {
           </Link>
         </div>
         <div className={styles.headerRightContainer}>
-          {status === 'authenticated' && session && (
-            <div>
-              <Link href="/admin/dashboard">Dashboard</Link>
-              <button onClick={() => signOut()} className={styles.button}>
-                Sign Out
-              </button>
-            </div>
-          )}
           <div>
             Contact Me
           </div>
@@ -54,6 +46,14 @@ const NavBar = () => {
             <IoLogoInstagram className={styles.instaLogo} />
           </a>
         </div>
+        {status === 'authenticated' && session && (
+          <div className={styles.admin}>
+            <Link href="/admin/dashboard">Dashboard</Link>
+            <button onClick={() => signOut()} className={styles.button}>
+              Sign Out
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Navbar Section */}

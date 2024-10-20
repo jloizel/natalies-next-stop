@@ -28,6 +28,7 @@
   flex-direction: row;
   gap: 10px;
   align-items: center;
+  position: relative;
 }
 
 .shrink {
@@ -88,6 +89,10 @@
   color: #2364aa;
 }
 
+.admin {
+  position: absolute;
+  right: 200px;
+}
 
 .navbar {
   display: grid;
