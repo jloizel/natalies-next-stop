@@ -67,9 +67,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     return <div>Post not found.</div>;
   }
 
-  if (typeof document !== 'undefined') {
-    return null;
-  }
+  // if (typeof document !== 'undefined') {
+  //   return null;
+  // }
 
   useEffect(() => {  
     const handleClickOutside = (event: MouseEvent) => {
