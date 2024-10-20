@@ -286,15 +286,17 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   };
 
   useEffect(() => {
+    if (!shareMenuRef.current) return;  // Add a condition inside the effect
+  
     const handleClickOutside = (event: MouseEvent) => {
       if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
         setShowShareMenu(false);  // Close the share menu if the click is outside
       }
     };
-
+  
     // Attach the event listener
     document.addEventListener('mousedown', handleClickOutside);
-
+  
     return () => {
       // Clean up the event listener on component unmount
       document.removeEventListener('mousedown', handleClickOutside);
