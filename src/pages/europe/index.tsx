@@ -41,11 +41,12 @@ const EuropePage = () => {
 
   // Handle card click to navigate to country page
   const handleCountryClick = (country: string) => {
-    router.push(`/europe/${country}`); // Update the path to your country-specific page
+    router.push(`/europe/${country.toLowerCase()}`); // Convert country to lowercase for URL
   };
 
+  // Handle post click to navigate to post page (convert country to lowercase for URL)
   const handlePostClick = (country: string, postId: string) => {
-    router.push(`/europe/${country}/${postId}`); // Update the path to your blog post page
+    router.push(`/europe/${country.toLowerCase()}/${postId}`); // Convert country to lowercase for URL
   };
 
   const formatDate = (dateString: string) => {
@@ -83,7 +84,7 @@ const EuropePage = () => {
                 onClick={() => handleCountryClick(country)}
               >
                   <img
-                    src={getCountryImage(country)} // Get the country image from the post data
+                    src={getCountryImage(country)}
                     alt={country}
                     className={styles.countryImage}
                   />
