@@ -30,6 +30,20 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
   const shareMenuRef = useRef<HTMLDivElement>(null);
   const [likes, setLikes] = useState<Likes>({});
   const [views, setViews] = useState<Views>({});
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
+        setShowShareMenu(null); 
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   
 
   const getCountryImage = (country: string) => {
