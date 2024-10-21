@@ -8,7 +8,7 @@
 .imageContainer {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 300px;
 }
 
 .image {
@@ -61,15 +61,14 @@
   border-right: solid 0.1rem #e6e6e580;
   border-top: solid 0.1rem #e6e6e580;
   border-bottom: solid 0.1rem #e6e6e580;
+  position: relative;
 }
 
 .blogCardImage {
   width: 100%;
-  height: 100%;
+  height: 300px;
   object-fit: cover; 
 }
-
-
 
 .blogDetails {
   display: flex;
@@ -187,9 +186,13 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-top: 50px;
   border-top: solid 1px #e6e6e580;
-  padding: 10px 0;
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  width: 90%;
+  transform: translate(-50%, -50%);
+  padding-top: 10px;
 }
 
 .stat {

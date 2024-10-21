@@ -215,67 +215,65 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
 
             return (
               <div key={blogPost._id} className={styles.blogCard}>
-                <div key={blogPost._id} className={styles.blogCard}>
-                  <div className={styles.blogCardLeft}>
-                    <a href={`/europe/${country}/${blogPost._id}`}>
-                      <img src={blogPost.previewImage} className={styles.blogCardImage}/>
-                    </a>
-                  </div>
-                  <div className={styles.blogCardRight}>
-                    <div className={styles.blogDetails}>
-                      <div className={styles.blogDetailsLeft}>
-                        <span>{formatCreatedAt(blogPost.createdAt)}</span>
-                        <span>•</span>
-                        <span>{readingTime} min read</span>
-                      </div>
-                      <div className={styles.shareButtonContainer}>
-                        <button onClick={() => handleShare(blogPost)} className={styles.shareButton}>
-                          <IoShareSocialOutline />
-                        </button>
-                        {showShareMenu === blogPost._id && (
-                          <div ref={shareMenuRef} className={styles.shareMenu}>
-                            <div className={styles.logoContainer}>
-                              <FacebookShareButton url={shareUrl} title={blogPost.title}>
-                                <FacebookIcon round className={styles.shareIcon} />
-                              </FacebookShareButton>
-                              <TwitterShareButton url={shareUrl} title={blogPost.title}>
-                                <TwitterIcon size={32} round />
-                              </TwitterShareButton>
-                              <LinkedinShareButton url={shareUrl} title={blogPost.title}>
-                                <LinkedinIcon size={32} round />
-                              </LinkedinShareButton>
-                              <WhatsappShareButton url={shareUrl} title={blogPost.title}>
-                                <WhatsappIcon size={32} round />
-                              </WhatsappShareButton>
-                              <div className={styles.linkIconContainer}>
-                                <IoIosLink onClick={copyLink} className={styles.shareLink} />
-                                {copied && <span className={styles.copiedMessage}>Link copied!</span>}
-                              </div>
+                <div className={styles.blogCardLeft}>
+                  <a href={`/europe/${country}/${blogPost._id}`}>
+                    <img src={blogPost.previewImage} className={styles.blogCardImage}/>
+                  </a>
+                </div>
+                <div className={styles.blogCardRight}>
+                  <div className={styles.blogDetails}>
+                    <div className={styles.blogDetailsLeft}>
+                      <span>{formatCreatedAt(blogPost.createdAt)}</span>
+                      <span>•</span>
+                      <span>{readingTime} min read</span>
+                    </div>
+                    <div className={styles.shareButtonContainer}>
+                      <button onClick={() => handleShare(blogPost)} className={styles.shareButton}>
+                        <IoShareSocialOutline />
+                      </button>
+                      {showShareMenu === blogPost._id && (
+                        <div ref={shareMenuRef} className={styles.shareMenu}>
+                          <div className={styles.logoContainer}>
+                            <FacebookShareButton url={shareUrl} title={blogPost.title}>
+                              <FacebookIcon round className={styles.shareIcon} />
+                            </FacebookShareButton>
+                            <TwitterShareButton url={shareUrl} title={blogPost.title}>
+                              <TwitterIcon size={32} round />
+                            </TwitterShareButton>
+                            <LinkedinShareButton url={shareUrl} title={blogPost.title}>
+                              <LinkedinIcon size={32} round />
+                            </LinkedinShareButton>
+                            <WhatsappShareButton url={shareUrl} title={blogPost.title}>
+                              <WhatsappIcon size={32} round />
+                            </WhatsappShareButton>
+                            <div className={styles.linkIconContainer}>
+                              <IoIosLink onClick={copyLink} className={styles.shareLink} />
+                              {copied && <span className={styles.copiedMessage}>Link copied!</span>}
                             </div>
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      )}
                     </div>
-                    <a className={styles.blogText} href={`/europe/${country}/${blogPost._id}`}>
-                      <div className={styles.blogTitle}>
-                        {blogPost.title}
-                      </div>
-                      <div className={styles.blogIntroText}>
-                        {truncateText(blogPost.introText, 150)}
-                      </div>
-                    </a>
-                    <div className={styles.blogStats}>
-                      <span className={styles.stat}>{currentViews} views</span>
-                      <div className={styles.likesContainer}>
-                        <button onClick={() => handleLike(blogPost._id)} className={styles.likeButton}>
-                          {hasLiked(blogPost._id) ? (
-                            <AiFillHeart className={styles.filledHeart} />
-                          ) : (
-                            <AiOutlineHeart className={styles.outlineHeart} />
-                          )}
-                        </button>
-                        <span className={styles.stat}>{currentLikes}</span>
-                      </div>
+                  </div>
+                  <a className={styles.blogText} href={`/europe/${country}/${blogPost._id}`}>
+                    <div className={styles.blogTitle}>
+                      {blogPost.title}
+                    </div>
+                    <div className={styles.blogIntroText}>
+                      {truncateText(blogPost.introText, 150)}
+                    </div>
+                  </a>
+                  <div className={styles.blogStats}>
+                    <span className={styles.stat}>{currentViews} views</span>
+                    <div className={styles.likesContainer}>
+                      <button onClick={() => handleLike(blogPost._id)} className={styles.likeButton}>
+                        {hasLiked(blogPost._id) ? (
+                          <AiFillHeart className={styles.filledHeart} />
+                        ) : (
+                          <AiOutlineHeart className={styles.outlineHeart} />
+                        )}
+                      </button>
+                      <span className={styles.stat}>{currentLikes}</span>
                     </div>
                   </div>
                 </div>
