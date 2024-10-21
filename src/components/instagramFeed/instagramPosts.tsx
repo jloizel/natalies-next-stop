@@ -78,7 +78,7 @@ const InstagramPosts: React.FC = () => {
           <IoLogoInstagram className={styles.icon} />
           <span>My Recent Posts</span>
         </a>
-        <a className={styles.instaHandle} href="https://www.instagram.com/nataliemills1">
+        <a className={styles.instaHandle} href="https://www.instagram.com/nataliemills1" target='_blank'>
           @nataliemills1
         </a>
       </div>

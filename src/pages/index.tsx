@@ -37,7 +37,7 @@ const Home = () => {
           Travel Blog
         </div>
         <div className={styles.headerTitle}>
-          Natalie's Next Stop
+          Natalie&apos;s Next Stop
         </div>
         <div className={styles.headerSlogan}>
           I haven&apos;t been everywhere, but it&apos;s on my list
