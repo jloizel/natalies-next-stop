@@ -99,12 +99,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   };
 
   const renderSubsectionImages = (images: string[], imageCaption: string) => {
-    const imageCount = images.length;
-    const layoutClass = imageCount === 2 ? 'two-images' : imageCount === 3 ? 'three-images' : '';
-  
     return (
       <div className={styles.subsectionImagesContainer}>
-        <div className={`${styles.subsectionImages} ${styles[layoutClass]}`}>
+        <div className={styles.subsectionImages}>  {/* Removed layoutClass for testing */}
           {images.map((imageUrl, index) => (
             <div key={index} className={styles.imageContainer}>
               <img 
@@ -121,6 +118,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
       </div>
     );
   };
+  
   
   
   
