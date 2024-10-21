@@ -8,6 +8,7 @@ import PhotoCardsGrid from '@/components/photoCards/photoCardsGrid';
 import PhotoCardsSlider from '@/components/photoCards/photoCardsSlider';
 import { createTheme, useMediaQuery } from '@mui/material';
 import Map from '@/components/map/map';
+import styles from "./index.module.css"
 
 const Home = () => {
 
@@ -28,6 +29,20 @@ const Home = () => {
 
   return (
     <div>
+      <div className={styles.imageContainer}>
+        <img className={styles.image} src='/images/homepage.jpg'/>
+      </div>
+      <div className={styles.header}>
+        <div className={styles.headersubTitle}>
+          Travel Blog
+        </div>
+        <div className={styles.headerTitle}>
+          Natalie's Next Stop
+        </div>
+        <div className={styles.headerSlogan}>
+          I haven&apos;t been everywhere, but it&apos;s on my list
+        </div>
+      </div>
       <Map/>
       {isTabletOrBelow ? 
         ( 

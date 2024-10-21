@@ -83,16 +83,16 @@ const EuropePage = () => {
                 className={styles.countryCard}
                 onClick={() => handleCountryClick(country)}
               >
-                  <img
-                    src={getCountryImage(country)}
-                    alt={country}
-                    className={styles.countryImage}
-                  />
-                  <div className={styles.countryCardBot}>
-                    <div className={styles.countryCardDetails}>{country} TRAVEL BLOGS</div>
-                  </div>
-                  <div className={styles.countryName}>{country}</div>
-                  <div className={styles.countryCardBorder}/>
+                <img
+                  src={getCountryImage(country)}
+                  alt={country}
+                  className={styles.countryImage}
+                />
+                <div className={styles.countryCardBot}>
+                  <div className={styles.countryCardDetails}>{country} TRAVEL BLOGS</div>
+                </div>
+                <div className={styles.countryName}>{country}</div>
+                <div className={styles.countryCardBorder}/>
               </div>
             ))}
           </div>

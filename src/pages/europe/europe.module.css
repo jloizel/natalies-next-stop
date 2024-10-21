@@ -194,11 +194,12 @@
 }
 
 .latestPost {
-  flex: 1 1 calc(25% - 20px); /* Each post takes up 25% of the width minus gap */
+  flex: 1 1 calc(25% - 20px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
   overflow: hidden; 
   transition: transform 0.3s; 
   position: relative;
+  height: 300px;
 }
 
 .latestPost:hover .postImage {
