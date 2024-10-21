@@ -213,6 +213,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
             {block.nestedBlocks.map((nestedBlock, idx) => (
               <div key={idx} className={styles.contentBlock}>
                 {nestedBlock.type === 'list' && renderNestedListBlock(nestedBlock)}
+                {/* {nestedBlock.type === 'image' && block.images && renderSubsectionImages(nestedBlock.images, block.imageCaption)} */}
+                {nestedBlock.type === 'subheader' && <h2 className={styles.contentSubheader}>{nestedBlock.content}</h2>}
+                {nestedBlock.type === 'text' && renderTextContent(nestedBlock.content)}
                 
                 {/* Now we handle nestedNestedBlocks correctly */}
                 {nestedBlock.nestedNestedBlocks && nestedBlock.nestedNestedBlocks.length > 0 && (
@@ -220,7 +223,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
                     {nestedBlock.nestedNestedBlocks.map((nestedNestedBlock, nestedNestedIdx) => (
                       <div key={nestedNestedIdx} className={styles.contentBlock}>
                         {nestedNestedBlock.type === 'list' && renderNestedNestedListBlock(nestedNestedBlock)}
-                      </div>
+                        {nestedNestedBlock.type === 'subheader' && <h2 className={styles.contentSubheader}>{nestedNestedBlock.content}</h2>}
+                        {nestedNestedBlock.type === 'text' && renderTextContent(nestedNestedBlock.content)}
+                    </div>
                     ))}
                   </div>
                 )}
