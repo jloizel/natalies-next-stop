@@ -65,7 +65,7 @@ const EuropePage = () => {
         <div className={styles.headerContainer}>
           <div className={styles.header}>
             <span>Destination:</span>
-            <span>EUROPE</span>
+            <span>Europe</span>
           </div>
         </div>
       </div>
@@ -76,46 +76,56 @@ const EuropePage = () => {
         {loading ? (
           <p>Loading posts...</p>
         ) : (
-          <div className={styles.countryCardContainer}>
-            {uniqueCountries.map((country) => (
-              <div
-                key={country}
-                className={styles.countryCard}
-                onClick={() => handleCountryClick(country)}
-              >
-                <img
-                  src={getCountryImage(country)}
-                  alt={country}
-                  className={styles.countryImage}
-                />
-                <div className={styles.countryCardBot}>
-                  <div className={styles.countryCardDetails}>{country} TRAVEL BLOGS</div>
-                </div>
-                <div className={styles.countryName}>{country}</div>
-                <div className={styles.countryCardBorder}/>
+          <>
+            {uniqueCountries.length > 0 ? ( 
+              <div className={styles.countryCardContainer}>
+                {uniqueCountries.map((country) => (
+                  <div
+                    key={country}
+                    className={styles.countryCard}
+                    onClick={() => handleCountryClick(country)}
+                  >
+                    <img
+                      src={getCountryImage(country)}
+                      alt={country}
+                      className={styles.countryImage}
+                    />
+                    <div className={styles.countryCardBot}>
+                      <div className={styles.countryCardDetails}>{country} TRAVEL BLOGS</div>
+                    </div>
+                    <div className={styles.countryName}>{country}</div>
+                    <div className={styles.countryCardBorder} />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            ) : (
+              <div className={styles.errorContainer}>Please check back later for Europe travel blogs</div> 
+            )}
+          </>
         )}
       </div>
       <div className={styles.latestPostsContainer}>
-        <div className={styles.latestPostsHeader}>Latest Europe Blogs</div>
+        {posts.length > 0 && <div className={styles.latestPostsHeader}>Latest Europe Blogs</div>}
         <div className={styles.latestPostsGrid}>
-          {posts.slice(0, 3).map(post => (
-            <div key={post._id} className={styles.latestPost} onClick={() => handlePostClick(post.country, post._id)}>
-              <img
-                src={post.previewImage} // Ensure the preview image for posts is displayed
-                alt={post.title}
-                className={styles.postImage}
-              />
-              <div className={styles.overlayContainer}>
-                <div className={styles.postContent}>
-                  <p className={styles.createdAt}>{formatDate(post.createdAt.toString())}</p>
-                  <div className={styles.postTitle}>{post.title}</div>
+          {posts.length > 0 ? ( 
+            posts.slice(0, 3).map(post => (
+              <div key={post._id} className={styles.latestPost} onClick={() => handlePostClick(post.country, post._id)}>
+                <img
+                  src={post.previewImage} // Ensure the preview image for posts is displayed
+                  alt={post.title}
+                  className={styles.postImage}
+                />
+                <div className={styles.overlayContainer}>
+                  <div className={styles.postContent}>
+                    <p className={styles.createdAt}>{formatDate(post.createdAt.toString())}</p>
+                    <div className={styles.postTitle}>{post.title}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
