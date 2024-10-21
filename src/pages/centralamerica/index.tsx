@@ -105,9 +105,9 @@ const CentralAmericaPage = () => {
         )}
       </div>
       <div className={styles.latestPostsContainer}>
-        <div className={styles.latestPostsHeader}>Latest Central America Blogs</div>
+        {posts.length > 0 && <div className={styles.latestPostsHeader}>Latest Central America Blogs</div>}
         <div className={styles.latestPostsGrid}>
-          {posts.length > 0 ? ( // Check if there are posts to display
+          {posts.length > 0 ? ( 
             posts.slice(0, 3).map(post => (
               <div key={post._id} className={styles.latestPost} onClick={() => handlePostClick(post.country, post._id)}>
                 <img
@@ -124,7 +124,7 @@ const CentralAmericaPage = () => {
               </div>
             ))
           ) : (
-            <p>No latest blogs available.</p> // Message when there are no latest blogs
+            ""
           )}
         </div>
       </div>
