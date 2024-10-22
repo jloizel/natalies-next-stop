@@ -32,6 +32,7 @@
   gap: 20px;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   text-align: center;
+  width: fit-content;
 }
 
 .headersubTitle, .headerSlogan {
@@ -43,4 +44,6 @@
   font-size: 80px; 
   font-weight: 600;
   line-height: 60px;
+  /* width: max-content; */
+  /* white-space: nowrap; */
 }

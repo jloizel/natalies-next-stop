@@ -39,16 +39,16 @@ const NavBar = () => {
           </Link>
         </div>
         <div className={styles.headerRightContainer}>
-          <div>
+          <Link className={styles.contact} href="/contact">
             Contact Me
-          </div>
+          </Link>
           <a href="https://www.instagram.com/nataliemills1" target='_blank'>
             <IoLogoInstagram className={styles.instaLogo} />
           </a>
         </div>
         {status === 'authenticated' && session && (
           <div className={styles.admin}>
-            <Link href="/admin/dashboard">Dashboard</Link>
+            <Link href="/admin/dashboard" className={styles.dashboard}>Dashboard</Link>
             <button onClick={() => signOut()} className={styles.button}>
               Sign Out
             </button>
@@ -56,7 +56,6 @@ const NavBar = () => {
         )}
       </div>
 
-      {/* Navbar Section */}
       <div className={`${styles.navbar} ${isScrolled ? styles.hide : ''}`}>
         <Link href="/africa" className={styles.link}>AFRICA</Link>
         <Link href="/asia" className={styles.link}>ASIA</Link>

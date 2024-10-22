@@ -157,4 +157,43 @@
   background-color: #ff7c7c;
 }
 
+.searchContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchIcon {
+  font-size: 20px;
+}
+
+.searchInput {
+  width: 250px;
+  padding: 10px;
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.pageLink {
+  background-color: #73bfb8;
+  color: white;
+  border: solid 1px #ccc;
+  font-size: 16px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.pageLink:hover {
+  color: #73bfb8;
+  background-color: white;
+}
+
+
+
 

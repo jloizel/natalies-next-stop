@@ -9,6 +9,8 @@ import { IoShareSocialOutline } from "react-icons/io5";
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, WhatsappShareButton } from 'react-share';
 import { FacebookIcon, TwitterIcon, LinkedinIcon, WhatsappIcon } from 'react-share';
 import { IoIosLink } from "react-icons/io";
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 
 
@@ -34,6 +36,7 @@ interface ISubsection {
 }
 
 interface IPost {
+  _id: string;
   countryImage: string;
   title: string;
   desc: string;
@@ -62,6 +65,8 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   const [showShareMenu, setShowShareMenu] = useState(false); 
   const [copied, setCopied] = useState(false);
   const shareMenuRef = useRef<HTMLDivElement>(null);
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   // if (typeof document !== 'undefined') {
   //   return null;
@@ -308,6 +313,10 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     }
   };
 
+  const handleEdit = (id: string) => {
+    router.push(`/admin/dashboard/edit/${id}`);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.topInfo}>
@@ -325,6 +334,13 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
             <span>•</span>
             <span>{readingTime} min read</span>
           </div>
+          {status === 'authenticated' && session && (
+            <div className={styles.buttonContainer}>
+              <button onClick={() => handleEdit(post._id)} className={styles.editButton}>
+                Edit
+              </button>
+            </div>
+          )}
           <div className={styles.shareButtonContainer}>
             <button onClick={handleShare} className={styles.shareButton}>
               <IoShareSocialOutline/>

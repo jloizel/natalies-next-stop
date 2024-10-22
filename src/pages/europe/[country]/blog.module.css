@@ -49,9 +49,28 @@
   font-size: 14px;
 }
 
+.editButton {
+  background-color: #73bfb8;
+  color: white;
+  border: solid 1px #ccc;
+  font-size: 14px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border-radius: 4px;
+}
+
+.editButton:hover {
+  color: #73bfb8;
+  background-color: white;
+}
+
 .shareButtonContainer {
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
 }
 
 .shareButton {

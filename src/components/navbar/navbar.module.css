@@ -31,6 +31,20 @@
   position: relative;
 }
 
+.headerRightContainer a {
+  display: flex;
+  align-items: center;
+}
+
+.contact {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.contact:hover {
+  color: #2364aa;
+}
+
 .shrink {
   height: 60px; 
   width: 100%;
@@ -92,6 +106,35 @@
 .admin {
   position: absolute;
   right: 200px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.dashboard {
+  transition: all 0.3s ease-in-out;
+  font-size: 14px;
+}
+
+.dashboard:hover {
+  color: #73bfb8;
+}
+
+.button {
+  background-color: #73bfb8;
+  color: white;
+  border: solid 1px #ccc;
+  font-size: 14px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border-radius: 4px;
+}
+
+.button:hover {
+  color: #73bfb8;
+  background-color: white;
 }
 
 .navbar {

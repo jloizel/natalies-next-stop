@@ -1,9 +1,9 @@
-// WorldMap.tsx
 import React, { useState } from "react";
 import styles from "./map.module.css"
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 // import { useRouter } from "next/router";
 import visitedCountriesData from "../../../public/data/visitedCountries.json"; 
+import { useRouter } from "next/navigation";
 
 // URL to the TopoJSON world map
 const geoUrl = "/data/map.json";
@@ -15,7 +15,7 @@ const TOTAL_COUNTRIES = 202;
 
 const Map: React.FC = () => {
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
-  // const router = useRouter(); // Use Next.js router for navigation
+  const router = useRouter(); // Use Next.js router for navigation
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 }); // Correctly defined mousePosition state
 
   const handleMouseEnter = (countryName: string) => {
@@ -29,10 +29,13 @@ const Map: React.FC = () => {
     setHoveredCountry(null);
   };
 
-  // const handleCountryClick = (countryName: string) => {
-  //   // Add logic if you want to navigate to a country-specific page
-  //   // For now, we will not implement this as per your request.
-  // };
+  const handleCountryClick = (countryName: string) => {
+    const continent = countryName; 
+
+    if (continent) {
+      router.push(`/${continent.toLowerCase()}`);
+    }
+  };
 
   const handleMouseMove = (event: React.MouseEvent) => {
     setMousePosition({ x: event.clientX, y: event.clientY});
@@ -65,7 +68,7 @@ const Map: React.FC = () => {
                   geography={geo}
                   onMouseEnter={() => handleMouseEnter(countryName)}
                   onMouseLeave={handleMouseLeave}
-                  // onClick={() => handleCountryClick(countryName)} // Add functionality if needed
+                  onClick={() => handleCountryClick(countryName)}
                   style={{
                     default: {
                       fill: isVisited ? (isHovered ? "#FF5722" : "#FFCC00") : "#D6D6DA", // Visited countries change color, others stay gray
