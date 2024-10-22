@@ -17,10 +17,8 @@ const AsiaPage = () => {
       setError(''); // Reset error before fetching
       try {
         const data = await getPostsByContinent('Asia'); // Fetch posts for Asia
-        console.log('Fetched posts for Asia:', data); // Log to confirm data structure
         setPosts(data);
       } catch (err) {
-        console.error('Error fetching posts:', err);
         setError('Error fetching posts: ' + (err as Error).message); // Provide context
       } finally {
         setLoading(false);

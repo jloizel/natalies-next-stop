@@ -64,7 +64,7 @@ export const createPost = async (postData: PostInput): Promise<Post> => {
 // Get a single post by ID
 export const getPostById = async (postId: string): Promise<Post | null> => {
   try {
-    console.log(`Fetching post with ID: ${postId}`);
+    // console.log(`Fetching post with ID: ${postId}`);
     const response: AxiosResponse<Post> = await api.get(`/post/get/${postId}`);
     return response.data; // Return the post directly
   } catch (error) {
@@ -93,10 +93,10 @@ export const getAllPosts = async (): Promise<Post[]> => {
 
 // Get posts by continent
 export const getPostsByContinent = async (continent: string): Promise<Post[]> => {
-  console.log(`Fetching posts for continent: ${continent}`);
+  // console.log(`Fetching posts for continent: ${continent}`);
   try {
     const response: AxiosResponse<Post[]> = await api.get(`/post/continent/${continent}`);
-    console.log('Response from API:', response.data); // Log the response from the API
+    // console.log('Response from API:', response.data); // Log the response from the API
     return response.data; // Change this line to return response.data directly
   } catch (error) {
     console.error('Error fetching posts by continent:', error);

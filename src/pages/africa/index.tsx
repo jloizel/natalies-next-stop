@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { getPostsByContinent, Post } from '../../app/API'; // Adjust the import path based on your file structure
-import { useRouter } from 'next/navigation'; // Import useRouter for navigation
-import styles from './northamerica.module.css'; // Create a CSS module for styling
+import { getPostsByContinent, Post } from '../../app/API'; 
+import { useRouter } from 'next/navigation'; 
+import styles from './africa.module.css'; 
 
-const NorthAmericaPage = () => {
+const AfricaPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -16,7 +16,7 @@ const NorthAmericaPage = () => {
       setLoading(true);
       setError(''); // Reset error before fetching
       try {
-        const data = await getPostsByContinent('NorthAmerica'); // Fetch posts for NorthAmerica
+        const data = await getPostsByContinent('Africa'); // Fetch posts for Africa
         setPosts(data);
       } catch (err) {
         setError('Error fetching posts: ' + (err as Error).message); // Provide context
@@ -39,12 +39,12 @@ const NorthAmericaPage = () => {
 
   // Handle card click to navigate to country page
   const handleCountryClick = (country: string) => {
-    router.push(`/northamerica/${country.toLowerCase()}`); // Convert country to lowercase for URL
+    router.push(`/africa/${country.toLowerCase()}`); // Convert country to lowercase for URL
   };
 
   // Handle post click to navigate to post page (convert country to lowercase for URL)
   const handlePostClick = (country: string, postId: string) => {
-    router.push(`/northamerica/${country.toLowerCase()}/${postId}`); // Convert country to lowercase for URL
+    router.push(`/africa/${country.toLowerCase()}/${postId}`); // Convert country to lowercase for URL
   };
 
   const formatDate = (dateString: string) => {
@@ -59,11 +59,11 @@ const NorthAmericaPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.headerImageContainer}>
-        <img className={styles.headerImage} src="/images/northamerica.jpg" />
+        <img className={styles.headerImage} src="/images/africa.jpeg" />
         <div className={styles.headerContainer}>
           <div className={styles.header}>
             <span>Destination:</span>
-            <span>NORTH AMERICA</span>
+            <span>Africa</span>
           </div>
         </div>
       </div>
@@ -75,7 +75,7 @@ const NorthAmericaPage = () => {
           <p>Loading posts...</p>
         ) : (
           <>
-            {uniqueCountries.length > 0 ? ( // Check if there are unique countries
+            {uniqueCountries.length > 0 ? ( 
               <div className={styles.countryCardContainer}>
                 {uniqueCountries.map((country) => (
                   <div
@@ -97,13 +97,13 @@ const NorthAmericaPage = () => {
                 ))}
               </div>
             ) : (
-              <p>No travel blogs available for North America.</p> // Message when there are no posts
+              <div className={styles.errorContainer}>Please check back later for Africa travel blogs</div> 
             )}
           </>
         )}
       </div>
       <div className={styles.latestPostsContainer}>
-        {posts.length > 0 && <div className={styles.latestPostsHeader}>Latest North America Blogs</div>}
+        {posts.length > 0 && <div className={styles.latestPostsHeader}>Latest Africa Blogs</div>}
         <div className={styles.latestPostsGrid}>
           {posts.length > 0 ? ( 
             posts.slice(0, 3).map(post => (
@@ -130,4 +130,4 @@ const NorthAmericaPage = () => {
   );
 };
 
-export default NorthAmericaPage;
+export default AfricaPage;

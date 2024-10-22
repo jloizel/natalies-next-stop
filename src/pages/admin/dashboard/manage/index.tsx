@@ -18,10 +18,8 @@ const ManagePosts = () => {
       setLoading(true);
       try {
         const data = await getAllPosts();
-        console.log('Fetched posts:', data); // Log to confirm data structure
         setPosts(data);
       } catch (err) {
-        console.error('Error fetching posts:', err); // Log the error
         setError('Error fetching posts.');
       } finally {
         setLoading(false);

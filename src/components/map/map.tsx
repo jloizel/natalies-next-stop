@@ -43,14 +43,14 @@ const Map: React.FC = () => {
 
   return (
     <div className={styles.mapContainer}>
-      <div className={styles.header}>
+      {/* <div className={styles.header}>
         <span>
           I haven&apos;t been everywhere,
         </span>
         <span>
           but it&apos;s on my list
         </span>
-      </div>
+      </div> */}
       <ComposableMap className={styles.map} onMouseMove={handleMouseMove}>
         <Geographies geography={geoUrl}>
           {({ geographies }) =>

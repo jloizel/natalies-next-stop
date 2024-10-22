@@ -58,6 +58,7 @@ const NavBar = () => {
 
       {/* Navbar Section */}
       <div className={`${styles.navbar} ${isScrolled ? styles.hide : ''}`}>
+        <Link href="/africa" className={styles.link}>AFRICA</Link>
         <Link href="/asia" className={styles.link}>ASIA</Link>
         <Link href="/australia" className={styles.link}>AUSTRALIA</Link>
         <Link href="/centralamerica" className={styles.link}>CENTRAL AMERICA</Link>

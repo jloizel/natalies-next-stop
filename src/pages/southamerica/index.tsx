@@ -17,10 +17,8 @@ const SouthAmericaPage = () => {
       setError(''); // Reset error before fetching
       try {
         const data = await getPostsByContinent('SouthAmerica'); // Fetch posts for SouthAmerica
-        console.log('Fetched posts for SouthAmerica:', data); // Log to confirm data structure
         setPosts(data);
       } catch (err) {
-        console.error('Error fetching posts:', err);
         setError('Error fetching posts: ' + (err as Error).message); // Provide context
       } finally {
         setLoading(false);

@@ -17,10 +17,8 @@ const AustraliaPage = () => {
       setError(''); // Reset error before fetching
       try {
         const data = await getPostsByContinent('Australia'); // Fetch posts for Australia
-        console.log('Fetched posts for Australia:', data); // Log to confirm data structure
         setPosts(data);
       } catch (err) {
-        console.error('Error fetching posts:', err);
         setError('Error fetching posts: ' + (err as Error).message); // Provide context
       } finally {
         setLoading(false);
