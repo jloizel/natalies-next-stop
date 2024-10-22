@@ -51,11 +51,11 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
     return postForCountry ? postForCountry.countryImage : '/images/default-country.jpg'; // Default image for missing images
   };
 
-  const formatCreatedAt = (createdAt: string) => {
-    const date = new Date(createdAt);
-    const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
-    return new Intl.DateTimeFormat('en-US', options).format(date);
-  };
+  // const formatCreatedAt = (createdAt: string) => {
+  //   const date = new Date(createdAt);
+  //   const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
+  //   return new Intl.DateTimeFormat('en-US', options).format(date);
+  // };
 
   const calculateReadingTime = (text: string) => {
     const wordsPerMinute = 200;

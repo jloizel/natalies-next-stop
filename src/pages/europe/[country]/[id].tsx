@@ -311,12 +311,6 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     }
   };
 
-  useEffect(() => {
-    if (post?.introImage) {
-      console.log('Client-side introImage:', post.introImage); // This logs the introImage URL in the browser console
-    }
-  }, [post]);
-
   return (
     <div className={styles.container}>
       <div className={styles.topInfo}>
