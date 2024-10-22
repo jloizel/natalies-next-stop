@@ -217,7 +217,7 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
               <div key={blogPost._id} className={styles.blogCard}>
                 <div key={blogPost._id} className={styles.blogCard}>
                   <div className={styles.blogCardLeft}>
-                    <a href={`/europe/${country}/${blogPost._id}`}>
+                    <a href={`/europe/${country.toLowerCase()}/${blogPost._id}`}>
                       <img src={blogPost.previewImage} className={styles.blogCardImage}/>
                     </a>
                   </div>

@@ -217,7 +217,7 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
               <div key={blogPost._id} className={styles.blogCard}>
                 <div key={blogPost._id} className={styles.blogCard}>
                   <div className={styles.blogCardLeft}>
-                    <a href={`/europe/${country}/${blogPost._id}`}>
+                    <a href={`/asia/${country.toLowerCase()}/${blogPost._id}`}>
                       <img src={blogPost.previewImage} className={styles.blogCardImage}/>
                     </a>
                   </div>
@@ -256,7 +256,7 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
                         )}
                       </div>
                     </div>
-                    <a className={styles.blogText} href={`/europe/${country}/${blogPost._id}`}>
+                    <a className={styles.blogText} href={`/asia/${country.toLowerCase()}/${blogPost._id}`}>
                       <div className={styles.blogTitle}>
                         {blogPost.title}
                       </div>
@@ -294,11 +294,11 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const { country } = context.params as { country: string };
 
-  // Fetch all posts for Europe to match the lowercase country with the correct capitalized name
-  const postsInEurope = await getPostsByContinent('Europe');
+  // Fetch all posts for Asia to match the lowercase country with the correct capitalized name
+  const postsInAsia = await getPostsByContinent('Asia');
 
   // Find the correct country name by matching the lowercase version
-  const correctCountryName = postsInEurope.find(post => post.country.toLowerCase() === country)?.country;
+  const correctCountryName = postsInAsia.find(post => post.country.toLowerCase() === country)?.country;
 
   if (!correctCountryName) {
     // If the country is not found, return a 404 page
@@ -308,7 +308,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 
   // Fetch posts for the specific country with the correct case
-  const posts = await getPostsByContinentAndCountry('Europe', correctCountryName);
+  const posts = await getPostsByContinentAndCountry('Asia', correctCountryName);
 
   return {
     props: {
@@ -319,10 +319,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-// Generate dynamic paths for countries with blogs in Europe
+// Generate dynamic paths for countries with blogs in Asia
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Fetch all posts in Europe to get a list of countries with posts
-  const posts = await getPostsByContinent('Europe');
+  // Fetch all posts in Asia to get a list of countries with posts
+  const posts = await getPostsByContinent('Asia');
 
   // Create a set to ensure countries are unique
   const countriesSet = new Set<string>();

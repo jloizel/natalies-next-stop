@@ -314,8 +314,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         <a href={`/${post.continent.toLowerCase()}`}>
           {post.continent}
         </a>
-        <a href={`/${post.continent.toLowerCase()}/${post.country}`}>
-          {post.country}
+        <a href={`/${post.continent.toLowerCase()}/${post.country.toLowerCase()}`}>          {post.country}
         </a>
       </div>
       <div className={styles.blogPost}>

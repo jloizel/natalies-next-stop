@@ -93,8 +93,11 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
 
   const renderIntroText = (introText: string | undefined) => {
     if (!introText) return null;
-    return introText.split(/",\s*"/).map((text, index) => (
-      <div key={index} className={styles.introText}>{text.trim().replace(/^"|"$/g, '')}</div>
+  
+    return introText.split(/\n+/).map((line, index) => (
+      <p key={index} className={styles.introText}>
+        {line.trim()}
+      </p>
     ));
   };
 
@@ -308,13 +311,19 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     }
   };
 
+  useEffect(() => {
+    if (post?.introImage) {
+      console.log('Client-side introImage:', post.introImage); // This logs the introImage URL in the browser console
+    }
+  }, [post]);
+
   return (
     <div className={styles.container}>
       <div className={styles.topInfo}>
         <a href={`/${post.continent.toLowerCase()}`}>
           {post.continent}
         </a>
-        <a href={`/${post.continent.toLowerCase()}/${post.country}`}>
+        <a href={`/${post.continent.toLowerCase()}/${post.country.toLowerCase()}`}>
           {post.country}
         </a>
       </div>
@@ -362,7 +371,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         </div>
         {renderIntroText(post.introText)}
         <a href={post.introImageLink} target='_blank'>
-          <img src={post.introImage} alt={post.title} className={styles.introImage} />
+          <img src={encodeURI(post.introImage)} alt={post.title} className={styles.introImage} />
         </a>
         <div className={styles.introImageCaption}>
           {post.introImageCaption}

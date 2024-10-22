@@ -216,14 +216,15 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
             return (
               <div key={blogPost._id} className={styles.blogCard}>
                 <div className={styles.blogCardLeft}>
-                  <a href={`/europe/${country}/${blogPost._id}`}>
+                  <a href={`/europe/${country.toLowerCase()}/${blogPost._id}`}>
                     <img src={blogPost.previewImage} className={styles.blogCardImage}/>
                   </a>
                 </div>
                 <div className={styles.blogCardRight}>
                   <div className={styles.blogDetails}>
                     <div className={styles.blogDetailsLeft}>
-                      <span>{formatCreatedAt(blogPost.createdAt)}</span>
+                      {/* <span>{formatCreatedAt(blogPost.createdAt)}</span> */}
+                      <span>{blogPost.desc}</span>
                       <span>•</span>
                       <span>{readingTime} min read</span>
                     </div>
@@ -255,7 +256,7 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
                       )}
                     </div>
                   </div>
-                  <a className={styles.blogText} href={`/europe/${country}/${blogPost._id}`}>
+                  <a className={styles.blogText} href={`/europe/${country.toLowerCase()}/${blogPost._id}`}>
                     <div className={styles.blogTitle}>
                       {blogPost.title}
                     </div>
