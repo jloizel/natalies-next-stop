@@ -57,26 +57,31 @@ const LatestPosts = () => {
   };
 
   return (
-    <div className={styles.latestPostsGrid}>
-      {posts.length > 0 ? ( 
-        posts.slice(0, 5).map(post => (
-          <div key={post._id} className={styles.latestPost} onClick={() => handlePostClick(post.country, post._id)}>
-            <img
-              src={post.previewImage} // Ensure the preview image for posts is displayed
-              alt={post.title}
-              className={styles.postImage}
-            />
-            <div className={styles.overlayContainer}>
-              <div className={styles.postContent}>
-                <p className={styles.createdAt}>{formatDate(post.createdAt.toString())}</p>
-                <div className={styles.postTitle}>{post.title}</div>
+    <div className={styles.latestPostsContainer}>
+      <div className={styles.latestPostsHeader}>
+        📖 Read my recent travel blogs
+      </div>
+      <div className={styles.latestPostsGrid}>
+        {posts.length > 0 ? ( 
+          posts.slice(0, 4).map(post => (
+            <div key={post._id} className={styles.latestPost} onClick={() => handlePostClick(post.country, post._id)}>
+              <img
+                src={post.previewImage} // Ensure the preview image for posts is displayed
+                alt={post.title}
+                className={styles.postImage}
+              />
+              <div className={styles.overlayContainer}>
+                <div className={styles.postContent}>
+                  <p className={styles.createdAt}>{formatDate(post.createdAt.toString())}</p>
+                  <div className={styles.postTitle}>{post.title}</div>
+                </div>
               </div>
             </div>
-          </div>
-        ))
-      ) : (
-        ""
-      )}
+          ))
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 };

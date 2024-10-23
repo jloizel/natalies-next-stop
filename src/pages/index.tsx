@@ -9,6 +9,8 @@ import PhotoCardsSlider from '@/components/photoCards/photoCardsSlider';
 import { createTheme, useMediaQuery } from '@mui/material';
 import Map from '@/components/map/map';
 import styles from "./index.module.css"
+import LatestPosts from '@/components/latestPosts/latestPosts';
+import LatestPostsSlider from '@/components/latestPosts/latestPostsSlider';
 
 const Home = () => {
 
@@ -49,6 +51,13 @@ const Home = () => {
           <PhotoCardsSlider/>
         ) : (
           <PhotoCardsGrid/>
+        )
+      }
+      {isTabletOrBelow ? 
+        ( 
+          <LatestPostsSlider/>
+        ) : (
+          <LatestPosts/>
         )
       }
       {/* {isTabletOrBelow ? 
