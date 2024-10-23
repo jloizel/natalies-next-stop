@@ -95,21 +95,25 @@ const Search = () => {
         )}
       </div>
       
-      {loading && <p>Loading posts...</p>}
+      {/* {loading && <p>Loading posts...</p>} */}
       {error && <p className={styles.error}>{error}</p>}
 
       {searchQuery.length > 0 && (
         <div className={styles.resultsContainer}>
           {filteredPosts.length > 0 ? (
             filteredPosts.map((post) => (
-              <div key={post._id} className={styles.postCard}>
-                <img 
-                  src={post.previewImage} 
-                  alt={post.title} 
-                  className={styles.postImage} 
-                />
-                <div className={styles.postTitle}>{post.title}</div>
-              </div>
+              <a key={post._id} className={styles.postCard} href={`/${post.continent.toLowerCase()}/${post.country.toLowerCase()}/${post._id}`}>
+                <div className={styles.imageContainer}>
+                  <img 
+                    src={post.previewImage} 
+                    className={styles.postImage} 
+                  />
+                </div>
+                <div className={styles.postText}>
+                  <div className={styles.postTitle}>{post.title}</div>
+                  <div className={styles.postIntroText}>{post.introText}</div>
+                </div>
+              </a>
             ))
           ) : (
             <p>No posts found matching your search.</p>
