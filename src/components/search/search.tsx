@@ -95,7 +95,7 @@ const Search = () => {
         )}
       </div>
       
-      {/* {loading && <p>Loading posts...</p>} */}
+      {loading && <p>Loading posts...</p>}
       {error && <p className={styles.error}>{error}</p>}
 
       {searchQuery.length > 0 && (
