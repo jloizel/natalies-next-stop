@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { getPostById, getAllPosts } from '@/app/API';
 import { ParsedUrlQuery } from 'querystring';
-import styles from './blog.module.css';
+import styles from '../../../groupedCSS/blog.module.css';
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, WhatsappShareButton } from 'react-share';
 import { FacebookIcon, TwitterIcon, LinkedinIcon, WhatsappIcon } from 'react-share';

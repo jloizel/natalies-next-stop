@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { getPostsByContinent, Post } from '../../app/API'; // Adjust the import path based on your file structure
 import { useRouter } from 'next/navigation'; // Import useRouter for navigation
-import styles from './southamerica.module.css'; // Create a CSS module for styling
+import styles from '../../groupedCSS/continent.module.css'; 
+// Create a CSS module for styling
 
 const SouthAmericaPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -16,7 +17,7 @@ const SouthAmericaPage = () => {
       setLoading(true);
       setError(''); // Reset error before fetching
       try {
-        const data = await getPostsByContinent('SouthAmerica'); // Fetch posts for SouthAmerica
+        const data = await getPostsByContinent('South America'); // Fetch posts for SouthAmerica
         setPosts(data);
       } catch (err) {
         setError('Error fetching posts: ' + (err as Error).message); // Provide context

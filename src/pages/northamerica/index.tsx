@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { getPostsByContinent, Post } from '../../app/API'; // Adjust the import path based on your file structure
 import { useRouter } from 'next/navigation'; // Import useRouter for navigation
-import styles from './northamerica.module.css'; // Create a CSS module for styling
+import styles from '../../groupedCSS/continent.module.css'; 
+// Create a CSS module for styling
 
 const NorthAmericaPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -16,7 +17,7 @@ const NorthAmericaPage = () => {
       setLoading(true);
       setError(''); // Reset error before fetching
       try {
-        const data = await getPostsByContinent('NorthAmerica'); // Fetch posts for NorthAmerica
+        const data = await getPostsByContinent('North America'); // Fetch posts for NorthAmerica
         setPosts(data);
       } catch (err) {
         setError('Error fetching posts: ' + (err as Error).message); // Provide context
@@ -37,9 +38,12 @@ const NorthAmericaPage = () => {
     return postForCountry ? postForCountry.countryImage : '/images/default-country.jpg'; // Default image for missing images
   };
 
+  // Replace spaces in country names with hyphens
+  const formatCountryForURL = (country: string) => country.toLowerCase().replace(/\s+/g, '-');
+
   // Handle card click to navigate to country page
   const handleCountryClick = (country: string) => {
-    router.push(`/northamerica/${country.toLowerCase()}`); // Convert country to lowercase for URL
+    router.push(`/northamerica/${formatCountryForURL(country)}`); // Convert country to lowercase for URL
   };
 
   // Handle post click to navigate to post page (convert country to lowercase for URL)

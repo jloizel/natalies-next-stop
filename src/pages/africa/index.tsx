@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { getPostsByContinent, Post } from '../../app/API'; 
 import { useRouter } from 'next/navigation'; 
-import styles from './africa.module.css'; 
+import styles from '../../groupedCSS/continent.module.css'; 
+
 
 const AfricaPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);

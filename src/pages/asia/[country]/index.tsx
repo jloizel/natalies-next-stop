@@ -3,7 +3,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getPostsByContinent, getPostsByContinentAndCountry, Post } from '../../../app/API';
-import styles from "./country.module.css"
+import styles from "../../../groupedCSS/country.module.css"
+
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, WhatsappShareButton } from 'react-share';
 import { FacebookIcon, TwitterIcon, LinkedinIcon, WhatsappIcon } from 'react-share';

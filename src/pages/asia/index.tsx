@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { getPostsByContinent, Post } from '../../app/API'; // Adjust the import path based on your file structure
 import { useRouter } from 'next/navigation'; // Import useRouter for navigation
-import styles from './asia.module.css'; // Create a CSS module for styling
+import styles from '../../groupedCSS/continent.module.css'; 
+// Create a CSS module for styling
 
 const AsiaPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
