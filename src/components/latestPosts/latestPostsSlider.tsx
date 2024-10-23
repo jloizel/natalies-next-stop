@@ -39,8 +39,8 @@ const LatestPostsSlider = () => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
-      month: "short", // Use 'short' for abbreviated month names
-      day: "2-digit", // Use '2-digit' to always show two digits for the day
+      month: "short", 
+      day: "2-digit", 
     };
     return date.toLocaleDateString(undefined, options).replace(",", "");
   };
@@ -56,16 +56,16 @@ const LatestPostsSlider = () => {
       ) : (
         <Swiper
           spaceBetween={20}
-          slidesPerView={1} // Show 1 slide per view on mobile
+          slidesPerView={1} 
           breakpoints={{
             600: {
-              slidesPerView: 2, // Show 2 posts on screens wider than 600px
+              slidesPerView: 2, 
             },
             900: {
-              slidesPerView: 3, // Show 3 posts on screens wider than 900px
+              slidesPerView: 3, 
             },
             1200: {
-              slidesPerView: 4, // Show 4 posts on larger screens
+              slidesPerView: 4, 
             },
           }}
           pagination={{ clickable: true }}
