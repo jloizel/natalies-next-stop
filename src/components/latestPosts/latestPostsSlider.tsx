@@ -50,50 +50,53 @@ const LatestPostsSlider = () => {
       <div className={styles.latestPostsHeader}>
         📖 Read my recent travel blogs
       </div>
-
-      {/* Mobile Slider for posts */}
-      <Swiper
-        spaceBetween={20}
-        slidesPerView={1} // Show 1 slide per view on mobile
-        breakpoints={{
-          600: {
-            slidesPerView: 2, // Show 2 posts on screens wider than 600px
-          },
-          900: {
-            slidesPerView: 3, // Show 3 posts on screens wider than 900px
-          },
-          1200: {
-            slidesPerView: 4, // Show 4 posts on larger screens
-          },
-        }}
-        pagination={{ clickable: true }}
-        className={styles.sliderContainer}
-      >
-        {posts.length > 0
-          ? posts.slice(0, 5).map((post) => (
-              <SwiperSlide key={post._id}>
-                <div
-                  className={styles.latestPost}
-                  onClick={() => handlePostClick(post.country, post._id)}
-                >
-                  <img
-                    src={post.previewImage}
-                    alt={post.title}
-                    className={styles.postImage}
-                  />
-                  <div className={styles.overlayContainer}>
-                    <div className={styles.postContent}>
-                      <p className={styles.createdAt}>
-                        {formatDate(post.createdAt.toString())}
-                      </p>
-                      <div className={styles.postTitle}>{post.title}</div>
+      {error && <p className={styles.error}>{error}</p>}
+      {loading ? (
+        <p>Loading posts...</p>
+      ) : (
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={1} // Show 1 slide per view on mobile
+          breakpoints={{
+            600: {
+              slidesPerView: 2, // Show 2 posts on screens wider than 600px
+            },
+            900: {
+              slidesPerView: 3, // Show 3 posts on screens wider than 900px
+            },
+            1200: {
+              slidesPerView: 4, // Show 4 posts on larger screens
+            },
+          }}
+          pagination={{ clickable: true }}
+          className={styles.sliderContainer}
+        >
+          {posts.length > 0
+            ? posts.slice(0, 5).map((post) => (
+                <SwiperSlide key={post._id}>
+                  <div
+                    className={styles.latestPost}
+                    onClick={() => handlePostClick(post.country, post._id)}
+                  >
+                    <img
+                      src={post.previewImage}
+                      alt={post.title}
+                      className={styles.postImage}
+                    />
+                    <div className={styles.overlayContainer}>
+                      <div className={styles.postContent}>
+                        <p className={styles.createdAt}>
+                          {formatDate(post.createdAt.toString())}
+                        </p>
+                        <div className={styles.postTitle}>{post.title}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </SwiperSlide>
-            ))
-          : ""}
-      </Swiper>
+                </SwiperSlide>
+              ))
+            : ""}
+        </Swiper>
+      )}
     </div>
   );
 };

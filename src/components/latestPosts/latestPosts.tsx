@@ -28,19 +28,6 @@ const LatestPosts = () => {
     fetchPosts();
   }, []);
 
-  // Extract unique countries from posts
-  const uniqueCountries = Array.from(new Set(posts.map(post => post.country)));
-
-  // Get the country image for the card from the post data
-  const getCountryImage = (country: string) => {
-    const postForCountry = posts.find(post => post.country === country && post.countryImage);
-    return postForCountry ? postForCountry.countryImage : ''; 
-  };
-
-  // Handle card click to navigate to country page
-  const handleCountryClick = (country: string) => {
-    router.push(`/europe/${country.toLowerCase()}`); // Convert country to lowercase for URL
-  };
 
   // Handle post click to navigate to post page (convert country to lowercase for URL)
   const handlePostClick = (country: string, postId: string) => {
@@ -61,27 +48,32 @@ const LatestPosts = () => {
       <div className={styles.latestPostsHeader}>
         📖 Read my recent travel blogs
       </div>
-      <div className={styles.latestPostsGrid}>
-        {posts.length > 0 ? ( 
-          posts.slice(0, 4).map(post => (
-            <div key={post._id} className={styles.latestPost} onClick={() => handlePostClick(post.country, post._id)}>
-              <img
-                src={post.previewImage} // Ensure the preview image for posts is displayed
-                alt={post.title}
-                className={styles.postImage}
-              />
-              <div className={styles.overlayContainer}>
-                <div className={styles.postContent}>
-                  <p className={styles.createdAt}>{formatDate(post.createdAt.toString())}</p>
-                  <div className={styles.postTitle}>{post.title}</div>
+      {error && <p className={styles.error}>{error}</p>}
+      {loading ? (
+        <p>Loading posts...</p>
+      ) : (
+        <div className={styles.latestPostsGrid}>
+          {posts.length > 0 ? ( 
+            posts.slice(0, 4).map(post => (
+              <div key={post._id} className={styles.latestPost} onClick={() => handlePostClick(post.country, post._id)}>
+                <img
+                  src={post.previewImage}
+                  alt={post.title}
+                  className={styles.postImage}
+                />
+                <div className={styles.overlayContainer}>
+                  <div className={styles.postContent}>
+                    <p className={styles.createdAt}>{formatDate(post.createdAt.toString())}</p>
+                    <div className={styles.postTitle}>{post.title}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        ) : (
-          ""
-        )}
-      </div>
+            ))
+          ) : (
+            ""
+          )}
+        </div>
+      )}
     </div>
   );
 };
