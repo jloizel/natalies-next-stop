@@ -2,42 +2,25 @@
 
 import React from 'react';
 import styles from './contact.module.css'
-import { MdPhoneEnabled } from "react-icons/md";
-import { MdOutlineMail } from "react-icons/md";
-import { FaLinkedin } from "react-icons/fa";
 import ContactForm from '../../components/contactForm/contactForm';
 
 export default function Contact() {
  
   return (
-    <div className={styles.contactContainer} id="contact">
-        <div className={styles.header}>
-          Get in Touch
-        </div>
-      <div className={styles.content}>
-        <div className={styles.contactForm}>
-          <span>Send me an email<span style={{color: "#E18EEC"}}>.</span></span>
-          <ContactForm/>
-        </div>
-        <div className={styles.contactDetailsContainer}>
-          <span>Contact details<span style={{color: "#E18EEC"}}>.</span></span>
-          <div className={styles.contactDetails}>
-            <a className={styles.detail} href="tel: +447478218859" target="_blank">
-              <MdPhoneEnabled className={styles.icon}/>
-              +447478218859
-            </a>
-            <a className={styles.detail} href="mailto: loizeljack@gmail.com">
-              <MdOutlineMail className={styles.icon}/>
-              loizeljack@gmail.com
-            </a>
-            <a className={styles.detail} href="https://www.linkedin.com/in/jackloizel/" target="_blank">
-              <FaLinkedin className={styles.icon}/>
-              in/jackloizel
-            </a>
+    <div className={styles.wrapper}>
+      <div className={styles.contactContainer}>
+        <div className={styles.content}>
+          <div className={styles.header}>
+            Get in touch
           </div>
+          <div className={styles.text}>
+            I&apos;m thrilled you&apos;re here! If you have thoughts to share, questions to ask, or just want to say hello, I&apos;d love to hear from you. Whether you&apos;re curious about a post, want to share your own experiences, or just feel like chatting about your favorite travel destinations, my inbox is always open!
+          </div>
+        </div>
+        <div className={styles.contactForm}>
+          <ContactForm/>
         </div>
       </div>
     </div>
-    
   );
 }

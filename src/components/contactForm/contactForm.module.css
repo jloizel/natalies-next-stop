@@ -1,0 +1,95 @@
+.formContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  gap: 5px;
+}
+
+.inputTitle {
+  color: #9c9c9c;
+}
+
+.input, .message {
+  /* background-color: #1a294a; */
+  background-color: #f0f0f0;
+  border: none;
+  outline: none;
+  border: solid 1px #9c9c9c;
+  font-family: "Montserrat", sans-serif;
+  /* margin-bottom: -2px; */
+  font-size: 16px;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input::placeholder, .message::placeholder {
+  /* color: white; */
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+}
+
+.message {
+  min-height: 40px;
+  resize: vertical;
+  width: 100% !important;
+}
+
+
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    justify-content: flex-end;
+  }
+}
+
+.button {
+  background-color: #73bfb8;
+  border: solid 1px #73bfb8;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 2px;
+  padding: 10px 20px;
+  width: 200px;
+  cursor: pointer !important;
+  transition: all 0.3s ease-in-out;
+  justify-self: center;
+}
+
+.button:hover {
+  color: #73bfb8;
+  background-color: white;
+  border: solid 1px #73bfb8;
+}
+
+
+.successMessage {
+  /* font-family: "Roboto Mono", monospace; */
+  color: #73bfb8;
+}
+
+.errorMessage {
+  /* font-family: "Roboto Mono", monospace; */
+  color: rgb(73, 73, 73);
+  /* line-height: 10px; */
+  font-weight: 600;
+  margin: 0;
+  font-size: 12px;
+}

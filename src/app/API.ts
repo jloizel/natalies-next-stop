@@ -134,3 +134,16 @@ export const deletePost = async (postId: string): Promise<{ message: string }> =
     throw error;
   }
 };
+
+export const sendEmail = async (formData: FormData): Promise<{ message: string }> => {
+  try {
+    const response: AxiosResponse<{ message: string }> = await api.post('/api/sendEmail', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', 
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error; 
+  }
+};
