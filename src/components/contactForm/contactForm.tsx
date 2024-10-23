@@ -118,7 +118,7 @@ const ContactForm: FC = () => {
       {messageSent && (
         <div className={styles.successMessageContainer}>
           <div className={styles.successMessage}>
-            Thank you for your message, we will be in contact as soon as possible.
+            Thank you for your message, I will be in contact as soon as possible!
           </div>
         </div>
       )}
