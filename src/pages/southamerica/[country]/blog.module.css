@@ -259,58 +259,13 @@
   font-weight: 500;
 }
 
-
-
-
-
-
-
-
-/* .nested-content {
-  margin-top: 1em;
-  background-color: #f9f9f9;
-  padding: 1em;
-  border-left: 4px solid #0070f3;
+.subsectionNavigator {
+  margin-bottom: 20px;
 }
-
-.nested-nested-blocks {
-  margin-top: 1em;
-  background-color: #f9f9f9;
-  padding: 1em;
-  border-left: 4px solid #0070f3;
-} */
-
-.nested-block {
-  margin: 0.5em 0;
-  padding: 0.5em;
-  border: 1px dashed #ccc; /* Dashed border for nested blocks */
-  
-}
-
-y
-
-
-.sub-item {
-  margin-top: 0.5em; /* Space between sub-items */
-  color: grey !important;
-  
-}
-
-.nested-list {
-  list-style-type: circle; /* Change bullet style for nested lists */
-  padding-left: 20px; /* Indent nested items further */
-}
-
-.nested-list-item {
-  margin-top: 0.5em; /* Space between nested items */
-  /* list-style-type: none; */
+.subsectionLink {
+  background: none;
+  border: none;
   color: blue;
-}
-
-/* blog.module.css */
-
-
-
-.subItem {
-  padding-left: 20px; /* Indent for nested items */
+  text-decoration: underline;
+  cursor: pointer;
 }

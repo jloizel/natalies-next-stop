@@ -104,6 +104,13 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     ));
   };
 
+  const handleScrollTo = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const renderSubsectionImages = (images: string[], imageCaption: string) => {
     return (
       <div className={styles.subsectionImagesContainer}>
@@ -382,8 +389,19 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         <div className={styles.introImageCaption}>
           {post.introImageCaption}
         </div>
+        <div className={styles.navigator}>
+          <div className={styles.navigatorHeader}>Click to jump to a section</div>
+          <div className={styles.navigationButtons}>
+            {post.subsections.map((subsection, index) => (
+              <div key={index} className={styles.navigationButton}>
+                <span onClick={() => handleScrollTo(`subsection-${index}`)}>{subsection.header}</span>
+                {index < post.subsections.length - 1 && <span className={styles.bullet}> • </span>}
+              </div>
+            ))}
+          </div>
+        </div>
         {post.subsections.map((subsection, index) => (
-          <div key={index} className={styles.subsection}>
+          <div key={index} className={styles.subsection} id={`subsection-${index}`}>
             <div className={styles.subsectionHeader}>
               {subsection.header}
             </div>

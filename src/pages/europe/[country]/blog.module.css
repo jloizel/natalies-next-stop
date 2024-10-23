@@ -278,58 +278,41 @@
   font-weight: 500;
 }
 
-
-
-
-
-
-
-
-/* .nested-content {
-  margin-top: 1em;
-  background-color: #f9f9f9;
-  padding: 1em;
-  border-left: 4px solid #0070f3;
+.navigator {
+  margin-top: 60px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: solid 1px #ccc;
+  padding: 10px;
 }
 
-.nested-nested-blocks {
-  margin-top: 1em;
-  background-color: #f9f9f9;
-  padding: 1em;
-  border-left: 4px solid #0070f3;
-} */
-
-.nested-block {
-  margin: 0.5em 0;
-  padding: 0.5em;
-  border: 1px dashed #ccc; /* Dashed border for nested blocks */
-  
+.navigatorHeader {
+  /* font-style: italic; */
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: 500;
 }
 
-y
-
-
-.sub-item {
-  margin-top: 0.5em; /* Space between sub-items */
-  color: grey !important;
-  
+.navigationButtons {
+  display: flex; 
+  justify-content: center; 
+  flex-wrap: wrap; 
 }
 
-.nested-list {
-  list-style-type: circle; /* Change bullet style for nested lists */
-  padding-left: 20px; /* Indent nested items further */
+.navigationButton {
+  font-size: 14px;
+  padding: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
 }
 
-.nested-list-item {
-  margin-top: 0.5em; /* Space between nested items */
-  /* list-style-type: none; */
-  color: blue;
+.navigationButton:hover {
+  color: #73bfb8;
 }
 
-/* blog.module.css */
-
-
-
-.subItem {
-  padding-left: 20px; /* Indent for nested items */
+.bullet {
+  margin: 0 5px; /* Space around the bullet */
 }
