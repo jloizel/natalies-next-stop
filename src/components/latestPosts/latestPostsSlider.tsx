@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { getAllPosts, Post } from "../../app/API";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css"; // Import Swiper styles
+import "swiper/css";
 import "swiper/css/pagination";
 import styles from "./latestPostsSlider.module.css";
 

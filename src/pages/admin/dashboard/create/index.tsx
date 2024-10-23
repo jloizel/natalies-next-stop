@@ -487,13 +487,21 @@ const CreatePost = () => {
                         </button>
                       </div>
                     ) : block.type === 'image' ? (
-                      <textarea
-                        // type="text"
-                        placeholder="Image URLs (new image on a new line)"
-                        value={Array.isArray(block.images) ? block.images.join('\n') : ''}
-                        onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'images', e.target.value)}
-                        className={styles.textarea}
-                      />
+                      <>
+                        <textarea
+                          placeholder="Image URLs (new image on a new line)"
+                          value={Array.isArray(block.images) ? block.images.join('\n') : ''}
+                          onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'images', e.target.value)}
+                          className={styles.textarea}
+                        />
+                        <input
+                          type="text"
+                          placeholder="Image Caption"
+                          value={block.imageCaption} 
+                          onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'imageCaption', e.target.value)} 
+                          className={styles.input}
+                        />
+                      </>
                     ) : block.type === 'subheader' ? (
                       <input
                         type="text"
