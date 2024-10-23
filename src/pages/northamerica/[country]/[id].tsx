@@ -308,13 +308,18 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     }
   };
 
+  const formatForUrl = (str: string) => {
+    return str.toLowerCase().replace(/\s+/g, ''); // Removes spaces and converts to lowercase
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.topInfo}>
-        <a href={`/${post.continent.toLowerCase()}`}>
+        <a href={`/${formatForUrl(post.continent).toLowerCase()}`}>
           {post.continent}
         </a>
-        <a href={`/${post.continent.toLowerCase()}/${post.country.toLowerCase()}`}>          {post.country}
+        <a href={`/${formatForUrl(post.continent).toLowerCase()}/${post.country.toLowerCase()}`}>  
+          {post.country}
         </a>
       </div>
       <div className={styles.blogPost}>
