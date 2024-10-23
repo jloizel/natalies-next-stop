@@ -31,10 +31,7 @@ const ContactForm: FC = () => {
     handleSubmit,
     setError,
     formState: { errors },
-    setValue,
     reset,
-    trigger,
-    clearErrors
   } = useForm<FormData>();
 
   const [messageSent, setMessageSent] = useState<boolean>(false);
