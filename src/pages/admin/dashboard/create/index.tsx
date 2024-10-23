@@ -10,6 +10,7 @@ import withAuth from '@/utils/withAuth';
 // import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
@@ -263,6 +264,38 @@ const CreatePost = () => {
     }
   };
 
+  const reorder = (list: any[], startIndex: number, endIndex: number) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
+
+  const onDragEnd = (result: any) => {
+    const { source, destination } = result;
+  
+    // If dropped outside the list, do nothing
+    if (!destination) return;
+  
+    // Only reorder if the source and destination indices are different
+    if (source.index !== destination.index) {
+      const updatedSubsections = [...post.subsections];
+  
+      // Extract the subsection index from the source.droppableId
+      const subsectionIndex = parseInt(source.droppableId.split('-')[1], 10);
+  
+      // Reorder the content blocks within the subsection
+      updatedSubsections[subsectionIndex].contentBlocks = reorder(
+        updatedSubsections[subsectionIndex].contentBlocks,
+        source.index,
+        destination.index
+      );
+  
+      // Update the state
+      setPost({ ...post, subsections: updatedSubsections });
+    }
+  };
+
 
   return (
     <div className={styles.wrapper}>
@@ -386,216 +419,247 @@ const CreatePost = () => {
             className={styles.input}
           />
 
-          {/* Render subsections */}
-          {post.subsections.map((subsection, subIndex) => (
-            <div key={subIndex} className={styles.subsection}>
-              <button type="button" onClick={() => handleDeleteSubsection(subIndex)} className={styles.deleteButton}>
-                <MdDeleteForever className={styles.deleteIcon}/>
-                <span>Delete Subsection</span>
-              </button>
-              <input
-                type="text"
-                placeholder="Subsection header"
-                value={subsection.header}
-                onChange={(e) => handleSubsectionChange(subIndex, 'header', e.target.value)}
-                className={styles.input}
-              />
-              <textarea
-                placeholder="Subsection text"
-                value={subsection.text}
-                onChange={(e) => handleSubsectionChange(subIndex, 'text', e.target.value)}
-                className={styles.textarea}
-              />
-                    
-              {/* Render content blocks */}
-              {subsection.contentBlocks.map((block, blockIndex) => (
-                <div key={blockIndex} className={styles.contentBlock}>
-                  <button type="button" onClick={() => handleDeleteContentBlock(subIndex, blockIndex)} className={styles.deleteButton}>
-                    <MdDeleteForever className={styles.deleteIcon}/>
-                    <span>Delete Content Block</span>
-                  </button>
-                  <div className={styles.selector}>
-                    <span>Select type of Content Block</span>
-                    <select
-                      value={block.type}
-                      onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'type', e.target.value)}
-                      className={styles.select}
-                    >
-                      <option value="text">Text</option>
-                      <option value="image">Image</option>
-                      <option value="subheader">Subheader</option>
-                      <option value="list">List</option>
-                    </select>
-                  </div>
-                  {block.type === 'list' ? (
-                    <div>
-                      <ReactQuill
-                        placeholder="List items (new bullet point on a new line)"
-                        value={block.subContent ? block.subContent.join('\n') : ''}
-                        onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'subContent', e)}
+          <DragDropContext onDragEnd={onDragEnd}>
+            {/* Render subsections */}
+            <Droppable droppableId="subsections" type="SUBSECTION">
+            {(provided) => (
+              <div
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+            {post.subsections.map((subsection, subIndex) => (
+              <Draggable key={subIndex} draggableId={`subsection-${subIndex}`} index={subIndex}>
+                {(provided) => (
+              <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className={styles.subsection}>
+                <button type="button" onClick={() => handleDeleteSubsection(subIndex)} className={styles.deleteButton}>
+                  <MdDeleteForever className={styles.deleteIcon}/>
+                  <span>Delete Subsection</span>
+                </button>
+                <input
+                  type="text"
+                  placeholder="Subsection header"
+                  value={subsection.header}
+                  onChange={(e) => handleSubsectionChange(subIndex, 'header', e.target.value)}
+                  className={styles.input}
+                />
+                <textarea
+                  placeholder="Subsection text"
+                  value={subsection.text}
+                  onChange={(e) => handleSubsectionChange(subIndex, 'text', e.target.value)}
+                  className={styles.textarea}
+                />
+                      
+                {/* Render content blocks */}
+                <Droppable droppableId={`subsection-${subIndex}-contentBlocks`} type="CONTENT_BLOCK">
+                {(provided) => (
+                            <div ref={provided.innerRef} {...provided.droppableProps}>
+                {subsection.contentBlocks.map((block, blockIndex) => (
+                  <Draggable key={blockIndex} draggableId={`block-${subIndex}-${blockIndex}`} index={blockIndex}>
+                  {(provided) => (
+                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className={styles.contentBlock}>
+                    <button type="button" onClick={() => handleDeleteContentBlock(subIndex, blockIndex)} className={styles.deleteButton}>
+                      <MdDeleteForever className={styles.deleteIcon}/>
+                      <span>Delete Content Block</span>
+                    </button>
+                    <div className={styles.selector}>
+                      <span>Select type of Content Block</span>
+                      <select
+                        value={block.type}
+                        onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'type', e.target.value)}
+                        className={styles.select}
+                      >
+                        <option value="text">Text</option>
+                        <option value="image">Image</option>
+                        <option value="subheader">Subheader</option>
+                        <option value="list">List</option>
+                      </select>
+                    </div>
+                    {block.type === 'list' ? (
+                      <div>
+                        <ReactQuill
+                          placeholder="List items (new bullet point on a new line)"
+                          value={block.subContent ? block.subContent.join('\n') : ''}
+                          onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'subContent', e)}
+                          className={styles.textarea}
+                        />
+                        <button type="button" onClick={() => addNestedContentBlock(subIndex, blockIndex)} className={styles.button}>
+                          Add Nested Content
+                        </button>
+                      </div>
+                    ) : block.type === 'image' ? (
+                      <textarea
+                        // type="text"
+                        placeholder="Image URLs (new image on a new line)"
+                        value={Array.isArray(block.images) ? block.images.join('\n') : ''}
+                        onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'images', e.target.value)}
                         className={styles.textarea}
                       />
-                      <button type="button" onClick={() => addNestedContentBlock(subIndex, blockIndex)} className={styles.button}>
-                        Add Nested Content
-                      </button>
-                    </div>
-                  ) : block.type === 'image' ? (
-                    <textarea
-                      // type="text"
-                      placeholder="Image URLs (new image on a new line)"
-                      value={Array.isArray(block.images) ? block.images.join('\n') : ''}
-                      onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'images', e.target.value)}
-                      className={styles.textarea}
-                    />
-                  ) : block.type === 'subheader' ? (
-                    <input
-                      type="text"
-                      placeholder="Subheader"
-                      value={block.content}
-                      onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e.target.value)}
-                      className={styles.input}
-                    />
-                  ) : (
-                    <ReactQuill
-                      // type="text"
-                      placeholder="Content"
-                      value={block.content}
-                      onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e)}
-                      className={styles.input}
-                    />
-                  )}
+                    ) : block.type === 'subheader' ? (
+                      <input
+                        type="text"
+                        placeholder="Subheader"
+                        value={block.content}
+                        onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e.target.value)}
+                        className={styles.input}
+                      />
+                    ) : (
+                      <ReactQuill
+                        // type="text"
+                        placeholder="Content"
+                        value={block.content}
+                        onChange={(e) => handleContentBlockChange(subIndex, blockIndex, 'content', e)}
+                        className={styles.input}
+                      />
+                    )}
 
-                    {/* Render nested blocks */}
-                    {block.nestedBlocks && block.nestedBlocks.map((nestedBlock:any, nestedIndex:any) => (
-                      <div key={nestedIndex} className={styles.nestedBlock}>
-                        <button type="button" onClick={() => handleDeleteNestedContent(subIndex, blockIndex, nestedIndex)} className={styles.deleteButton}>
-                          <MdDeleteForever className={styles.deleteIcon}/>
-                          <span>Delete Nested Block</span>
-                        </button>
-                        <div className={styles.selector}>
-                          <span>Select type of Nested Block</span>
-                          <select
-                            value={nestedBlock.type}
-                            onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'type', e.target.value)}
-                            className={styles.select}
-                          >
-                            <option value="text">Text</option>
-                            <option value="image">Image</option>
-                            <option value="subheader">Subheader</option>
-                            <option value="list">List</option>
-                          </select>
-                        </div>
-                        {nestedBlock.type === 'list' ? (
-                          <div>
-                            <ReactQuill
-                              placeholder="Nested Sub Items (line separated)"
-                              value={Array.isArray(nestedBlock.subContent) ? nestedBlock.subContent.join('\n') : ''}
-                              onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'subContent', e)}
-                              className={styles.textarea}
-                            />
-                            {(!nestedBlock.nestedNestedBlocks || nestedBlock.nestedNestedBlocks.length === 0) && (
-                              <button
-                                type="button"
-                                onClick={() => addNestedNestedContentBlock(subIndex, blockIndex, nestedIndex)}
-                                className={styles.button}
-                              >
-                                Add Nested Block
-                              </button>
-                            )}
+                      {/* Render nested blocks */}
+                      {block.nestedBlocks && block.nestedBlocks.map((nestedBlock:any, nestedIndex:any) => (
+                        <Droppable key={nestedIndex} droppableId={`nestedBlock-${subIndex}-${blockIndex}`} type="NESTED_BLOCK">
+                          {(provided) => (
+                            <div ref={provided.innerRef} {...provided.droppableProps}>
+                        <div key={nestedIndex} className={styles.nestedBlock}>
+                          <button type="button" onClick={() => handleDeleteNestedContent(subIndex, blockIndex, nestedIndex)} className={styles.deleteButton}>
+                            <MdDeleteForever className={styles.deleteIcon}/>
+                            <span>Delete Nested Block</span>
+                          </button>
+                          <div className={styles.selector}>
+                            <span>Select type of Nested Block</span>
+                            <select
+                              value={nestedBlock.type}
+                              onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'type', e.target.value)}
+                              className={styles.select}
+                            >
+                              <option value="text">Text</option>
+                              <option value="image">Image</option>
+                              <option value="subheader">Subheader</option>
+                              <option value="list">List</option>
+                            </select>
                           </div>
-                        ) : nestedBlock.type === 'image' ? (
-                          <input
-                            type="text"
-                            placeholder="Nested Image URL"
-                            value={nestedBlock.content}
-                            onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
-                            className={styles.textarea}
-                          />
-                        ) : nestedBlock.type === 'subheader' ? (
-                          <input
-                            type="text"
-                            placeholder="Nested Subheader"
-                            value={nestedBlock.content}
-                            onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
-                            className={styles.input}
-                          />
-                        ) : (
-                          <ReactQuill
-                            // type="text"
-                            placeholder="Nested Content"
-                            value={nestedBlock.content}
-                            onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e)}
-                            className={styles.input}
-                          />
-                        )}
-                        {/* Render nestedNestedBlocks */}
-                          {nestedBlock.nestedNestedBlocks && nestedBlock.nestedNestedBlocks.map((nestedNestedBlock:any, nestedNestedIndex:any) => (
-                            <div key={nestedNestedIndex} className={styles.nestedNestedBlock}>
-                              <button type="button" onClick={() => handleDeleteNestedNestedContent(subIndex, blockIndex, nestedIndex, nestedNestedIndex)} className={styles.deleteButton}>
-                                <MdDeleteForever className={styles.deleteIcon}/>
-                                <span>Delete Nested Content</span>
-                              </button>
-
-                              <div className={styles.selector}>
-                                <span>Select type of Nested Content</span>
-                                <select
-                                  value={nestedNestedBlock.type}
-                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'type', e.target.value)}
-                                  className={styles.select}
+                          {nestedBlock.type === 'list' ? (
+                            <div>
+                              <ReactQuill
+                                placeholder="Nested Sub Items (line separated)"
+                                value={Array.isArray(nestedBlock.subContent) ? nestedBlock.subContent.join('\n') : ''}
+                                onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'subContent', e)}
+                                className={styles.textarea}
+                              />
+                              {(!nestedBlock.nestedNestedBlocks || nestedBlock.nestedNestedBlocks.length === 0) && (
+                                <button
+                                  type="button"
+                                  onClick={() => addNestedNestedContentBlock(subIndex, blockIndex, nestedIndex)}
+                                  className={styles.button}
                                 >
-                                  <option value="text">Text</option>
-                                  <option value="image">Image</option>
-                                  <option value="subheader">Subheader</option>
-                                  <option value="list">List</option>
-                                </select>
-                              </div>
-
-                              {nestedNestedBlock.type === 'list' ? (
-                                <div>
-                                  <ReactQuill
-                                    placeholder="Nested Nested List Items (line separated)"
-                                    value={Array.isArray(nestedNestedBlock.subContent) ? nestedNestedBlock.subContent.join('\n') : ''}
-                                    onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'subContent', e)}
-                                    className={styles.textarea}
-                                  />
-                                </div>
-                              ) : nestedNestedBlock.type === 'image' ? (
-                                <input
-                                  type="text"
-                                  placeholder="Nested Nested Image URL"
-                                  value={nestedNestedBlock.content}
-                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e.target.value)}
-                                  className={styles.textarea}
-                                />
-                              ) : nestedNestedBlock.type === 'subheader' ? (
-                                <input
-                                  type="text"
-                                  placeholder="Nested Nested Subheader"
-                                  value={nestedNestedBlock.content}
-                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e.target.value)}
-                                  className={styles.input}
-                                />
-                              ) : (
-                                <ReactQuill
-                                  // type="text"
-                                  placeholder="Nested Nested Content"
-                                  value={nestedNestedBlock.content}
-                                  onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e)}
-                                  className={styles.input}
-                                />
+                                  Add Nested Block
+                                </button>
                               )}
                             </div>
-                          ))}
+                          ) : nestedBlock.type === 'image' ? (
+                            <input
+                              type="text"
+                              placeholder="Nested Image URL"
+                              value={nestedBlock.content}
+                              onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
+                              className={styles.textarea}
+                            />
+                          ) : nestedBlock.type === 'subheader' ? (
+                            <input
+                              type="text"
+                              placeholder="Nested Subheader"
+                              value={nestedBlock.content}
+                              onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e.target.value)}
+                              className={styles.input}
+                            />
+                          ) : (
+                            <ReactQuill
+                              // type="text"
+                              placeholder="Nested Content"
+                              value={nestedBlock.content}
+                              onChange={(e) => handleNestedContentChange(subIndex, blockIndex, nestedIndex, 'content', e)}
+                              className={styles.input}
+                            />
+                          )}
+                          {/* Render nestedNestedBlocks */}
+                            {nestedBlock.nestedNestedBlocks && nestedBlock.nestedNestedBlocks.map((nestedNestedBlock:any, nestedNestedIndex:any) => (
+                              <div key={nestedNestedIndex} className={styles.nestedNestedBlock}>
+                                <button type="button" onClick={() => handleDeleteNestedNestedContent(subIndex, blockIndex, nestedIndex, nestedNestedIndex)} className={styles.deleteButton}>
+                                  <MdDeleteForever className={styles.deleteIcon}/>
+                                  <span>Delete Nested Content</span>
+                                </button>
 
-                      </div>
-                    ))}
+                                <div className={styles.selector}>
+                                  <span>Select type of Nested Content</span>
+                                  <select
+                                    value={nestedNestedBlock.type}
+                                    onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'type', e.target.value)}
+                                    className={styles.select}
+                                  >
+                                    <option value="text">Text</option>
+                                    <option value="image">Image</option>
+                                    <option value="subheader">Subheader</option>
+                                    <option value="list">List</option>
+                                  </select>
+                                </div>
+
+                                {nestedNestedBlock.type === 'list' ? (
+                                  <div>
+                                    <ReactQuill
+                                      placeholder="Nested Nested List Items (line separated)"
+                                      value={Array.isArray(nestedNestedBlock.subContent) ? nestedNestedBlock.subContent.join('\n') : ''}
+                                      onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'subContent', e)}
+                                      className={styles.textarea}
+                                    />
+                                  </div>
+                                ) : nestedNestedBlock.type === 'image' ? (
+                                  <input
+                                    type="text"
+                                    placeholder="Nested Nested Image URL"
+                                    value={nestedNestedBlock.content}
+                                    onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e.target.value)}
+                                    className={styles.textarea}
+                                  />
+                                ) : nestedNestedBlock.type === 'subheader' ? (
+                                  <input
+                                    type="text"
+                                    placeholder="Nested Nested Subheader"
+                                    value={nestedNestedBlock.content}
+                                    onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e.target.value)}
+                                    className={styles.input}
+                                  />
+                                ) : (
+                                  <ReactQuill
+                                    // type="text"
+                                    placeholder="Nested Nested Content"
+                                    value={nestedNestedBlock.content}
+                                    onChange={(e) => handleNestedNestedContentChange(subIndex, blockIndex, nestedIndex, nestedNestedIndex, 'content', e)}
+                                    className={styles.input}
+                                  />
+                                )}
+                              </div>
+                            ))}
+
+                        </div>
+                        </div>
+                          )}
+                        </Droppable>
+                      ))}
+                  </div>
+                  )}
+                  </Draggable>
+                ))}
                 </div>
-              ))}
-              <button type="button" onClick={() => addContentBlockToSubsection(subIndex)} className={styles.button}>
-                Add Content Block
-              </button>
+                )}
+                </Droppable>
+                <button type="button" onClick={() => addContentBlockToSubsection(subIndex)} className={styles.button}>
+                  Add Content Block
+                </button>
+              </div>
+            )}
+              </Draggable>
+            ))}
             </div>
-          ))}
+            )}
+            </Droppable>
+          </DragDropContext>
           <div className={styles.buttonContainer}>
             <button type="button" onClick={addSubsection} className={styles.addButton}>
               Add Subsection
