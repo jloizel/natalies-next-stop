@@ -9,17 +9,17 @@ const EuropePage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
-      setError(''); // Reset error before fetching
+      setError(''); 
       try {
-        const data = await getPostsByContinent('Europe'); // Fetch posts for Europe
+        const data = await getPostsByContinent('Europe'); 
         setPosts(data);
       } catch (err) {
-        setError('Error fetching posts: ' + (err as Error).message); // Provide context
+        setError('Error fetching posts: ' + (err as Error).message);
       } finally {
         setLoading(false);
       }
@@ -34,27 +34,29 @@ const EuropePage = () => {
   // Get the country image for the card from the post data
   const getCountryImage = (country: string) => {
     const postForCountry = posts.find(post => post.country === country && post.countryImage);
-    return postForCountry ? postForCountry.countryImage : '/images/default-country.jpg'; // Default image for missing images
+    return postForCountry ? postForCountry.countryImage : '';
   };
 
-  // Handle card click to navigate to country page
+  // Replace spaces in country names with hyphens
+  const formatCountryForURL = (country: string) => country.toLowerCase().replace(/\s+/g, '-');
+
   const handleCountryClick = (country: string) => {
-    router.push(`/europe/${country.toLowerCase()}`); // Convert country to lowercase for URL
+    router.push(`/europe/${formatCountryForURL(country).toLowerCase()}`); 
   };
 
-  // Handle post click to navigate to post page (convert country to lowercase for URL)
+  // Handle post click to navigate to post page
   const handlePostClick = (country: string, postId: string) => {
-    router.push(`/europe/${country.toLowerCase()}/${postId}`); // Convert country to lowercase for URL
+    router.push(`/europe/${formatCountryForURL(country)}/${postId}`); 
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = {
-      month: 'short', // Use 'short' for abbreviated month names
-      day: '2-digit',  // Use '2-digit' to always show two digits for the day
-    };
-    return date.toLocaleDateString(undefined, options).replace(',', '');
-  };
+  // const formatDate = (dateString: string) => {
+  //   const date = new Date(dateString);
+  //   const options: Intl.DateTimeFormatOptions = {
+  //     month: 'short', 
+  //     day: '2-digit',  
+  //   };
+  //   return date.toLocaleDateString(undefined, options).replace(',', '');
+  // };
 
   return (
     <div className={styles.container}>
@@ -109,13 +111,14 @@ const EuropePage = () => {
             posts.slice(0, 3).map(post => (
               <div key={post._id} className={styles.latestPost} onClick={() => handlePostClick(post.country, post._id)}>
                 <img
-                  src={post.previewImage} // Ensure the preview image for posts is displayed
+                  src={post.previewImage} 
                   alt={post.title}
                   className={styles.postImage}
                 />
                 <div className={styles.overlayContainer}>
                   <div className={styles.postContent}>
-                    <p className={styles.createdAt}>{formatDate(post.createdAt.toString())}</p>
+                    {/* <p className={styles.createdAt}>{formatDate(post.createdAt.toString())}</p> */}
+                    <span className={styles.createdAt}>{post.desc}</span>
                     <div className={styles.postTitle}>{post.title}</div>
                   </div>
                 </div>

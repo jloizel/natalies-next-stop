@@ -1,26 +1,25 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { getPostsByContinent, Post } from '../../app/API'; // Adjust the import path based on your file structure
-import { useRouter } from 'next/navigation'; // Import useRouter for navigation
+import { getPostsByContinent, Post } from '../../app/API';
+import { useRouter } from 'next/navigation'; 
 import styles from '../../groupedCSS/continent.module.css'; 
-// Create a CSS module for styling
 
 const SouthAmericaPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
-      setError(''); // Reset error before fetching
+      setError(''); 
       try {
-        const data = await getPostsByContinent('South America'); // Fetch posts for SouthAmerica
+        const data = await getPostsByContinent('South America'); 
         setPosts(data);
       } catch (err) {
-        setError('Error fetching posts: ' + (err as Error).message); // Provide context
+        setError('Error fetching posts: ' + (err as Error).message);
       } finally {
         setLoading(false);
       }
@@ -29,37 +28,35 @@ const SouthAmericaPage = () => {
     fetchPosts();
   }, []);
 
-  const formatCountryName = (country: string) => {
-    return country === "CentralAmerica" ? "Central America" : country;
-  };
-
   // Extract unique countries from posts
   const uniqueCountries = Array.from(new Set(posts.map(post => post.country)));
 
   // Get the country image for the card from the post data
   const getCountryImage = (country: string) => {
     const postForCountry = posts.find(post => post.country === country && post.countryImage);
-    return postForCountry ? postForCountry.countryImage : '/images/default-country.jpg'; // Default image for missing images
+    return postForCountry ? postForCountry.countryImage : '';
   };
 
-  // Handle card click to navigate to country page
+  // Replace spaces in country names with hyphens
+  const formatCountryForURL = (country: string) => country.toLowerCase().replace(/\s+/g, '-');
+
   const handleCountryClick = (country: string) => {
-    router.push(`/southamerica/${country.toLowerCase()}`); // Convert country to lowercase for URL
+    router.push(`/southamerica/${formatCountryForURL(country).toLowerCase()}`); 
   };
 
-  // Handle post click to navigate to post page (convert country to lowercase for URL)
+  // Handle post click to navigate to post page
   const handlePostClick = (country: string, postId: string) => {
-    router.push(`/southamerica/${country.toLowerCase()}/${postId}`); // Convert country to lowercase for URL
+    router.push(`/southamerica/${formatCountryForURL(country)}/${postId}`); 
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = {
-      month: 'short', // Use 'short' for abbreviated month names
-      day: '2-digit',  // Use '2-digit' to always show two digits for the day
-    };
-    return date.toLocaleDateString(undefined, options).replace(',', '');
-  };
+  // const formatDate = (dateString: string) => {
+  //   const date = new Date(dateString);
+  //   const options: Intl.DateTimeFormatOptions = {
+  //     month: 'short', 
+  //     day: '2-digit',  
+  //   };
+  //   return date.toLocaleDateString(undefined, options).replace(',', '');
+  // };
 
   return (
     <div className={styles.container}>
@@ -68,7 +65,7 @@ const SouthAmericaPage = () => {
         <div className={styles.headerContainer}>
           <div className={styles.header}>
             <span>Destination:</span>
-            <span>SOUTH AMERICA</span>
+            <span>South America</span>
           </div>
         </div>
       </div>
@@ -80,7 +77,7 @@ const SouthAmericaPage = () => {
           <p>Loading posts...</p>
         ) : (
           <>
-            {uniqueCountries.length > 0 ? ( // Check if there are unique countries
+            {uniqueCountries.length > 0 ? ( 
               <div className={styles.countryCardContainer}>
                 {uniqueCountries.map((country) => (
                   <div
@@ -94,15 +91,15 @@ const SouthAmericaPage = () => {
                       className={styles.countryImage}
                     />
                     <div className={styles.countryCardBot}>
-                      <div className={styles.countryCardDetails}>{formatCountryName(country)} TRAVEL BLOGS</div>
+                      <div className={styles.countryCardDetails}>{country} TRAVEL BLOGS</div>
                     </div>
-                    <div className={styles.countryName}>{formatCountryName(country)}</div>
+                    <div className={styles.countryName}>{country}</div>
                     <div className={styles.countryCardBorder} />
                   </div>
                 ))}
               </div>
             ) : (
-              <p>No travel blogs available for South America.</p> // Message when there are no posts
+              <div className={styles.errorContainer}>Please check back later for South America travel blogs</div> 
             )}
           </>
         )}
@@ -114,13 +111,14 @@ const SouthAmericaPage = () => {
             posts.slice(0, 3).map(post => (
               <div key={post._id} className={styles.latestPost} onClick={() => handlePostClick(post.country, post._id)}>
                 <img
-                  src={post.previewImage} // Ensure the preview image for posts is displayed
+                  src={post.previewImage} 
                   alt={post.title}
                   className={styles.postImage}
                 />
                 <div className={styles.overlayContainer}>
                   <div className={styles.postContent}>
-                    <p className={styles.createdAt}>{formatDate(post.createdAt.toString())}</p>
+                    {/* <p className={styles.createdAt}>{formatDate(post.createdAt.toString())}</p> */}
+                    <span className={styles.createdAt}>{post.desc}</span>
                     <div className={styles.postTitle}>{post.title}</div>
                   </div>
                 </div>

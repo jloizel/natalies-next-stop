@@ -63,7 +63,8 @@ const LatestPosts = () => {
                 />
                 <div className={styles.overlayContainer}>
                   <div className={styles.postContent}>
-                    <p className={styles.createdAt}>{formatDate(post.createdAt.toString())}</p>
+                    {/* <p className={styles.createdAt}>{formatDate(post.createdAt.toString())}</p> */}
+                    <span className={styles.createdAt}>{post.desc}</span>
                     <div className={styles.postTitle}>{post.title}</div>
                   </div>
                 </div>
