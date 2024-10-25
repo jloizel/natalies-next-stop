@@ -28,7 +28,7 @@ const ContinentPage = () => {
   const params = useParams() as unknown as Params;
 
   // Check if params is defined and then access continent
-  const continentParam = params?.continent ? params.continent.toLowerCase() : ""; // Get the continent parameter in lower case
+  const continentParam = params?.continent ? params.continent.toLowerCase() : ""; 
   const continentInfo = continentNameMapping[continentParam]; // Look up the continent in the mapping
 
   const continentDisplay = continentInfo ? continentInfo.display : ""; // Get the display name for the continent
