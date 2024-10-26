@@ -34,14 +34,14 @@ const LatestPosts = () => {
     router.push(`/europe/${country.toLowerCase()}/${postId}`); // Convert country to lowercase for URL
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = {
-      month: 'short', // Use 'short' for abbreviated month names
-      day: '2-digit',  // Use '2-digit' to always show two digits for the day
-    };
-    return date.toLocaleDateString(undefined, options).replace(',', '');
-  };
+  // const formatDate = (dateString: string) => {
+  //   const date = new Date(dateString);
+  //   const options: Intl.DateTimeFormatOptions = {
+  //     month: 'short', 
+  //     day: '2-digit',  
+  //   };
+  //   return date.toLocaleDateString(undefined, options).replace(',', '');
+  // };
 
   return (
     <div className={styles.latestPostsContainer}>

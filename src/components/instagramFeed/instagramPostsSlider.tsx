@@ -17,10 +17,7 @@ const InstagramPostsSlider: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [modalUrl, setModalUrl] = useState<string | null>(null); // Store the post URL for the modal
-
-  const SHEET_ID = '1gHaVaJ4zX58ZpMP1YRShMMyl_q_IXvduNjjQL7ktzJg';
-  const API_KEY = 'AIzaSyBIxEDBas7_Rp-BWwZ96b9vk9SX7TRuZd4';
+  const [modalUrl, setModalUrl] = useState<string | null>(null); 
 
   useEffect(() => {
     const fetchPosts = async () => {
