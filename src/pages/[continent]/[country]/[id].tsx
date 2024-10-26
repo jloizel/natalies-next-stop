@@ -422,9 +422,17 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getAllPosts();
-  const paths = posts.map(post => ({
-    params: { country: post.country, id: post._id.toString() },
-  }));
+
+  const paths = posts
+    .filter((post) => post.continent && post.country) 
+    .map((post) => ({
+      params: {
+        continent: post.continent,
+        country: post.country,
+        id: post._id.toString(),
+      },
+    }));
+
   return { paths, fallback: 'blocking' };
 };
 
