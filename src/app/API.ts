@@ -147,3 +147,31 @@ export const sendEmail = async (formData: FormData): Promise<{ message: string }
     throw error; 
   }
 };
+
+export const getInstagramPosts = async (): Promise<any[]> => {
+  try {
+    const response: AxiosResponse<{ posts: any[] }> = await api.get('/instagram/posts');
+    return response.data.posts;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    console.error('Error fetching Instagram posts:', axiosError);
+
+    // Check if the error is due to an expired token (401 Unauthorized)
+    if (axiosError.response && axiosError.response.status === 401) {
+      console.warn('Token expired, attempting to refresh...');
+      await refreshInstagramToken(); 
+      return await getInstagramPosts(); 
+    }
+    throw error; 
+  }
+};
+
+export const refreshInstagramToken = async (): Promise<void> => {
+  try {
+    await api.post('/instagram/refresh-token');
+    console.log('Instagram token refreshed successfully');
+  } catch (error) {
+    console.error('Error refreshing Instagram token:', error);
+    throw error; 
+  }
+};

@@ -3,39 +3,32 @@ import styles from "./instagramPosts.module.css";
 import { IoLogoInstagram } from "react-icons/io5";
 import { InstagramEmbed } from 'react-social-media-embed';
 import { IoClose } from "react-icons/io5";
+import { getInstagramPosts, refreshInstagramToken } from '@/app/API'; // Import API functions
 
 // Define types for the Post structure
 interface Post {
   caption: string;
   imageUrl: string;
-  postUrl: string; // Instagram post URL from the 4th column
+  postUrl: string;
 }
 
 const InstagramPosts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [modalOpen, setModalOpen] = useState<boolean>(false); // State for modal
-  const [currentPostUrl, setCurrentPostUrl] = useState<string | null>(null); // Track clicked post
-
-  const SHEET_ID = '1gHaVaJ4zX58ZpMP1YRShMMyl_q_IXvduNjjQL7ktzJg';
-  const API_KEY = 'AIzaSyBIxEDBas7_Rp-BWwZ96b9vk9SX7TRuZd4';
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [currentPostUrl, setCurrentPostUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Sheet1?key=${API_KEY}`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        const rows: (string | null)[][] = data.values; // Define the type of rows
-
-        // Assuming the first row is headers
-        const extractedPosts: Post[] = rows.slice(1).map((row: (string | null)[]) => ({
-          caption: row[0] || '', // Caption in the first column
-          imageUrl: row[1] || '', // Image URL in the second column (no splitting needed)
-          postUrl: row[3] || '' // Instagram post URL from the fourth column
+        setLoading(true);
+        const fetchedPosts = await getInstagramPosts();
+        
+        const extractedPosts: Post[] = fetchedPosts.map((post: any) => ({
+          caption: post.caption || '',         
+          imageUrl: post.media_url || '',      
+          postUrl: post.permalink || ''        
         }));
 
         setPosts(extractedPosts);
@@ -50,7 +43,13 @@ const InstagramPosts: React.FC = () => {
       }
     };
 
-    fetchPosts();
+    // Initial call to fetch posts and refresh token
+    const initializePosts = async () => {
+      await refreshInstagramToken(); // Refresh token on app load
+      fetchPosts();
+    };
+
+    initializePosts();
   }, []);
 
   if (loading) return <p className={styles.loading}>Loading...</p>;
@@ -87,7 +86,7 @@ const InstagramPosts: React.FC = () => {
           <div 
             key={index} 
             className={styles.imageContainer} 
-            onClick={() => openModal(post.postUrl)} // Open modal when image is clicked
+            onClick={() => openModal(post.postUrl)} 
           >
             <img 
               src={post.imageUrl} 

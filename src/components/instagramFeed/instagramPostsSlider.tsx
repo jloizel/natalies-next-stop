@@ -3,6 +3,7 @@ import Slider from 'react-slick'; // Import React Slick
 import styles from './instagramPosts.module.css';
 import { IoLogoInstagram, IoClose } from 'react-icons/io5';
 import { InstagramEmbed } from 'react-social-media-embed';
+import { getInstagramPosts, refreshInstagramToken } from '@/app/API';
 
 // Define types for the Post structure
 interface Post {
@@ -24,18 +25,13 @@ const InstagramPostsSlider: React.FC = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Sheet1?key=${API_KEY}`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        const rows: (string | null)[][] = data.values; // Define the type of rows
-
-        // Assuming the first row is headers
-        const extractedPosts: Post[] = rows.slice(1).map((row: (string | null)[]) => ({
-          caption: row[0] || '', // Caption in the first column
-          imageUrl: row[1] || '', // Image URL in the second column
-          postUrl: row[3] || '' // Instagram post URL from the fourth column
+        setLoading(true);
+        const fetchedPosts = await getInstagramPosts();
+        
+        const extractedPosts: Post[] = fetchedPosts.map((post: any) => ({
+          caption: post.caption || '',         
+          imageUrl: post.media_url || '',      
+          postUrl: post.permalink || ''        
         }));
 
         setPosts(extractedPosts);
@@ -50,7 +46,13 @@ const InstagramPostsSlider: React.FC = () => {
       }
     };
 
-    fetchPosts();
+    // Initial call to fetch posts and refresh token
+    const initializePosts = async () => {
+      await refreshInstagramToken(); // Refresh token on app load
+      fetchPosts();
+    };
+
+    initializePosts();
   }, []);
 
   if (loading) return <p>Loading...</p>;
