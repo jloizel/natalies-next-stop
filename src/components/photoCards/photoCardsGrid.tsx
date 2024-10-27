@@ -30,14 +30,26 @@ const PhotoCardsGrid = () => {
         Read about where I&apos;ve been
       </div>
       <div className={styles.photoGrid}>
-        {data.map((photo, index) => (
-          <div className={styles.photoItem} key={index}>
-            <div className={styles.imageWrapper}> 
-              <img src={photo.src} alt={photo.title} className={styles.photoImage} />
+        <div className={styles.photoRowTop}>
+          {data.slice(0, 4).map((photo, index) => (
+            <div className={styles.photoItem} key={index}>
+              <div className={styles.imageWrapper}> 
+                <img src={photo.src} alt={photo.title} className={styles.photoImage} />
+              </div>
+              <a className={styles.photoButton} href={photo.href}>{photo.title}</a>
             </div>
-            <a className={styles.photoButton} href={photo.href}>{photo.title}</a>
-          </div>
-        ))}
+          ))}
+        </div>
+        <div className={styles.photoRowBottom}>
+          {data.slice(4, 7).map((photo, index) => (
+            <div className={styles.photoItem} key={index + 4}>
+              <div className={styles.imageWrapper}> 
+                <img src={photo.src} alt={photo.title} className={styles.photoImage} />
+              </div>
+              <a className={styles.photoButton} href={photo.href}>{photo.title}</a>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

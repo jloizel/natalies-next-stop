@@ -29,13 +29,13 @@ const Map: React.FC = () => {
     setHoveredCountry(null);
   };
 
-  const handleCountryClick = (countryName: string) => {
-    const continent = countryName; 
+  // const handleCountryClick = (countryName: string) => {
+  //   const continent = countryName; 
 
-    if (continent) {
-      router.push(`/${continent.toLowerCase()}`);
-    }
-  };
+  //   if (continent) {
+  //     router.push(`/${continent.toLowerCase()}`);
+  //   }
+  // };
 
   const handleMouseMove = (event: React.MouseEvent) => {
     setMousePosition({ x: event.clientX, y: event.clientY});
@@ -68,7 +68,7 @@ const Map: React.FC = () => {
                   geography={geo}
                   onMouseEnter={() => handleMouseEnter(countryName)}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => handleCountryClick(countryName)}
+                  // onClick={() => handleCountryClick(countryName)}
                   style={{
                     default: {
                       fill: isVisited ? (isHovered ? "#FF5722" : "#FFCC00") : "#D6D6DA", // Visited countries change color, others stay gray
