@@ -34,6 +34,9 @@ const ContinentPage = () => {
   const continentDisplay = continentInfo ? continentInfo.display : ""; // Get the display name for the continent
   const continentURL = continentInfo ? continentInfo.url : ""; // Get the URL-friendly name
 
+  console.log(continentDisplay)
+  console.log(continentURL)
+
   useEffect(() => {
     // Guard clause inside useEffect to handle when continent is not available
     if (!continentDisplay) {
@@ -67,7 +70,7 @@ const ContinentPage = () => {
   };
 
   // Replace spaces in country names with hyphens
-  const formatCountryForURL = (country: string) => country.toLowerCase().replace(/\s+/g, "-");
+  const formatCountryForURL = (country: string) => country.toLowerCase().replace(/\s+/g, "");
 
   const handleCountryClick = (country: string) => {
     router.push(`/${continentURL}/${formatCountryForURL(country)}`); 

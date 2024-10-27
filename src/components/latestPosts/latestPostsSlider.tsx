@@ -31,9 +31,11 @@ const LatestPostsSlider = () => {
     fetchPosts();
   }, []);
 
+  const formatForURL = (string: string) => string.toLowerCase().replace(/\s+/g, '');
+
   // Handle post click to navigate to post page
-  const handlePostClick = (country: string, postId: string) => {
-    router.push(`/europe/${country.toLowerCase()}/${postId}`); // Convert country to lowercase for URL
+  const handlePostClick = (continent:string, country: string, postId: string) => {
+    router.push(`/${formatForURL(continent)}/${formatForURL(country)}/${postId}`);
   };
 
   // const formatDate = (dateString: string) => {
@@ -76,7 +78,7 @@ const LatestPostsSlider = () => {
                 <SwiperSlide key={post._id}>
                   <div
                     className={styles.latestPost}
-                    onClick={() => handlePostClick(post.country, post._id)}
+                    onClick={() => handlePostClick(post.continent, post.country, post._id)}
                   >
                     <img
                       src={post.previewImage}

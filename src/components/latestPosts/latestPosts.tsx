@@ -29,9 +29,11 @@ const LatestPosts = () => {
   }, []);
 
 
-  // Handle post click to navigate to post page (convert country to lowercase for URL)
-  const handlePostClick = (country: string, postId: string) => {
-    router.push(`/europe/${country.toLowerCase()}/${postId}`); // Convert country to lowercase for URL
+  const formatForURL = (string: string) => string.toLowerCase().replace(/\s+/g, '');
+
+  // Handle post click to navigate to post page
+  const handlePostClick = (continent:string, country: string, postId: string) => {
+    router.push(`/${formatForURL(continent)}/${formatForURL(country)}/${postId}`);
   };
 
   // const formatDate = (dateString: string) => {
@@ -55,7 +57,7 @@ const LatestPosts = () => {
         <div className={styles.latestPostsGrid}>
           {posts.length > 0 ? ( 
             posts.slice(0, 4).map(post => (
-              <div key={post._id} className={styles.latestPost} onClick={() => handlePostClick(post.country, post._id)}>
+              <div key={post._id} className={styles.latestPost} onClick={() => handlePostClick(post.continent, post.country, post._id)}>
                 <img
                   src={post.previewImage}
                   alt={post.title}

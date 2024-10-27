@@ -12,6 +12,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 
 interface CountryPageProps {
+  continent: string;
   country: string;
   posts: Post[];
 }
@@ -24,7 +25,7 @@ type Views = {
   [key: string]: number; 
 };
 
-const CountryPage = ({ country, posts }: CountryPageProps) => {
+const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
   const [showShareMenu, setShowShareMenu] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const shareMenuRef = useRef<HTMLDivElement>(null);
@@ -197,6 +198,8 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
     });
   }, [posts]);
 
+  const formatForURL = (country: string) => country.toLowerCase().replace(/\s+/g, '');
+
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
@@ -216,7 +219,7 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
             return (
               <div key={blogPost._id} className={styles.blogCard}>
                 <div className={styles.blogCardLeft}>
-                  <a href={`/europe/${country.toLowerCase()}/${blogPost._id}`}>
+                  <a href={`/${formatForURL(continent)}/${formatForURL(country)}/${blogPost._id}`}>
                     <img src={blogPost.previewImage} className={styles.blogCardImage}/>
                   </a>
                 </div>
@@ -256,7 +259,7 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
                       )}
                     </div>
                   </div>
-                  <a className={styles.blogText} href={`/europe/${country.toLowerCase()}/${blogPost._id}`}>
+                  <a className={styles.blogText} href={`/${formatForURL(continent)}/${formatForURL(country)}/${blogPost._id}`}>
                     <div className={styles.blogTitle}>
                       {blogPost.title}
                     </div>
@@ -290,14 +293,15 @@ const CountryPage = ({ country, posts }: CountryPageProps) => {
 };
 
 // Fetch posts for the given country
+// Fetch posts for the given continent and country
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { country } = context.params as { country: string };
+  const { continent, country } = context.params as { continent: string; country: string };
 
-  // Fetch all posts for Europe to match the lowercase country with the correct capitalized name
-  const postsInEurope = await getPostsByContinent('Europe');
+  // Fetch all posts for the specified continent to match the lowercase country with the correct capitalized name
+  const postsInContinent = await getPostsByContinent(continent.charAt(0).toUpperCase() + continent.slice(1)); // Capitalize continent name
 
   // Find the correct country name by matching the lowercase version
-  const correctCountryName = postsInEurope.find(post => post.country.toLowerCase() === country)?.country;
+  const correctCountryName = postsInContinent.find(post => post.country.toLowerCase() === country)?.country;
 
   if (!correctCountryName) {
     // If the country is not found, return a 404 page
@@ -307,10 +311,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 
   // Fetch posts for the specific country with the correct case
-  const posts = await getPostsByContinentAndCountry('Europe', correctCountryName);
+  const posts = await getPostsByContinentAndCountry(continent.charAt(0).toUpperCase() + continent.slice(1), correctCountryName);
 
   return {
     props: {
+      continent: continent.charAt(0).toUpperCase() + continent.slice(1), // Return the correctly cased continent name
       country: correctCountryName, // Use the correctly cased country name in the props
       posts,
     },
@@ -318,26 +323,29 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-// Generate dynamic paths for countries with blogs in Europe
+// Generate dynamic paths for countries with blogs in all continents
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Fetch all posts in Europe to get a list of countries with posts
-  const posts = await getPostsByContinent('Europe');
+  const continents = ['Africa', 'Asia', 'Australia', 'Europe', 'North America', 'Central America', 'South America'];
+  const posts = await Promise.all(continents.map(continent => getPostsByContinent(continent)));
 
-  // Create a set to ensure countries are unique
-  const countriesSet = new Set<string>();
+  const paths: { params: { continent: string; country: string } }[] = [];
 
-  // Loop through each post and add the country to the set
-  posts.forEach(post => countriesSet.add(post.country));
-
-  // Convert the set back to an array and create paths
-  const paths = Array.from(countriesSet).map(country => ({
-    params: { country }
-  }));
+  posts.forEach((continentPosts, index) => {
+    continentPosts.forEach(post => {
+      const continentPath = continents[index].toLowerCase().replace(/\s+/g, '');
+      const countryPath = post.country.toLowerCase();
+      console.log("Generated path:", `/${continentPath}/${countryPath}`);
+      paths.push({
+        params: { continent: continentPath, country: countryPath },
+      });
+    });
+  });
 
   return {
     paths,
-    fallback: 'blocking', // Use 'blocking' or 'true' for dynamic pages
+    fallback: 'blocking',
   };
 };
+
 
 export default CountryPage;

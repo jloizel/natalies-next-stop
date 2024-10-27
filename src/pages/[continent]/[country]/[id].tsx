@@ -132,10 +132,6 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     );
   };
   
-  
-  
-  
-
   const renderTextContent = (content: string | undefined) => {
     if (!content) return null;
   
@@ -325,13 +321,16 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     router.push(`/admin/dashboard/edit/${id}`);
   };
 
+  
+  const formatForURL = (string: string) => string.toLowerCase().replace(/\s+/g, '');
+
   return (
     <div className={styles.container}>
       <div className={styles.topInfo}>
-        <a href={`/${post.continent.toLowerCase()}`}>
+        <a href={`/${formatForURL(post.continent)}`}>
           {post.continent}
         </a>
-        <a href={`/${post.continent.toLowerCase()}/${post.country.toLowerCase()}`}>
+        <a href={`/${formatForURL(post.continent)}/${formatForURL(post.country)}`}>
           {post.country}
         </a>
       </div>
