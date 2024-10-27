@@ -23,11 +23,15 @@ type Views = {
   [key: string]: number; 
 };
 
+const POSTS_PER_PAGE = 10;
+
 const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
   const [showShareMenu, setShowShareMenu] = useState<string | null>(null);
   const shareMenuRef = useRef<HTMLDivElement>(null);
   const [likes, setLikes] = useState<Likes>({});
   const [views, setViews] = useState<Views>({});
+  const [currentPage, setCurrentPage] = useState(1); 
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -168,8 +172,8 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
       const initialViews: Views = {};
 
       posts.forEach(post => {
-        initialLikes[post._id] = likedPosts.includes(post._id) ? 1 : 0; // Set like count based on localStorage
-        initialViews[post._id] = viewedPosts.includes(post._id) ? 1 : 0; // Set initial view count to 1 if viewed before
+        initialLikes[post._id] = likedPosts.includes(post._id) ? 1 : 0;
+        initialViews[post._id] = viewedPosts.includes(post._id) ? 1 : 0; 
       });
 
       setLikes(initialLikes);
@@ -185,6 +189,21 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
 
   const formatForURL = (country: string) => country.toLowerCase().replace(/\s+/g, '');
 
+  const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(prev => prev + 1);
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) setCurrentPage(prev => prev - 1);
+  };
+
+  const paginatedPosts = posts.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE
+  );
+
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
@@ -194,8 +213,8 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
         {country}
       </div>
       <div className={styles.blogsContainer}>
-        {posts.length > 0 ? (
-          posts.map((blogPost) => {
+        {paginatedPosts.length > 0 ? (
+          paginatedPosts.map((blogPost) => {
             const fullText = getFullText(blogPost);
             const readingTime = calculateReadingTime(fullText);
             const currentLikes = likes[blogPost._id] || 0;
@@ -257,6 +276,25 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
         ) : (
           <p>No blogs available for {country}.</p>
         )}
+      </div>
+      <div className={styles.paginationContainer}>
+        <button
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+          className={styles.paginationButton}
+        >
+          Previous
+        </button>
+        <span className={styles.pageInfo}>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+          className={styles.paginationButton}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

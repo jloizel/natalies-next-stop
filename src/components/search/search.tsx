@@ -3,28 +3,24 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from "./search.module.css";
 import { IoSearch } from "react-icons/io5";
-import { IoClose } from "react-icons/io5"; // Import the close icon
+import { IoClose } from "react-icons/io5"; 
 import { getAllPosts, Post } from '@/app/API';
 
 const Search = () => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
-  const [isExpanded, setIsExpanded] = useState(false); // Handles the expansion of the search container
-  const containerRef = useRef<HTMLDivElement>(null); // Ref to track the search container
+  const [isExpanded, setIsExpanded] = useState(false); 
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      setLoading(true);
       try {
         const data = await getAllPosts();
         setPosts(data);
       } catch {
         setError('Error fetching posts.');
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -95,7 +91,7 @@ const Search = () => {
         )}
       </div>
       
-      {loading && <p>Loading posts...</p>}
+      {/* {loading && <p>Loading posts...</p>} */}
       {error && <p className={styles.error}>{error}</p>}
 
       {searchQuery.length > 0 && (

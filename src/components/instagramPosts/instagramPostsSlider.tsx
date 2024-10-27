@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick'; // Import React Slick
+import Slider from 'react-slick'; 
 import styles from './instagramPosts.module.css';
 import { IoLogoInstagram, IoClose } from 'react-icons/io5';
 import { InstagramEmbed } from 'react-social-media-embed';
 import { getInstagramPosts } from '@/app/API';
 
-// Define types for the Post structure
 interface Post {
   caption: string;
   imageUrl: string;
-  postUrl: string; // Instagram post URL from the 4th column
+  postUrl: string; 
 }
 
 const InstagramPostsSlider: React.FC = () => {

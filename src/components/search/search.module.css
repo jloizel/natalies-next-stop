@@ -1,6 +1,11 @@
 .searchContainer {
   position: relative;
-  width: 200px
+  width: 100px;
+  background-color: white;
+
+  @media (min-width: 768px) {
+    width: 130px;
+  }
 }
 
 .searchInputContainer {
@@ -12,11 +17,18 @@
   border-radius: 4px;
   transition: width 0.4s ease, border 0.4s ease; /* Smooth width and border transition */
   overflow: hidden;
+  background-color: white;
+  z-index: 102;
 }
 
 .searchInputContainer.expanded {
-  width: 300px; 
+  width: 250px; 
   border: 1px solid #ddd; 
+  background-color: white;
+
+  @media (min-width: 768px) {
+    width: 300px;
+  }
 }
 
 .searchInput {
@@ -40,7 +52,7 @@
   z-index: 1000;
   max-height: 300px;
   overflow-y: auto;
-  width: 300px;
+  width: 250px;
   /* border: 1px solid #ddd; */
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
@@ -50,6 +62,10 @@
   box-sizing: border-box;
   background-color: #fff;
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+
+  @media (min-width: 768px) {
+    width: 300px;
+  }
 }
 
 .postCard {

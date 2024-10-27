@@ -7,8 +7,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import styles from "./latestPostsSlider.module.css";
+import { FaArrowRightLong } from "react-icons/fa6";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
-const LatestPostsSlider = () => {
+interface LatestPostsProps {
+  continent?: string;
+}
+
+const LatestPostsSlider: React.FC<LatestPostsProps> = ({continent}) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -17,19 +23,25 @@ const LatestPostsSlider = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
-      setError(""); // Reset error before fetching
+      setError('');
       try {
         const data = await getAllPosts();
-        setPosts(data);
+        const filteredPosts = continent
+          ? data.filter(post => post.continent.toLowerCase() === continent.toLowerCase())
+          : data;
+        const sortedPosts = filteredPosts.sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        setPosts(sortedPosts);
       } catch (err) {
-        setError("Error fetching posts: " + (err as Error).message); // Provide context
+        setError('Error fetching posts: ' + (err as Error).message);
       } finally {
         setLoading(false);
       }
     };
 
     fetchPosts();
-  }, []);
+  }, [continent]);
 
   const formatForURL = (string: string) => string.toLowerCase().replace(/\s+/g, '');
 
@@ -74,7 +86,7 @@ const LatestPostsSlider = () => {
           className={styles.sliderContainer}
         >
           {posts.length > 0
-            ? posts.slice(0, 5).map((post) => (
+            ? posts.slice(0, 5).map((post, index) => (
                 <SwiperSlide key={post._id}>
                   <div
                     className={styles.latestPost}
@@ -91,6 +103,16 @@ const LatestPostsSlider = () => {
                         <span className={styles.createdAt}>{post.desc}</span>
                         <div className={styles.postTitle}>{post.title}</div>
                       </div>
+                      {index === 0 && (
+                        <div className={styles.arrowSlideContainer}>
+                          <FaArrowRightLong className={styles.arrow}/>
+                        </div>
+                      )}
+                      {index === 4 && (
+                        <div className={styles.arrowSlideContainer}>
+                          <FaArrowLeftLong className={styles.arrow}/>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </SwiperSlide>

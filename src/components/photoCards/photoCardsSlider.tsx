@@ -68,8 +68,8 @@ const PhotoCardsSlider: React.FC = ({}) => {
     infinite: true,  // Enables infinite looping
     speed: 500,  // Speed of transitions
     slidesToScroll: 1,  // Scroll one slide at a time
-    nextArrow: <NextArrow />,  // Use custom NextArrow
-    prevArrow: <PrevArrow />,  // Use custom PrevArrow
+    nextArrow: <NextArrow />,  
+    prevArrow: <PrevArrow />,  
     responsive: [
       {
         breakpoint: 1024,  // Tablet size

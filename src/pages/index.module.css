@@ -20,7 +20,7 @@
 .header {
   position: absolute;
   font-family: "Arapey", serif;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%); 
   color: white; 
@@ -32,7 +32,11 @@
   gap: 20px;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   text-align: center;
-  width: fit-content;
+  width: 90%;
+
+  @media (min-width: 768px) {
+    top: 50%;
+  }
 }
 
 .headersubTitle, .headerSlogan {
@@ -41,9 +45,15 @@
 }
 
 .headerTitle {
-  font-size: 80px; 
+  font-size: 50px; 
   font-weight: 600;
   line-height: 60px;
-  /* width: max-content; */
-  /* white-space: nowrap; */
+  display: flex;
+  flex-direction: column;
+  
+  @media (min-width: 768px) {
+    font-weight: 80px;
+    flex-direction: row;
+    gap: 10px;
+  }
 }

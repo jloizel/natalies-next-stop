@@ -159,7 +159,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         {listItems.map((item, index) => (
           <li
             key={index}
-            // className={styles.listItem}
+            className={styles.listItem}
             dangerouslySetInnerHTML={{ __html: item }}  // Safely render the HTML
           />
         ))}

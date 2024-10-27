@@ -1,9 +1,5 @@
 "use client"
 
-// import Footer from '@/components/footer/footer';
-// import InstagramPostsSlider from '@/components/instagramFeed/instagramPostsSlider';
-// import InstagramPosts from '@/components/instagramFeed/instagramPosts';
-// import NavBar from '@/components/navbar/navbar';
 import PhotoCardsGrid from '@/components/photoCards/photoCardsGrid';
 import PhotoCardsSlider from '@/components/photoCards/photoCardsSlider';
 import { createTheme, useMediaQuery } from '@mui/material';
@@ -39,7 +35,8 @@ const Home = () => {
           Travel Blog
         </div>
         <div className={styles.headerTitle}>
-          Natalie&apos;s Next Stop
+          <span>Natalie&apos;s</span>
+          <span>Next Stop</span>
         </div>
         <div className={styles.headerSlogan}>
           I haven&apos;t been everywhere, but it&apos;s on my list
