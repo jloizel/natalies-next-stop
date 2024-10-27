@@ -14,9 +14,8 @@ const PhotoCardsGrid = () => {
   ]);
 
   useEffect(() => {
-    // Fetch the JSON data
     const fetchData = async () => {
-      const response = await fetch('/data/photoGrid.json'); // Adjust the path as needed
+      const response = await fetch('/data/photoGrid.json');
       const data = await response.json();
       setData(data);
     };

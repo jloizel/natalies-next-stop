@@ -1,5 +1,10 @@
 [
   {
+    "src": "/images/africa.jpg",
+    "title": "AFRICA",
+    "href": "/africa"
+  },
+  {
     "src": "/images/asia.jpg",
     "title": "ASIA",
     "href": "/asia"
