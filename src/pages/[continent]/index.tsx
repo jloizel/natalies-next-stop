@@ -107,7 +107,7 @@ const ContinentPage = () => {
         </div>
       </div>
 
-      {isMobile ? (
+      {isMobile && uniqueCountries.length > 1 ? (
         <CountryCardSlider error={error} loading={loading} uniqueCountries={uniqueCountries} handleCountryClick={handleCountryClick} getCountryImage={getCountryImage} continentDisplay={continentDisplay}/>
       ) : (
         <CountryCard error={error} loading={loading} uniqueCountries={uniqueCountries} handleCountryClick={handleCountryClick} getCountryImage={getCountryImage} continentDisplay={continentDisplay}/>
