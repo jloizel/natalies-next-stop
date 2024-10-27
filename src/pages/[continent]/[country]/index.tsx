@@ -292,19 +292,31 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
   );
 };
 
+const continentMapping: { [key: string]: string } = {
+  africa: 'Africa',
+  asia: 'Asia',
+  australia: 'Australia',
+  europe: 'Europe',
+  northamerica: 'North America',
+  centralamerica: 'Central America',
+  southamerica: 'South America',
+};
+
 // Fetch posts for the given continent and country
 export const getStaticProps: GetStaticProps = async (context) => {
   const { continent, country } = context.params as { continent: string; country: string };
 
-  // Capitalize the continent for API retrieval, ensuring "northamerica" -> "North America" etc.
-  const continentName = continent
-    .replace(/([a-z])([A-Z])/g, '$1 $2') // Insert space if missing
-    .replace(/(?:^|\s)\S/g, a => a.toUpperCase()); // Capitalize each word
-  
-  // Retrieve all posts for the continent
+  // Use the mapping to get the proper continent name
+  const continentName = continentMapping[continent.toLowerCase()];
+
+  if (!continentName) {
+    return { notFound: true };
+  }
+
+  // Retrieve posts for the entire continent
   const postsInContinent = await getPostsByContinent(continentName);
 
-  // Find correct country name, ignoring spaces and case
+  // Find correct country name by ignoring spaces and case
   const correctCountryName = postsInContinent.find(
     post => post.country.toLowerCase().replace(/\s+/g, '') === country
   )?.country;
@@ -313,7 +325,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     return { notFound: true };
   }
 
-  // Fetch posts for the specific country with the correct case
+  // Retrieve posts specific to the country
   const posts = await getPostsByContinentAndCountry(continentName, correctCountryName);
 
   return {

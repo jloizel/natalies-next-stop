@@ -49,8 +49,6 @@ export interface Post {
 
 export type PostInput = Omit<Post, '_id' | 'username' | 'createdAt' | 'updatedAt'>;
 
-// API functions
-
 // Create a new post
 export const createPost = async (postData: PostInput): Promise<Post> => {
   try {

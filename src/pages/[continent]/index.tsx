@@ -34,9 +34,6 @@ const ContinentPage = () => {
   const continentDisplay = continentInfo ? continentInfo.display : ""; // Get the display name for the continent
   const continentURL = continentInfo ? continentInfo.url : ""; // Get the URL-friendly name
 
-  console.log(continentDisplay)
-  console.log(continentURL)
-
   useEffect(() => {
     // Guard clause inside useEffect to handle when continent is not available
     if (!continentDisplay) {
@@ -74,6 +71,8 @@ const ContinentPage = () => {
 
   const handleCountryClick = (country: string) => {
     router.push(`/${continentURL}/${formatCountryForURL(country)}`); 
+    // router.push(`/${continentURL}/${country}`); 
+    console.log(country)
   };
 
   // Handle post click to navigate to post page
