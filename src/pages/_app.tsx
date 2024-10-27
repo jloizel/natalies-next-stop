@@ -4,8 +4,8 @@ import NavBar from '@/components/navbar/navbar';
 import '../app/globals.css'; 
 import type { AppProps } from 'next/app';
 import { createTheme, useMediaQuery } from '@mui/material';
-import InstagramPostsSlider from '@/components/instagramFeed/instagramPostsSlider';
-import InstagramPosts from '@/components/instagramFeed/instagramPosts';
+import InstagramPostsSlider from '@/components/instagramPosts/instagramPostsSlider';
+import InstagramPosts from '@/components/instagramPosts/instagramPosts';
 import Footer from '@/components/footer/footer';
 import AuthProvider from '@/components/AuthProvider/AuthProvider';
 

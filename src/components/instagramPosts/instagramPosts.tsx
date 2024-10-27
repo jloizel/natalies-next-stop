@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick'; // Import React Slick
-import styles from './instagramPosts.module.css';
-import { IoLogoInstagram, IoClose } from 'react-icons/io5';
+import styles from "./instagramPosts.module.css";
+import { IoLogoInstagram } from "react-icons/io5";
 import { InstagramEmbed } from 'react-social-media-embed';
-import { getInstagramPosts, refreshInstagramToken } from '@/app/API';
+import { IoClose } from "react-icons/io5";
+import { getInstagramPosts } from '@/app/API'; // Import API functions
 
 // Define types for the Post structure
 interface Post {
   caption: string;
   imageUrl: string;
-  postUrl: string; // Instagram post URL from the 4th column
+  postUrl: string;
 }
 
-const InstagramPostsSlider: React.FC = () => {
+const InstagramPosts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [modalUrl, setModalUrl] = useState<string | null>(null); 
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [currentPostUrl, setCurrentPostUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -43,60 +43,36 @@ const InstagramPostsSlider: React.FC = () => {
       }
     };
 
-    // Initial call to fetch posts and refresh token
     const initializePosts = async () => {
       // await refreshInstagramToken(); 
       fetchPosts();
     };
 
     initializePosts();
-  }, []);
+    }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className={styles.loading}>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   // Get the latest 5 posts and reverse the order so the newest one is on the left
   const latestPosts = posts.slice(0, 5).reverse();
 
-  // Slider settings for the carousel
-  const sliderSettings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,  // Tablet size
-        settings: {
-          slidesToShow: 2,  // Show 2 cards on tablets
-        }
-      },
-      {
-        breakpoint: 600,  // Mobile size
-        settings: {
-          slidesToShow: 1,  // Show 1 card on smaller devices
-        }
-      }
-    ]
+  // Function to open modal with the clicked post's URL
+  const openModal = (postUrl: string) => {
+    setCurrentPostUrl(postUrl);
+    setModalOpen(true);
   };
 
-  // Function to handle opening modal
-  const openModal = (url: string) => {
-    setModalUrl(url);
-    setIsModalOpen(true);
-  };
-
-  // Function to close modal
+  // Function to close the modal
   const closeModal = () => {
-    setIsModalOpen(false);
-    setModalUrl(null);
+    setModalOpen(false);
+    setCurrentPostUrl(null);
   };
 
   return (
-    <div className={styles.instaSliderContainer}>
+    <div className={styles.instaContainer}>
       <div className={styles.header}>
-      <a className={styles.headerContent} href="https://www.instagram.com/nataliemills1" target='_blank'>
+        <a className={styles.headerContent} href="https://www.instagram.com/nataliemills1" target='_blank'>
           <IoLogoInstagram className={styles.icon} />
           <span>My Recent Posts</span>
         </a>
@@ -104,30 +80,31 @@ const InstagramPostsSlider: React.FC = () => {
           @nataliemills1
         </a>
       </div>
-      <Slider {...sliderSettings}>
+      <div className={styles.gridContainer}>
         {latestPosts.map((post, index) => (
-          <div
-            key={index}
-            className={styles.imageContainer}
-            onClick={() => openModal(post.postUrl)} // Open modal on image click
+          <div 
+            key={index} 
+            className={styles.imageContainer} 
+            onClick={() => openModal(post.postUrl)} 
           >
-            <img
-              src={post.imageUrl}
-              alt={`Instagram post image ${index + 1}`}
-              style={{ width: '100%', height: 'auto', transition: '0.3s ease' }}
+            <img 
+              src={post.imageUrl} 
+              alt={`Instagram post image ${index + 1}`} 
+              className={styles.image} 
             />
             <div className={styles.captionOverlay}>
               <span className={styles.caption}>{post.caption}</span>
             </div>
           </div>
         ))}
-      </Slider>
+      </div>
 
-      {isModalOpen && modalUrl && (
+      {/* Modal for InstagramEmbed */}
+      {modalOpen && currentPostUrl && (
         <div className={styles.modalOverlay} onClick={closeModal}>
           <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <IoClose className={styles.closeButton} onClick={closeModal} />
-            <InstagramEmbed url={modalUrl} width={328} captioned />
+            <InstagramEmbed url={currentPostUrl} width={328} captioned />
           </div>
         </div>
       )}
@@ -135,4 +112,4 @@ const InstagramPostsSlider: React.FC = () => {
   );
 };
 
-export default InstagramPostsSlider;
+export default InstagramPosts;
