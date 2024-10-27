@@ -59,7 +59,6 @@ interface Params extends ParsedUrlQuery {
 
 const BlogPost: React.FC<BlogPostProps> = ({ post }) => {  
   const [showShareMenu, setShowShareMenu] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
   const shareMenuRef = useRef<HTMLDivElement>(null);
   const { data: session, status } = useSession();
   const router = useRouter();

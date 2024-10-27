@@ -25,7 +25,6 @@ type Views = {
 
 const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
   const [showShareMenu, setShowShareMenu] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
   const shareMenuRef = useRef<HTMLDivElement>(null);
   const [likes, setLikes] = useState<Likes>({});
   const [views, setViews] = useState<Views>({});
@@ -41,10 +40,6 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const toggleShareMenu = (postId: string) => {
-    setShowShareMenu(prev => (prev === postId ? null : postId));
-  };
-  
 
   const getCountryImage = (country: string) => {
     const postForCountry = posts.find(post => post.country === country && post.countryImage);
@@ -75,17 +70,6 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
       });
     });
     return text;
-  };
-
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
-
-  const copyLink = () => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 5000);  // Hide the copied message after 5 seconds
-      });
-    }
   };
 
   const handleShare = async (postId: string, postTitle: string) => {
