@@ -3,7 +3,7 @@ import styles from "./map.module.css"
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 // import { useRouter } from "next/router";
 import visitedCountriesData from "../../../public/data/visitedCountries.json"; 
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 // URL to the TopoJSON world map
 const geoUrl = "/data/map.json";
@@ -15,7 +15,7 @@ const TOTAL_COUNTRIES = 202;
 
 const Map: React.FC = () => {
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
-  const router = useRouter(); // Use Next.js router for navigation
+  // const router = useRouter();
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 }); // Correctly defined mousePosition state
 
   const handleMouseEnter = (countryName: string) => {
