@@ -4,6 +4,8 @@ import styles from './instagramPosts.module.css';
 import { IoLogoInstagram, IoClose } from 'react-icons/io5';
 import { InstagramEmbed } from 'react-social-media-embed';
 import { getInstagramPosts } from '@/app/API';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 interface Post {
   caption: string;
@@ -103,8 +105,8 @@ const InstagramPostsSlider: React.FC = () => {
           @nataliemills1
         </a>
       </div>
-      <Slider {...sliderSettings}>
-        {latestPosts.map((post, index) => (
+      <Slider {...sliderSettings} key={posts.length}>
+      {latestPosts.map((post, index) => (
           <div
             key={index}
             className={styles.imageContainer}

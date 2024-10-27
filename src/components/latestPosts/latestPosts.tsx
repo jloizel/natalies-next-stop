@@ -71,7 +71,9 @@ const LatestPosts: React.FC<LatestPostsProps> = ({ continent }) => {
               </div>
             ))
           ) : (
-            <p>No posts available</p>
+            <div className={styles.errorContainer}>
+              No posts available
+            </div>
           )}
         </div>
       )}

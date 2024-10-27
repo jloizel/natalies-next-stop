@@ -57,29 +57,10 @@ const CountryCardSlider: React.FC<Params> = ({ error, loading, uniqueCountries, 
     draggable: false,
     infinite: true,  // Enables infinite looping
     speed: 500,  // Speed of transitions
+    slidesToShow: 1,
     slidesToScroll: 1,  // Scroll one slide at a time
     nextArrow: <NextArrow />,  
-    prevArrow: <PrevArrow />, 
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3, // Show 3 slides on medium screens
-        }
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2, // Show 2 slides on smaller screens
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1, // Show 1 slide on mobile
-        }
-      }
-    ]
+    prevArrow: <PrevArrow />
   };
 
   return (

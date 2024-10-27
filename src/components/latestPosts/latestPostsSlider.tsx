@@ -18,7 +18,7 @@ const LatestPostsSlider: React.FC<LatestPostsProps> = ({continent}) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter(); 
 
   useEffect(() => {
     const fetchPosts = async () => {
