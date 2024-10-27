@@ -3,12 +3,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getPostsByContinent, getPostsByContinentAndCountry, Post } from '../../../app/API';
-import styles from "../../../groupedCSS/country.module.css"
+import styles from "./country.module.css"
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, WhatsappShareButton } from 'react-share';
 import { FacebookIcon, TwitterIcon, LinkedinIcon, WhatsappIcon } from 'react-share';
 import { IoIosLink } from "react-icons/io";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"; 
+import ShareMenu from '@/components/shareMenu/shareMenu';
 
 
 interface CountryPageProps {
@@ -40,11 +41,12 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const toggleShareMenu = (postId: string) => {
+    setShowShareMenu(prev => (prev === postId ? null : postId));
+  };
   
 
   const getCountryImage = (country: string) => {
@@ -89,16 +91,18 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
     }
   };
 
-  const handleShare = async (post: Post) => {
+  const handleShare = async (postId: string, postTitle: string) => {
     try {
+      // Use native sharing on supported mobile devices
       if (navigator.share && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         await navigator.share({
-          title: post.title,
-          text: `Check out this blog post: ${post.title}`,
+          title: postTitle,
+          text: `Check out this blog post: ${postTitle}`,
           url: window.location.href,
         });
       } else {
-        setShowShareMenu(prev => (prev === post._id ? null : post._id));
+        // Toggle custom share menu
+        setShowShareMenu((prev) => (prev === postId ? null : postId));
       }
     } catch (error) {
       console.error('Error sharing:', error);
@@ -232,30 +236,15 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
                       <span>{readingTime} min read</span>
                     </div>
                     <div className={styles.shareButtonContainer}>
-                      <button onClick={() => handleShare(blogPost)} className={styles.shareButton}>
+                      <button onClick={() => handleShare(blogPost._id, blogPost.title)} className={styles.shareButton}>
                         <IoShareSocialOutline />
                       </button>
                       {showShareMenu === blogPost._id && (
-                        <div ref={shareMenuRef} className={styles.shareMenu}>
-                          <div className={styles.logoContainer}>
-                            <FacebookShareButton url={shareUrl} title={blogPost.title}>
-                              <FacebookIcon round className={styles.shareIcon} />
-                            </FacebookShareButton>
-                            <TwitterShareButton url={shareUrl} title={blogPost.title}>
-                              <TwitterIcon size={32} round />
-                            </TwitterShareButton>
-                            <LinkedinShareButton url={shareUrl} title={blogPost.title}>
-                              <LinkedinIcon size={32} round />
-                            </LinkedinShareButton>
-                            <WhatsappShareButton url={shareUrl} title={blogPost.title}>
-                              <WhatsappIcon size={32} round />
-                            </WhatsappShareButton>
-                            <div className={styles.linkIconContainer}>
-                              <IoIosLink onClick={copyLink} className={styles.shareLink} />
-                              {copied && <span className={styles.copiedMessage}>Link copied!</span>}
-                            </div>
-                          </div>
-                        </div>
+                        <ShareMenu
+                          postTitle={blogPost.title}
+                          showShareMenu={showShareMenu === blogPost._id}
+                          toggleShareMenu={() => setShowShareMenu(null)}
+                        />
                       )}
                     </div>
                   </div>

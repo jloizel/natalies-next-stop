@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { getPostsByContinent, Post } from "../../app/API";
 import { useRouter, useParams } from "next/navigation"; 
-import styles from "../../groupedCSS/continent.module.css"; 
+import styles from "./continent.module.css"; 
 
 interface Params {
   continent?: string; // continent is optional

@@ -4,13 +4,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { getPostById, getAllPosts } from '@/app/API';
 import { ParsedUrlQuery } from 'querystring';
-import styles from '../../../groupedCSS/blog.module.css';
+import styles from './blog.module.css';
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, WhatsappShareButton } from 'react-share';
 import { FacebookIcon, TwitterIcon, LinkedinIcon, WhatsappIcon } from 'react-share';
 import { IoIosLink } from "react-icons/io";
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import ShareMenu from '@/components/shareMenu/shareMenu';
 
 interface IContentBlock {
   type: 'text' | 'image' | 'subheader' | 'list';
@@ -60,7 +61,7 @@ interface Params extends ParsedUrlQuery {
 }
 
 const BlogPost: React.FC<BlogPostProps> = ({ post }) => {  
-  const [showShareMenu, setShowShareMenu] = useState(false); 
+  const [showShareMenu, setShowShareMenu] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const shareMenuRef = useRef<HTMLDivElement>(null);
   const { data: session, status } = useSession();
@@ -74,7 +75,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     if (typeof document !== 'undefined') {
       const handleClickOutside = (event: MouseEvent) => {
         if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
-          setShowShareMenu(false);  // Close the share menu if the click is outside
+          setShowShareMenu(null); 
         }
       };
   
@@ -282,35 +283,18 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   const fullText = getFullText();
   const readingTime = calculateReadingTime(fullText); 
 
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
-  // const shareText = `Check out this blog post: ${post.title} - ${window.location.href}`;
-
-  const copyLink = () => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 5000);  // Hide the copied message after 2 seconds
-      });
-    }
-  };
-
-  const handleShare = async () => {
+  const handleShare = async (postId: string, postTitle: string) => {
     try {
-      // Check if the browser supports the Web Share API and if it's a mobile device
-      if (
-        navigator.share &&
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        )
-      ) {
+      // Use native sharing on supported mobile devices
+      if (navigator.share && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         await navigator.share({
-          title: post.title,
-          text: `Check out this blog post: ${post.title}`,
+          title: postTitle,
+          text: `Check out this blog post: ${postTitle}`,
           url: window.location.href,
         });
       } else {
-        // For non-mobile devices, toggle the share menu
-        setShowShareMenu(!showShareMenu);
+        // Toggle custom share menu
+        setShowShareMenu((prev) => (prev === postId ? null : postId));
       }
     } catch (error) {
       console.error('Error sharing:', error);
@@ -347,31 +331,15 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
                 Edit
               </button>
             )}
-            <button onClick={handleShare} className={styles.shareButton}>
+            <button onClick={() => handleShare(post._id, post.title)} className={styles.shareButton}>
               <IoShareSocialOutline/>
             </button>
-            {showShareMenu && (
-              <div ref={shareMenuRef} className={styles.shareMenu}>
-                <div className={styles.logoContainer}>
-                  <FacebookShareButton url={shareUrl} title={post.title}>
-                    <FacebookIcon round className={styles.shareIcon}/>
-                  </FacebookShareButton>
-                  <TwitterShareButton url={shareUrl} title={post.title}>
-                    <TwitterIcon size={32} round />
-                  </TwitterShareButton>
-                  <LinkedinShareButton url={shareUrl} title={post.title}>
-                    <LinkedinIcon size={32} round />
-                  </LinkedinShareButton>
-                  <WhatsappShareButton url={shareUrl} title={post.title}>
-                    <WhatsappIcon size={32} round />
-                  </WhatsappShareButton>
-                  <div className={styles.linkIconContainer}>
-                    <IoIosLink onClick={copyLink} className={styles.shareLink}/>
-                    {copied && <span className={styles.copiedMessage}>Link copied!</span>}
-                  </div>
-                </div>
-                
-              </div>
+            {showShareMenu === post._id && (
+              <ShareMenu
+                postTitle={post.title}
+                showShareMenu={showShareMenu === post._id}
+                toggleShareMenu={() => setShowShareMenu(null)}
+              />
             )}
           </div>
         </div>

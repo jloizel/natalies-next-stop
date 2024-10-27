@@ -43,14 +43,13 @@ const InstagramPosts: React.FC = () => {
       }
     };
 
-    // Initial call to fetch posts and refresh token
     const initializePosts = async () => {
-      await refreshInstagramToken(); // Refresh token on app load
+      // await refreshInstagramToken(); 
       fetchPosts();
     };
 
     initializePosts();
-  }, []);
+    }, []);
 
   if (loading) return <p className={styles.loading}>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
