@@ -292,36 +292,40 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
   );
 };
 
-// Fetch posts for the given country
 // Fetch posts for the given continent and country
 export const getStaticProps: GetStaticProps = async (context) => {
   const { continent, country } = context.params as { continent: string; country: string };
 
-  // Fetch all posts for the specified continent to match the lowercase country with the correct capitalized name
-  const postsInContinent = await getPostsByContinent(continent.charAt(0).toUpperCase() + continent.slice(1)); // Capitalize continent name
+  // Capitalize the continent for API retrieval, ensuring "northamerica" -> "North America" etc.
+  const continentName = continent
+    .replace(/([a-z])([A-Z])/g, '$1 $2') // Insert space if missing
+    .replace(/(?:^|\s)\S/g, a => a.toUpperCase()); // Capitalize each word
+  
+  // Retrieve all posts for the continent
+  const postsInContinent = await getPostsByContinent(continentName);
 
-  // Find the correct country name by matching the lowercase version
-  const correctCountryName = postsInContinent.find(post => post.country.toLowerCase() === country)?.country;
+  // Find correct country name, ignoring spaces and case
+  const correctCountryName = postsInContinent.find(
+    post => post.country.toLowerCase().replace(/\s+/g, '') === country
+  )?.country;
 
   if (!correctCountryName) {
-    // If the country is not found, return a 404 page
-    return {
-      notFound: true,
-    };
+    return { notFound: true };
   }
 
   // Fetch posts for the specific country with the correct case
-  const posts = await getPostsByContinentAndCountry(continent.charAt(0).toUpperCase() + continent.slice(1), correctCountryName);
+  const posts = await getPostsByContinentAndCountry(continentName, correctCountryName);
 
   return {
     props: {
-      continent: continent.charAt(0).toUpperCase() + continent.slice(1), // Return the correctly cased continent name
-      country: correctCountryName, // Use the correctly cased country name in the props
+      continent: continentName,
+      country: correctCountryName,
       posts,
     },
-    revalidate: 10, // Optional: Set revalidation for incremental static regeneration
+    revalidate: 10,
   };
 };
+
 
 // Generate dynamic paths for countries with blogs in all continents
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -332,8 +336,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   posts.forEach((continentPosts, index) => {
     continentPosts.forEach(post => {
-      const continentPath = continents[index].toLowerCase().replace(/\s+/g, '');
-      const countryPath = post.country.toLowerCase();
+      const continentPath = continents[index].toLowerCase().replace(/\s+/g, ''); 
+      const countryPath = post.country.toLowerCase().replace(/\s+/g, '');       
+      
       console.log("Generated path:", `/${continentPath}/${countryPath}`);
       paths.push({
         params: { continent: continentPath, country: countryPath },
@@ -346,6 +351,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: 'blocking',
   };
 };
+
 
 
 export default CountryPage;
