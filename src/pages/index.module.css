@@ -44,19 +44,23 @@
 }
 
 .headersubTitle, .headerSlogan {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 500;
+
+  @media (min-width: 768px) {
+    font-size: 25px;
+  }
 }
 
 .headerTitle {
-  font-size: 40px; 
+  font-size: 60px; 
   font-weight: 600;
-  line-height: 40px;
+  line-height: 50px;
   display: flex;
   flex-direction: column;
   
   @media (min-width: 768px) {
-    font-weight: 80px;
+    font-size: 70px;
     flex-direction: row;
     gap: 10px;
     line-height: 60px;
