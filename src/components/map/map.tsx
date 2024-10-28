@@ -5,9 +5,7 @@ import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import visitedCountriesData from "../../../public/data/visitedCountries.json"; 
 // import { useRouter } from "next/navigation";
 
-// URL to the TopoJSON world map
 const geoUrl = "/data/map.json";
-// const visitedCountriesData = 
 
 const visitedCountries: string[] = visitedCountriesData.visitedCountries;
 
@@ -16,7 +14,6 @@ const TOTAL_COUNTRIES = 202;
 const Map: React.FC = () => {
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
   // const router = useRouter();
-  const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 }); // Correctly defined mousePosition state
 
   const handleMouseEnter = (countryName: string) => {
     // Set hovered country to display its name only if it's visited
@@ -37,24 +34,16 @@ const Map: React.FC = () => {
   //   }
   // };
 
-  const handleMouseMove = (event: React.MouseEvent) => {
-    setMousePosition({ x: event.clientX, y: event.clientY});
-  };
 
   const visitedCount = visitedCountries.length;
   const percentageExplored = ((visitedCount / TOTAL_COUNTRIES) * 100).toFixed(0);
 
   return (
     <div className={styles.mapContainer}>
-      {/* <div className={styles.header}>
-        <span>
-          I haven&apos;t been everywhere,
-        </span>
-        <span>
-          but it&apos;s on my list
-        </span>
-      </div> */}
-      <ComposableMap className={styles.map} onMouseMove={handleMouseMove}>
+      {hoveredCountry && (
+        <div className={styles.countryTooltip}>{hoveredCountry}</div>
+      )}
+      <ComposableMap className={styles.map}>
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
             geographies.map((geo) => {
@@ -89,12 +78,6 @@ const Map: React.FC = () => {
           }
         </Geographies>
       </ComposableMap>
-      {/* Display hovered country name */}
-      {hoveredCountry && (
-        <div className={styles.tooltip} style={{ left: mousePosition.x, top: mousePosition.y }}>
-          {hoveredCountry}
-        </div>
-      )}
       <div className={styles.statsContainer}>
         <div className={styles.statText}>
           Countries Visited: <span className={styles.stat}>{visitedCount}</span>
