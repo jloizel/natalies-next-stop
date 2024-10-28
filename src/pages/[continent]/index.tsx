@@ -34,6 +34,12 @@ const ContinentPage = () => {
   const continentParam = params?.continent ? params.continent.toLowerCase() : ""; 
   const continentInfo = continentNameMapping[continentParam]; 
 
+  useEffect(() => {
+    if (!continentInfo) {
+      router.push("/404");
+    }
+  }, [continentInfo, router]);
+
   const continentDisplay = continentInfo ? continentInfo.display : ""; 
   const continentURL = continentInfo ? continentInfo.url : ""; 
 

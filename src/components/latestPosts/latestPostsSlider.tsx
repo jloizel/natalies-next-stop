@@ -103,14 +103,14 @@ const LatestPostsSlider: React.FC<LatestPostsProps> = ({continent}) => {
                         <span className={styles.createdAt}>{post.desc}</span>
                         <div className={styles.postTitle}>{post.title}</div>
                       </div>
-                      {index === 0 && (
+                      {posts.length >= 2 && index === 0 && (
                         <div className={styles.arrowSlideContainer}>
-                          <FaArrowRightLong className={styles.arrow}/>
+                          <FaArrowRightLong className={styles.arrow} />
                         </div>
                       )}
-                      {index === 4 && (
+                      {posts.length >= 2 && index === posts.slice(0, 5).length - 1 && (
                         <div className={styles.arrowSlideContainer}>
-                          <FaArrowLeftLong className={styles.arrow}/>
+                          <FaArrowLeftLong className={styles.arrow} />
                         </div>
                       )}
                     </div>
