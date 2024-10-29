@@ -8,6 +8,7 @@ import InstagramPostsSlider from '@/components/instagramPosts/instagramPostsSlid
 import InstagramPosts from '@/components/instagramPosts/instagramPosts';
 import Footer from '@/components/footer/footer';
 import AuthProvider from '@/components/AuthProvider/AuthProvider';
+import { GA } from '@/components/GA/GA';
 
 type CustomAppProps = AppProps & {
   Component: AppProps["Component"] & { noLayout?: boolean };
@@ -38,6 +39,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
           <Footer />
         </>
       )}
+      <GA/>
     </AuthProvider>
   );
 }

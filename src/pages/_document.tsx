@@ -13,6 +13,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          
           {/* Title and Meta tags */}
           <title>Natalie&apos;s Next Stop</title>
           <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1"/>
