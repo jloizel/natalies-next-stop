@@ -1,5 +1,4 @@
-// pages/_document.tsx
-
+import { GA } from '@/components/GA/GA';
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
 
 class MyDocument extends Document {
@@ -12,7 +11,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-
+          
           {/* Title and Meta tags */}
           <title>Natalie&apos;s Next Stop</title>
           <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1"/>
@@ -26,6 +25,8 @@ class MyDocument extends Document {
           <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
           <link rel="manifest" href="/site.webmanifest"/>
         </Head>
+
+        <GA/>
         
         <body>
           <Main />
