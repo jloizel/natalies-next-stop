@@ -29,19 +29,20 @@ const Home = () => {
     <div>
       <div className={styles.imageContainer}>
         <img className={styles.image} src='/images/homepage.jpg'/>
+        <div className={styles.header}>
+          <div className={styles.headersubTitle}>
+            Travel Blog
+          </div>
+          <div className={styles.headerTitle}>
+            <span>Natalie&apos;s</span>
+            <span>Next Stop</span>
+          </div>
+          <div className={styles.headerSlogan}>
+            I haven&apos;t been everywhere, but it&apos;s on my list
+          </div>
+        </div>
       </div>
-      <div className={styles.header}>
-        <div className={styles.headersubTitle}>
-          Travel Blog
-        </div>
-        <div className={styles.headerTitle}>
-          <span>Natalie&apos;s</span>
-          <span>Next Stop</span>
-        </div>
-        <div className={styles.headerSlogan}>
-          I haven&apos;t been everywhere, but it&apos;s on my list
-        </div>
-      </div>
+      
       <Map/>
       {isTabletOrBelow ? 
         ( 
