@@ -118,12 +118,12 @@
 
   @media (min-width: 768px) {
     flex-direction: row;
-    right: 200px;
+    right: 100px;
   }
 
   @media (max-width: 767px) {
-    left: 50px;
-    top: 10px;
+    left: 60px;
+    top: 20px;
   }
 }
 
