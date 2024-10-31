@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './photoCards.module.css';
 import { FcGlobe } from "react-icons/fc";
+import Link from 'next/link';
 
 
 const PhotoCardsGrid = () => {
@@ -23,6 +24,8 @@ const PhotoCardsGrid = () => {
     fetchData();
   }, []);
 
+  console.log(data)
+
   return (
     <div className={styles.photoCardsContainer}>
       <div className={styles.photoCardsHeader}>
@@ -36,7 +39,7 @@ const PhotoCardsGrid = () => {
               <div className={styles.imageWrapper}> 
                 <img src={photo.src} alt={photo.title} className={styles.photoImage} />
               </div>
-              <a className={styles.photoButton} href={photo.href}>{photo.title}</a>
+              <Link className={styles.photoButton} href={photo.href}>{photo.title}</Link>
             </div>
           ))}
         </div>
@@ -46,7 +49,7 @@ const PhotoCardsGrid = () => {
               <div className={styles.imageWrapper}> 
                 <img src={photo.src} alt={photo.title} className={styles.photoImage} />
               </div>
-              <a className={styles.photoButton} href={photo.href}>{photo.title}</a>
+              <Link className={styles.photoButton} href={photo.href}>{photo.title}</Link>
             </div>
           ))}
         </div>

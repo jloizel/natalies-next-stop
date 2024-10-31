@@ -6,6 +6,7 @@ import styles from './photoCards.module.css';
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 import { FcGlobe } from "react-icons/fc";
+import Link from 'next/link';
 
 const PhotoCardsSlider: React.FC = ({}) => {
   const [data, setData] = useState([
@@ -100,7 +101,7 @@ const PhotoCardsSlider: React.FC = ({}) => {
               <div className={styles.imageWrapper}> 
                 <img src={photo.src} alt={photo.title} className={styles.photoImage} />
               </div>
-              <a className={styles.photoButton} href={photo.href}>{photo.title}</a>
+              <Link className={styles.photoButton} href={photo.href}>{photo.title}</Link>
             </div>
           ))}
         </Slider>
