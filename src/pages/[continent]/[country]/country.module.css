@@ -24,12 +24,16 @@
   left: 50%;
   transform: translate(-50%, -50%); 
   color: white; 
-  font-size: 100px; 
+  font-size: 60px; 
   font-weight: 600;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   z-index: 1; 
   text-align: center;
   white-space: nowrap;
+
+  @media (min-width: 768px) {
+    font-size: 100px; 
+  }
 }
 
 .blogsContainer {

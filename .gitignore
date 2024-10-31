@@ -71,3 +71,4 @@ next-env.d.ts
 .next/trace
 package.json
 package-lock.json
+.env

@@ -208,9 +208,9 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
     <div className={styles.container}>
       <div className={styles.imageContainer}>
         <img src={getCountryImage(country)} className={styles.image} />
-      </div>
-      <div className={styles.header}>
-        {country}
+        <div className={styles.header}>
+          {country}
+        </div>
       </div>
       <div className={styles.blogsContainer}>
         {paginatedPosts.length > 0 ? (
