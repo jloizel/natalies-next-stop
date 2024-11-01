@@ -10,9 +10,10 @@ interface Params {
   uniqueCountries: string[];
   getCountryImage: (country: string) => string;
   continentDisplay: string;
+  continentURL: string;
 }
 
-const CountryCard: React.FC<Params> = ({error, loading, uniqueCountries, getCountryImage, continentDisplay }) => {
+const CountryCard: React.FC<Params> = ({error, loading, uniqueCountries, getCountryImage, continentDisplay, continentURL }) => {
 
   const formatCountryForURL = (country: string) => {
     return country.toLowerCase().replace(/\s+/g, "-");
@@ -31,7 +32,7 @@ const CountryCard: React.FC<Params> = ({error, loading, uniqueCountries, getCoun
               {uniqueCountries.map((country) => (
                 <Link
                   key={country}
-                  href={`/${formatCountryForURL(continentDisplay)}/${formatCountryForURL(country)}`}
+                  href={`/${continentURL}/${formatCountryForURL(country)}`}
                   passHref
                 >
                   <div className={styles.countryCard}>
