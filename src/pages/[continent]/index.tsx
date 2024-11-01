@@ -74,15 +74,6 @@ const ContinentPage = () => {
     return postForCountry ? postForCountry.countryImage : "";
   };
 
-  // Replace spaces in country names with hyphens
-  const formatCountryForURL = (country: string) => country.toLowerCase().replace(/\s+/g, "");
-
-  const handleCountryClick = (country: string) => {
-    const formattedURL = `/${continentURL}/${formatCountryForURL(country)}`;
-    console.log("Navigating to:", formattedURL);
-    router.push(formattedURL);
-  };
-
   // const handlePostClick = (country: string, postId: string) => {
   //   router.push(`/${continentURL}/${formatCountryForURL(country)}/${postId}`); 
   // };
