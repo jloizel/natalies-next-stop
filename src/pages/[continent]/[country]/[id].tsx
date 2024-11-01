@@ -9,6 +9,7 @@ import { IoShareSocialOutline } from "react-icons/io5";
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import ShareMenu from '@/components/shareMenu/shareMenu';
+import Link from 'next/link';
 
 interface IContentBlock {
   type: 'text' | 'image' | 'subheader' | 'list';
@@ -307,12 +308,12 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   return (
     <div className={styles.container}>
       <div className={styles.topInfo}>
-        <a href={`/${formatForURL(post.continent)}`}>
+        <Link href={`/${formatForURL(post.continent)}`}>
           {post.continent}
-        </a>
-        <a href={`/${formatForURL(post.continent)}/${formatForURL(post.country)}`}>
+        </Link>
+        <Link href={`/${formatForURL(post.continent)}/${formatForURL(post.country)}`}>
           {post.country}
-        </a>
+        </Link>
       </div>
       <div className={styles.blogPost}>
         <div className={styles.blogDetails}>
@@ -346,9 +347,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           Updated: {formatCreatedAt(post.updatedAt)}
         </div>
         {renderIntroText(post.introText)}
-        <a href={post.introImageLink} target='_blank'>
+        <Link href={post.introImageLink} target='_blank'>
           <img src={encodeURI(post.introImage)} alt={post.title} className={styles.introImage} />
-        </a>
+        </Link>
         <div className={styles.introImageCaption}>
           {post.introImageCaption}
         </div>

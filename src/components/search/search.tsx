@@ -5,6 +5,7 @@ import styles from "./search.module.css";
 import { IoSearch } from "react-icons/io5";
 import { IoClose } from "react-icons/io5"; 
 import { getAllPosts, Post } from '@/app/API';
+import Link from 'next/link';
 
 const Search = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -98,7 +99,7 @@ const Search = () => {
         <div className={styles.resultsContainer}>
           {filteredPosts.length > 0 ? (
             filteredPosts.map((post) => (
-              <a key={post._id} className={styles.postCard} href={`/${post.continent.toLowerCase()}/${post.country.toLowerCase()}/${post._id}`}>
+              <Link key={post._id} className={styles.postCard} href={`/${post.continent.toLowerCase()}/${post.country.toLowerCase()}/${post._id}`}>
                 <div className={styles.imageContainer}>
                   <img 
                     src={post.previewImage} 
@@ -109,7 +110,7 @@ const Search = () => {
                   <div className={styles.postTitle}>{post.title}</div>
                   <div className={styles.postIntroText}>{post.introText}</div>
                 </div>
-              </a>
+              </Link>
             ))
           ) : (
             <p>No posts found matching your search.</p>

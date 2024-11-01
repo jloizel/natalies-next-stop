@@ -167,7 +167,7 @@ export const getInstagramPosts = async (): Promise<any[]> => {
 export const refreshInstagramToken = async (): Promise<void> => {
   try {
     await api.post('/instagram/refresh-token');
-    console.log('Instagram token refreshed successfully');
+    // console.log('Instagram token refreshed successfully');
   } catch (error) {
     console.error('Error refreshing Instagram token:', error);
     throw error; 

@@ -24,7 +24,6 @@ const PhotoCardsGrid = () => {
     fetchData();
   }, []);
 
-  console.log(data)
 
   return (
     <div className={styles.photoCardsContainer}>

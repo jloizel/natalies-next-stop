@@ -80,7 +80,6 @@ const ContinentPage = () => {
   const handleCountryClick = (country: string) => {
     router.push(`/${continentURL}/${formatCountryForURL(country)}`); 
     // router.push(`/${continentURL}/${country}`); 
-    console.log(country)
   };
 
   // const handlePostClick = (country: string, postId: string) => {
