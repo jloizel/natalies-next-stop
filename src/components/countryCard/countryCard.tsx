@@ -34,19 +34,18 @@ const CountryCard: React.FC<Params> = ({error, loading, uniqueCountries, getCoun
                   key={country}
                   href={`/${continentURL}/${formatCountryForURL(country)}`}
                   passHref
+                  className={styles.countryCard}
                 >
-                  <div className={styles.countryCard}>
-                    <img
-                      src={getCountryImage(country)}
-                      alt={country}
-                      className={styles.countryImage}
-                    />
-                    <div className={styles.countryCardBot}>
-                      <div className={styles.countryCardDetails}>{country} TRAVEL BLOGS</div>
-                    </div>
-                    <div className={styles.countryName}>{country}</div>
-                    <div className={styles.countryCardBorder} />
+                  <img
+                    src={getCountryImage(country)}
+                    alt={country}
+                    className={styles.countryImage}
+                  />
+                  <div className={styles.countryCardBot}>
+                    <div className={styles.countryCardDetails}>{country} TRAVEL BLOGS</div>
                   </div>
+                  <div className={styles.countryName}>{country}</div>
+                  <div className={styles.countryCardBorder} />
                 </Link>
               ))}
             </div>
