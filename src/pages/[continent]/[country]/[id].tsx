@@ -98,8 +98,21 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
       };
     }
   }, [shareMenuRef]);
-  
-  
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      if (post) {
+        const fetchedComments = await getCommentsByPostId(post._id);
+        setComments(fetchedComments);
+      }
+    };
+
+    fetchComments();
+  }, [post]);
+
+  useEffect(() => {
+    setDisableButton(newComment.trim() === '');
+  }, [newComment]);
 
   if (!post) {
     return <div>Post not found.</div>;
@@ -318,16 +331,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   
   const formatForURL = (string: string) => string.toLowerCase().replace(/\s+/g, '');
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      if (post) {
-        const fetchedComments = await getCommentsByPostId(post._id);
-        setComments(fetchedComments);
-      }
-    };
-
-    fetchComments();
-  }, [post]);
+  
 
   const handleCommentSubmit = async () => {
     if (newComment.trim() === '') return; 
@@ -359,10 +363,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
     setCommenterName('');
   };
 
-  useEffect(() => {
-    setDisableButton(newComment.trim() === '');
-  }, [newComment]);
-
+  
   const renderComments = () => {
     return (
       <div className={styles.commentsContainer}>
