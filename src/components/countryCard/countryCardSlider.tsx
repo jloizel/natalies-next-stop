@@ -7,17 +7,21 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
+import Link from "next/link";
 
 interface Params {
   error: string;
   loading: boolean;
   uniqueCountries: string[];
-  handleCountryClick: (country: string) => void;
   getCountryImage: (country: string) => string;
   continentDisplay: string;
 }
 
-const CountryCardSlider: React.FC<Params> = ({ error, loading, uniqueCountries, handleCountryClick, getCountryImage, continentDisplay }) => {
+const CountryCardSlider: React.FC<Params> = ({ error, loading, uniqueCountries, getCountryImage, continentDisplay }) => {
+
+  const formatCountryForURL = (country: string) => {
+    return country.toLowerCase().replace(/\s+/g, "-");
+  };
 
   interface ArrowProps {
     className?: string;
@@ -74,22 +78,24 @@ const CountryCardSlider: React.FC<Params> = ({ error, loading, uniqueCountries, 
           {uniqueCountries.length > 0 ? (
             <Slider {...settings} className={styles.countryCardContainer}>
               {uniqueCountries.map((country) => (
-                <div
+                <Link
                   key={country}
-                  className={styles.countryCard}
-                  onClick={() => handleCountryClick(country)}
+                  href={`/${formatCountryForURL(continentDisplay)}/${formatCountryForURL(country)}`}
+                  passHref
                 >
-                  <img
-                    src={getCountryImage(country)}
-                    alt={country}
-                    className={styles.countryImage}
-                  />
-                  <div className={styles.countryCardBot}>
-                    <div className={styles.countryCardDetails}>{country} TRAVEL BLOGS</div>
+                  <div className={styles.countryCard}>
+                    <img
+                      src={getCountryImage(country)}
+                      alt={country}
+                      className={styles.countryImage}
+                    />
+                    <div className={styles.countryCardBot}>
+                      <div className={styles.countryCardDetails}>{country} TRAVEL BLOGS</div>
+                    </div>
+                    <div className={styles.countryName}>{country}</div>
+                    <div className={styles.countryCardBorder} />
                   </div>
-                  <div className={styles.countryName}>{country}</div>
-                  <div className={styles.countryCardBorder} />
-                </div>
+                </Link>
               ))}
             </Slider>
           ) : (
