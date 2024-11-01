@@ -7,7 +7,6 @@ import styles from "./country.module.css"
 import { IoShareSocialOutline } from "react-icons/io5";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"; 
 import ShareMenu from '@/components/shareMenu/shareMenu';
-import Link from 'next/link';
 
 
 interface CountryPageProps {
@@ -224,9 +223,9 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
             return (
               <div key={blogPost._id} className={styles.blogCard}>
                 <div className={styles.blogCardLeft}>
-                  <Link href={`/${formatForURL(continent)}/${formatForURL(country)}/${blogPost._id}`}>
+                  <a href={`/${formatForURL(continent)}/${formatForURL(country)}/${blogPost._id}`}>
                     <img src={blogPost.previewImage} className={styles.blogCardImage}/>
-                  </Link>
+                  </a>
                 </div>
                 <div className={styles.blogCardRight}>
                   <div className={styles.blogDetails}>
@@ -249,14 +248,14 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
                       )}
                     </div>
                   </div>
-                  <Link className={styles.blogText} href={`/${formatForURL(continent)}/${formatForURL(country)}/${blogPost._id}`}>
+                  <a className={styles.blogText} href={`/${formatForURL(continent)}/${formatForURL(country)}/${blogPost._id}`}>
                     <div className={styles.blogTitle}>
                       {blogPost.title}
                     </div>
                     <div className={styles.blogIntroText}>
                       {truncateText(blogPost.introText, 150)}
                     </div>
-                  </Link>
+                  </a>
                   <div className={styles.blogStats}>
                     <span className={styles.stat}>{currentViews} views</span>
                     <div className={styles.likesContainer}>
