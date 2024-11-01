@@ -22,7 +22,7 @@ const CountryCardSlider: React.FC<Params> = ({ error, loading, uniqueCountries, 
 
 
   const formatCountryForURL = (country: string) => {
-    return country.toLowerCase().replace(/\s+/g, "-");
+    return country.toLowerCase().replace(/\s+/g, "");
   };
 
   interface ArrowProps {
