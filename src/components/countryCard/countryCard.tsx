@@ -2,17 +2,21 @@
 
 import React from "react";
 import styles from "./countryCard.module.css"; 
+import Link from "next/link";
 
 interface Params {
   error: string;
   loading: boolean;
   uniqueCountries: string[];
-  handleCountryClick: (country: string) => void;
   getCountryImage: (country: string) => string;
   continentDisplay: string;
 }
 
-const CountryCard: React.FC<Params> = ({error, loading, uniqueCountries, handleCountryClick, getCountryImage, continentDisplay }) => {
+const CountryCard: React.FC<Params> = ({error, loading, uniqueCountries, getCountryImage, continentDisplay }) => {
+
+  const formatCountryForURL = (country: string) => {
+    return country.toLowerCase().replace(/\s+/g, "-");
+  };
 
   return (
     <div className={styles.countriesContainer}>
@@ -25,22 +29,24 @@ const CountryCard: React.FC<Params> = ({error, loading, uniqueCountries, handleC
           {uniqueCountries.length > 0 ? ( 
             <div className={styles.countryCardContainer}>
               {uniqueCountries.map((country) => (
-                <div
+                <Link
                   key={country}
-                  className={styles.countryCard}
-                  onClick={() => handleCountryClick(country)}
+                  href={`/${formatCountryForURL(continentDisplay)}/${formatCountryForURL(country)}`}
+                  passHref
                 >
-                  <img
-                    src={getCountryImage(country)}
-                    alt={country}
-                    className={styles.countryImage}
-                  />
-                  <div className={styles.countryCardBot}>
-                    <div className={styles.countryCardDetails}>{country} TRAVEL BLOGS</div>
+                  <div className={styles.countryCard}>
+                    <img
+                      src={getCountryImage(country)}
+                      alt={country}
+                      className={styles.countryImage}
+                    />
+                    <div className={styles.countryCardBot}>
+                      <div className={styles.countryCardDetails}>{country} TRAVEL BLOGS</div>
+                    </div>
+                    <div className={styles.countryName}>{country}</div>
+                    <div className={styles.countryCardBorder} />
                   </div>
-                  <div className={styles.countryName}>{country}</div>
-                  <div className={styles.countryCardBorder} />
-                </div>
+                </Link>
               ))}
             </div>
           ) : (

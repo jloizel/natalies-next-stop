@@ -78,8 +78,9 @@ const ContinentPage = () => {
   const formatCountryForURL = (country: string) => country.toLowerCase().replace(/\s+/g, "");
 
   const handleCountryClick = (country: string) => {
-    router.push(`/${continentURL}/${formatCountryForURL(country)}`); 
-    // router.push(`/${continentURL}/${country}`); 
+    const formattedURL = `/${continentURL}/${formatCountryForURL(country)}`;
+    console.log("Navigating to:", formattedURL);
+    router.push(formattedURL);
   };
 
   // const handlePostClick = (country: string, postId: string) => {
@@ -115,7 +116,7 @@ const ContinentPage = () => {
       {isMobile && uniqueCountries.length > 1 ? (
         <CountryCardSlider error={error} loading={loading} uniqueCountries={uniqueCountries} handleCountryClick={handleCountryClick} getCountryImage={getCountryImage} continentDisplay={continentDisplay}/>
       ) : (
-        <CountryCard error={error} loading={loading} uniqueCountries={uniqueCountries} handleCountryClick={handleCountryClick} getCountryImage={getCountryImage} continentDisplay={continentDisplay}/>
+        <CountryCard error={error} loading={loading} uniqueCountries={uniqueCountries} getCountryImage={getCountryImage} continentDisplay={continentDisplay}/>
       )}
 
       
