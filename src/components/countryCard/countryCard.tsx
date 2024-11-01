@@ -16,7 +16,7 @@ interface Params {
 const CountryCard: React.FC<Params> = ({error, loading, uniqueCountries, getCountryImage, continentDisplay, continentURL }) => {
 
   const formatCountryForURL = (country: string) => {
-    return country.toLowerCase().replace(/\s+/g, "-");
+    return country.toLowerCase().replace(/\s+/g, "");
   };
 
   return (
