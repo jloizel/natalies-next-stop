@@ -1,11 +1,15 @@
 .container {
   max-width: 1000px; 
   margin: 0px auto; 
-  padding: 60px 30px;
+  padding: 80px 30px;
   background-color: #ffffff; 
   display: flex;
   flex-direction: column;
   gap: 80px;
+
+  @media (min-width: 768px) {
+    padding: 60px 30px;
+  }
 }
 
 .topInfo {
@@ -14,18 +18,17 @@
   gap: 20px;
 }
 
-.topInfo a {
+.link {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
 
-.topInfo a:hover {
+.link:hover {
   color: #73bfb8;
 }
 
 .blogPost {
-  /* padding: 40px 100px; */
-  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  */
+  padding: 20px;
   border: solid 1px #f6f6f6;
 
   @media (min-width: 768px) {
@@ -269,5 +272,146 @@
 }
 
 .bullet {
-  margin: 0 5px; /* Space around the bullet */
+  margin: 0 5px; 
+}
+
+.blogBottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-top: solid 1px #CCCCCC;
+  padding: 10px;
+}
+
+.commentSection {
+  padding: 20px;
+  border: solid 1px #f6f6f6;
+
+  @media (min-width: 768px) {
+    padding: 40px 100px;
+  }
+}
+
+.commentHeader {
+  font-weight: 600;
+  margin-bottom: 30px;
+  border-bottom: solid 1px #CCCCCC;
+  padding-bottom: 10px;
+}
+
+.commentInputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.commentInput {
+  resize: vertical;
+  padding: 10px;
+  width: 100% !important;
+  min-height: 80px;
+}
+
+.commentInput::placeholder {
+  font-family: "Montserrat", sans-serif;
+}
+
+.nameInput {
+  font-family: "Montserrat", sans-serif;
+  padding: 10px;
+  width: 200px;
+}
+
+.commentbuttonsContainer {
+  display: flex;
+  justify-self: flex-end;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.commentClearButton {
+  color: #73bfb8;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-size: 14px;
+}
+
+.commentClearButton:hover {
+  opacity: 0.5;
+}
+
+.commentSubmitButton {
+  background-color: #73bfb8;
+  border: none;
+  padding: 8px 15px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.commentSubmitButton:hover {
+  opacity: 0.8;
+}
+
+.disabled {
+  background-color: #CCCCCC;
+}
+
+.commentsContainer {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comment {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.comment:not(:last-child) {
+  border-bottom: solid 1px #CCCCCC;
+}
+
+.commentContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.icon {
+  font-size: 24px;
+}
+
+.commentInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.commenter {
+  font-size: 18px;
+}
+
+.commentDate {
+  font-size: 14px;
+}
+
+.deleteCommentButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: red;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.deleteCommentButton:hover {
+  opacity: 0.5;
 }

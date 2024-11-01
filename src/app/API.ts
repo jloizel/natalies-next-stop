@@ -49,6 +49,14 @@ export interface Post {
 
 export type PostInput = Omit<Post, '_id' | 'username' | 'createdAt' | 'updatedAt'>;
 
+export interface Comment {
+  _id: string;
+  postId: string;
+  name: string;       
+  content: string;    
+  createdAt: string;  
+}
+
 // Create a new post
 export const createPost = async (postData: PostInput): Promise<Post> => {
   try {
@@ -171,5 +179,34 @@ export const refreshInstagramToken = async (): Promise<void> => {
   } catch (error) {
     console.error('Error refreshing Instagram token:', error);
     throw error; 
+  }
+};
+
+export const addComment = async (commentId: string, name: string, content: string): Promise<Comment> => {
+  try {
+    const response: AxiosResponse<Comment> = await api.post('/comments', { commentId, name, content });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Get all comments for a specific post
+export const getCommentsByPostId = async (postId: string): Promise<Comment[]> => {
+  try {
+    const response: AxiosResponse<Comment[]> = await api.get(`/comments/${postId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+    return [];
+  }
+};
+
+export const deleteComment = async (commentId: string): Promise<{ message: string }> => {
+  try {
+    const response: AxiosResponse<{ message: string }> = await api.delete(`/comments/delete/${commentId}`);
+    return response.data;
+  } catch (error) {
+    throw error; // Handle errors as needed
   }
 };

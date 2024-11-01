@@ -2,13 +2,14 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { getPostById, getAllPosts } from '@/app/API';
+import { getPostById, getAllPosts, getCommentsByPostId, addComment, deleteComment } from '@/app/API';
 import { ParsedUrlQuery } from 'querystring';
 import styles from './blog.module.css';
 import { IoShareSocialOutline } from "react-icons/io5";
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import ShareMenu from '@/components/shareMenu/shareMenu';
+import { FaRegComment } from "react-icons/fa";
 
 interface IContentBlock {
   type: 'text' | 'image' | 'subheader' | 'list';
@@ -57,9 +58,22 @@ interface Params extends ParsedUrlQuery {
   id: string;
 }
 
+interface IComment {
+  _id: string;
+  postId: string;
+  name: string;
+  content: string;
+  createdAt: string;
+}
+
 const BlogPost: React.FC<BlogPostProps> = ({ post }) => {  
   const [showShareMenu, setShowShareMenu] = useState<string | null>(null);
   const shareMenuRef = useRef<HTMLDivElement>(null);
+  const [comments, setComments] = useState<IComment[]>([]);
+  const [newComment, setNewComment] = useState<string>('');
+  const [commenterName, setCommenterName] = useState<string>('');
+  const [disablebutton, setDisableButton] = useState(true)
+
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -304,13 +318,86 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   
   const formatForURL = (string: string) => string.toLowerCase().replace(/\s+/g, '');
 
+  useEffect(() => {
+    const fetchComments = async () => {
+      if (post) {
+        const fetchedComments = await getCommentsByPostId(post._id);
+        setComments(fetchedComments);
+      }
+    };
+
+    fetchComments();
+  }, [post]);
+
+  const handleCommentSubmit = async () => {
+    if (newComment.trim() === '') return; 
+
+    try {
+      const commentData = await addComment(post._id, commenterName, newComment);
+      setComments((prev) => [...prev, commentData]); 
+      setNewComment('');
+      setCommenterName('');
+    } catch (error) {
+      console.error('Error adding comment:', error);
+    }
+  };
+
+  const handleCommentDelete = async (commentId: string) => {
+    try {
+      const response = await deleteComment(commentId);
+      console.log(response.message); // Optional: log success message
+      // Optionally, update your local state to remove the deleted comment
+      setComments(comments.filter(comment => comment._id !== commentId));
+    } catch (error) {
+      console.error('Failed to delete comment:', error);
+      // Handle error (e.g., show a notification to the user)
+    }
+  };
+
+  const handleClearInputs = () => {
+    setNewComment('');
+    setCommenterName('');
+  };
+
+  useEffect(() => {
+    setDisableButton(newComment.trim() === '');
+  }, [newComment]);
+
+  const renderComments = () => {
+    return (
+      <div className={styles.commentsContainer}>
+        {comments.length === 0 ? (
+          ''
+        ) : (
+          comments.map((comment) => (
+            <div key={comment._id} className={styles.comment}>
+              <FaRegComment className={styles.icon}/>
+              <div className={styles.commentContent}>
+                <div className={styles.commentInfo}>
+                  <span className={styles.commenter}>{comment.name}</span>
+                  <span className={styles.commentDate}>{formatCreatedAt(comment.createdAt)}</span>
+                </div>
+              <span>{comment.content}</span>
+              </div>
+              {status === 'authenticated' && session && (
+                <button onClick={() => handleCommentDelete(comment._id)} className={styles.deleteCommentButton}>
+                  X
+                </button>
+              )}
+            </div>
+          ))
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.topInfo}>
-        <a href={`/${formatForURL(post.continent)}`}>
+        <a href={`/${formatForURL(post.continent)}`} className={styles.link}>
           {post.continent}
         </a>
-        <a href={`/${formatForURL(post.continent)}/${formatForURL(post.country)}`}>
+        <a href={`/${formatForURL(post.continent)}/${formatForURL(post.country)}`} className={styles.link}>
           {post.country}
         </a>
       </div>
@@ -378,6 +465,56 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
             </div>
           </div>
         ))}
+        <div className={styles.blogBottom}> 
+          <a href={`/${formatForURL(post.continent)}/${formatForURL(post.country)}`} className={styles.link}>
+            {post.country}
+          </a>
+          <div className={styles.shareButtonContainer}>
+            {status === 'authenticated' && session && (
+              <button onClick={() => handleEdit(post._id)} className={styles.editButton}>
+                Edit
+              </button>
+            )}
+            <button onClick={() => handleShare(post._id, post.title)} className={styles.shareButton}>
+              <IoShareSocialOutline/>
+            </button>
+            {showShareMenu === post._id && (
+              <ShareMenu
+                postTitle={post.title}
+                showShareMenu={showShareMenu === post._id}
+                toggleShareMenu={() => setShowShareMenu(null)}
+              />
+            )}
+            </div>
+          </div>
+        </div>
+      
+      <div className={styles.commentSection}>
+        <div className={styles.commentHeader}>Comments</div>
+        <div className={styles.commentInputsContainer}>
+          <textarea
+            placeholder="Write a comment..."
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            className={styles.commentInput}
+          />
+          <input
+            type="text"
+            placeholder="Your name"
+            value={commenterName}
+            onChange={(e) => setCommenterName(e.target.value)}
+            className={styles.nameInput}
+          />
+        </div>
+        <div className={styles.commentbuttonsContainer}>
+          <button onClick={handleClearInputs} className={styles.commentClearButton}>
+            Clear
+          </button>
+          <button onClick={handleCommentSubmit} className={`${styles.commentSubmitButton} ${disablebutton ? styles.disabled : ''}`} disabled={disablebutton}>
+            Submit
+          </button>
+        </div>
+        {renderComments()}
       </div>
     </div>
   );
