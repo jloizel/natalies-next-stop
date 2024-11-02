@@ -75,7 +75,7 @@ export const getPostById = async (postId: string): Promise<Post | null> => {
     return response.data; // Return the post directly
   } catch (error) {
     const axiosError = error as AxiosError;
-    console.error('Error fetching post:', axiosError);
+    // console.error('Error fetching post:', axiosError);
 
     // Check for 404 error
     if (axiosError.response && axiosError.response.status === 404) {
@@ -92,7 +92,7 @@ export const getAllPosts = async (): Promise<Post[]> => {
     const response: AxiosResponse<{ post: Post[] }> = await api.get('/post/get');
     return response.data.post || [];
   } catch (error) {
-    console.error('Error fetching posts:', error);
+    // console.error('Error fetching posts:', error);
     return [];
   }
 };
@@ -105,7 +105,7 @@ export const getPostsByContinent = async (continent: string): Promise<Post[]> =>
     // console.log('Response from API:', response.data); // Log the response from the API
     return response.data; // Change this line to return response.data directly
   } catch (error) {
-    console.error('Error fetching posts by continent:', error);
+    // console.error('Error fetching posts by continent:', error);
     return [];
   }
 };
@@ -116,7 +116,7 @@ export const getPostsByContinentAndCountry = async (continent: string, country: 
     const response: AxiosResponse<Post[]> = await api.get(`/post/continent/${continent}/country/${country}`);
     return response.data || [];
   } catch (error) {
-    console.error('Error fetching posts by continent and country:', error);
+    // console.error('Error fetching posts by continent and country:', error);
     return [];
   }
 };
@@ -160,11 +160,11 @@ export const getInstagramPosts = async (): Promise<any[]> => {
     return response.data.posts;
   } catch (error) {
     const axiosError = error as AxiosError;
-    console.error('Error fetching Instagram posts:', axiosError);
+    // console.error('Error fetching Instagram posts:', axiosError);
 
     // Check if the error is due to an expired token (401 Unauthorized)
     if (axiosError.response && axiosError.response.status === 401) {
-      console.warn('Token expired, attempting to refresh...');
+      // console.warn('Token expired, attempting to refresh...');
       await refreshInstagramToken(); 
       return await getInstagramPosts(); 
     }
@@ -177,7 +177,7 @@ export const refreshInstagramToken = async (): Promise<void> => {
     await api.post('/instagram/refresh-token');
     // console.log('Instagram token refreshed successfully');
   } catch (error) {
-    console.error('Error refreshing Instagram token:', error);
+    // console.error('Error refreshing Instagram token:', error);
     throw error; 
   }
 };
@@ -197,7 +197,7 @@ export const getCommentsByPostId = async (postId: string): Promise<Comment[]> =>
     const response: AxiosResponse<Comment[]> = await api.get(`/comments/${postId}`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching comments:', error);
+    // console.error('Error fetching comments:', error);
     return [];
   }
 };

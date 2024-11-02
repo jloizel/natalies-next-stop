@@ -43,10 +43,10 @@ const CreatePost = () => {
     setLoading(true);
 
     try {
-      await createPost(post); // Send the form data to the create API
-      router.push('/admin/dashboard/manage'); // Redirect after successful creation
+      await createPost(post); 
+      router.push('/admin/dashboard/manage'); 
     } catch (err) {
-      console.error(err); // Log the actual error for debugging
+      // console.error(err); 
       setError('Error creating post.');
     } finally {
       setLoading(false);

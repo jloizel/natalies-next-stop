@@ -28,14 +28,13 @@ const Login = () => {
     const email = e.target[0].value;
     const password = e.target[1].value;
 
-    const result = await signIn('credentials', { email, password, redirect: false }); // Use redirect: false to handle manually
+    const result = await signIn('credentials', { email, password, redirect: false }); 
 
     if (result?.error) {
-      console.error(result.error); // Log the error for debugging
-      alert('Invalid email or password'); // Alert the user about the error
+      // console.error(result.error); 
+      alert('Invalid email or password'); 
     } else {
-      // Successful login
-      router.push('/admin/dashboard'); // Redirect to the dashboard after login
+      router.push('/admin/dashboard'); 
     }
   };
 

@@ -60,7 +60,7 @@
             setError('Post not found.');
           }
         } catch (err) {
-          console.error(err); // Log the actual error for debugging
+          // console.error(err);
           setError('Error fetching post.');
         } finally {
           setLoading(false);
@@ -81,7 +81,7 @@
         await updatePost(id, post);
         router.push('/admin/dashboard/manage'); 
       } catch (err) {
-        console.error(err); 
+        // console.error(err); 
         setError('Error updating post.');
       } finally {
         setLoading(false);

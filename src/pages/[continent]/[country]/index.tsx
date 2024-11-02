@@ -81,7 +81,7 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
         setShowShareMenu((prev) => (prev === postId ? null : postId));
       }
     } catch (error) {
-      console.error('Error sharing:', error);
+      // console.error('Error sharing:', error);
     }
   };
 

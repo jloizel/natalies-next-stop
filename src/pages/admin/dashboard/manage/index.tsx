@@ -45,7 +45,7 @@ const ManagePosts = () => {
       setPosts(posts.filter(post => post._id !== id));
       setFilteredPosts(filteredPosts.filter(post => post._id !== id));
     } catch (err) {
-      console.error('Error deleting post:', err); // Log the error
+      // console.error('Error deleting post:', err); 
       setError('Error deleting post.');
     }
   };
