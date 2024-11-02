@@ -10,6 +10,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import ShareMenu from '@/components/shareMenu/shareMenu';
 import { FaRegComment } from "react-icons/fa";
+import Link from 'next/link';
 
 interface IContentBlock {
   type: 'text' | 'image' | 'subheader' | 'list';
@@ -395,12 +396,12 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   return (
     <div className={styles.container}>
       <div className={styles.topInfo}>
-        <a href={`/${formatForURL(post.continent)}`} className={styles.link}>
+        <Link href={`/${formatForURL(post.continent)}`} className={styles.link}>
           {post.continent}
-        </a>
-        <a href={`/${formatForURL(post.continent)}/${formatForURL(post.country)}`} className={styles.link}>
+        </Link>
+        <Link href={`/${formatForURL(post.continent)}/${formatForURL(post.country)}`} className={styles.link}>
           {post.country}
-        </a>
+        </Link>
       </div>
       <div className={styles.blogPost}>
         <div className={styles.blogDetails}>
@@ -467,9 +468,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           </div>
         ))}
         <div className={styles.blogBottom}> 
-          <a href={`/${formatForURL(post.continent)}/${formatForURL(post.country)}`} className={styles.link}>
+          <Link href={`/${formatForURL(post.continent)}/${formatForURL(post.country)}`} className={styles.link}>
             {post.country}
-          </a>
+          </Link>
           <div className={styles.shareButtonContainer}>
             {status === 'authenticated' && session && (
               <button onClick={() => handleEdit(post._id)} className={styles.editButton}>
