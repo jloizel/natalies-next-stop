@@ -5,7 +5,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { getPostsByContinent, getPostsByContinentAndCountry, Post } from '../../../app/API';
 import styles from "./country.module.css"
 import { IoShareSocialOutline } from "react-icons/io5";
-// import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"; 
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"; 
 import ShareMenu from '@/components/shareMenu/shareMenu';
 import Link from 'next/link';
 
@@ -16,11 +16,21 @@ interface CountryPageProps {
   posts: Post[];
 }
 
+type Likes = {
+  [key: string]: number; 
+};
+
+type Views = {
+  [key: string]: number; 
+};
+
 const POSTS_PER_PAGE = 10;
 
 const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
   const [showShareMenu, setShowShareMenu] = useState<string | null>(null);
   const shareMenuRef = useRef<HTMLDivElement>(null);
+  const [likes, setLikes] = useState<Likes>({});
+  const [views, setViews] = useState<Views>({});
   const [currentPage, setCurrentPage] = useState(1); 
 
 
