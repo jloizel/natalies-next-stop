@@ -9,6 +9,7 @@ import InstagramPosts from '@/components/instagramPosts/instagramPosts';
 import Footer from '@/components/footer/footer';
 import AuthProvider from '@/components/AuthProvider/AuthProvider';
 import { GA } from '@/components/GA/GA';
+import Head from 'next/head';
 
 type CustomAppProps = AppProps & {
   Component: AppProps["Component"] & { noLayout?: boolean };
@@ -31,6 +32,10 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
 
   return (
     <AuthProvider>
+      <Head>
+        <title>Natalie's Next Stop</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1" />
+      </Head>
       {!Component.noLayout && <NavBar />}
       <Component {...pageProps} />
       {!Component.noLayout && (

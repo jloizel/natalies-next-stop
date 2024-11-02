@@ -109,84 +109,6 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
     return text.slice(0, maxLength) + '...';
   };
 
-  const hasLiked = (postId: string) => {
-    if (typeof window === 'undefined') return false; // Check if running in browser
-    const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '[]');
-    return likedPosts.includes(postId);
-  };
-
-  // Function to handle liking and unliking a post
-  const handleLike = (postId: string) => {
-    if (typeof window === 'undefined') return; // Check if running in browser
-
-    const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '[]');
-
-    if (likedPosts.includes(postId)) {
-      // User is unliking the post
-      const updatedLikes = likes[postId] > 0 ? likes[postId] - 1 : 0; // Decrement like count
-      setLikes(prevLikes => ({
-        ...prevLikes,
-        [postId]: updatedLikes,
-      }));
-
-      // Remove the postId from localStorage
-      const updatedLikedPosts = likedPosts.filter((id: string) => id !== postId);
-      localStorage.setItem('likedPosts', JSON.stringify(updatedLikedPosts));
-    } else {
-      // User is liking the post
-      setLikes(prevLikes => ({
-        ...prevLikes,
-        [postId]: (prevLikes[postId] || 0) + 1, // Increment like count
-      }));
-
-      // Add the postId to localStorage
-      likedPosts.push(postId);
-      localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
-    }
-  };
-
-  // Function to handle view count
-  const incrementViewCount = (postId: string) => {
-    if (typeof window === 'undefined') return; // Check if running in browser
-
-    const viewedPosts = JSON.parse(localStorage.getItem('viewedPosts') || '[]');
-    
-    if (!viewedPosts.includes(postId)) {
-      // If the post hasn't been viewed before, increment the view count
-      setViews(prevViews => ({
-        ...prevViews,
-        [postId]: (prevViews[postId] || 0) + 1,
-      }));
-
-      // Add the postId to localStorage
-      viewedPosts.push(postId);
-      localStorage.setItem('viewedPosts', JSON.stringify(viewedPosts));
-    }
-  };
-
-  // Effect to initialize likes and views based on localStorage
-  useEffect(() => {
-    if (typeof window !== 'undefined') { // Ensure we're in the browser
-      const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '[]');
-      const viewedPosts = JSON.parse(localStorage.getItem('viewedPosts') || '[]');
-      const initialLikes: Likes = {};
-      const initialViews: Views = {};
-
-      posts.forEach(post => {
-        initialLikes[post._id] = likedPosts.includes(post._id) ? 1 : 0;
-        initialViews[post._id] = viewedPosts.includes(post._id) ? 1 : 0; 
-      });
-
-      setLikes(initialLikes);
-      setViews(initialViews);
-    }
-  }, [posts]);
-
-  useEffect(() => {
-    posts.forEach(post => {
-      incrementViewCount(post._id);
-    });
-  }, [posts]);
 
   const formatForURL = (country: string) => country.toLowerCase().replace(/\s+/g, '');
 
@@ -218,8 +140,6 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
           paginatedPosts.map((blogPost) => {
             const fullText = getFullText(blogPost);
             const readingTime = calculateReadingTime(fullText);
-            const currentLikes = likes[blogPost._id] || 0;
-            const currentViews = views[blogPost._id] || 0;
 
             return (
               <div key={blogPost._id} className={styles.blogCard}>
@@ -257,7 +177,7 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
                       {truncateText(blogPost.introText, 150)}
                     </div>
                   </Link>
-                  <div className={styles.blogStats}>
+                  {/* <div className={styles.blogStats}>
                     <span className={styles.stat}>{currentViews} views</span>
                     <div className={styles.likesContainer}>
                       <button onClick={() => handleLike(blogPost._id)} className={styles.likeButton}>
@@ -269,7 +189,7 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
                       </button>
                       <span className={styles.stat}>{currentLikes}</span>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             );
