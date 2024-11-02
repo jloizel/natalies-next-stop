@@ -92,21 +92,17 @@ export const getAllPosts = async (): Promise<Post[]> => {
     const response: AxiosResponse<{ post: Post[] }> = await api.get('/post/get');
     return response.data.post || [];
   } catch (error) {
-    // console.error('Error fetching posts:', error);
-    return [];
+    throw error;
   }
 };
 
 // Get posts by continent
 export const getPostsByContinent = async (continent: string): Promise<Post[]> => {
-  // console.log(`Fetching posts for continent: ${continent}`);
   try {
     const response: AxiosResponse<Post[]> = await api.get(`/post/continent/${continent}`);
-    // console.log('Response from API:', response.data); // Log the response from the API
-    return response.data; // Change this line to return response.data directly
+    return response.data; 
   } catch (error) {
-    // console.error('Error fetching posts by continent:', error);
-    return [];
+    throw error;
   }
 };
 
@@ -116,8 +112,7 @@ export const getPostsByContinentAndCountry = async (continent: string, country: 
     const response: AxiosResponse<Post[]> = await api.get(`/post/continent/${continent}/country/${country}`);
     return response.data || [];
   } catch (error) {
-    // console.error('Error fetching posts by continent and country:', error);
-    return [];
+    throw error;
   }
 };
 
@@ -197,8 +192,7 @@ export const getCommentsByPostId = async (postId: string): Promise<Comment[]> =>
     const response: AxiosResponse<Comment[]> = await api.get(`/comments/${postId}`);
     return response.data;
   } catch (error) {
-    // console.error('Error fetching comments:', error);
-    return [];
+    throw error;
   }
 };
 

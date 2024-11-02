@@ -45,8 +45,7 @@ const CreatePost = () => {
     try {
       await createPost(post); 
       router.push('/admin/dashboard/manage'); 
-    } catch (err) {
-      // console.error(err); 
+    } catch {
       setError('Error creating post.');
     } finally {
       setLoading(false);

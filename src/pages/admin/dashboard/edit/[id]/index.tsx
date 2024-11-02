@@ -59,8 +59,7 @@
           } else {
             setError('Post not found.');
           }
-        } catch (err) {
-          // console.error(err);
+        } catch {
           setError('Error fetching post.');
         } finally {
           setLoading(false);
@@ -80,8 +79,7 @@
       try {
         await updatePost(id, post);
         router.push('/admin/dashboard/manage'); 
-      } catch (err) {
-        // console.error(err); 
+      } catch {
         setError('Error updating post.');
       } finally {
         setLoading(false);

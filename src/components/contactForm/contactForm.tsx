@@ -72,7 +72,7 @@ const ContactForm: FC = () => {
       setMessageSent(true);
       reset(); 
     } catch (error) {
-      // console.error('Error sending email:', error);
+      throw error;
     }
   };
   
