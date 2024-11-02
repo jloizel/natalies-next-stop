@@ -9,7 +9,7 @@ import { createTheme, useMediaQuery } from "@mui/material";
 import CountryCardSlider from "@/components/countryCard/countryCardSlider";
 import LatestPostsSlider from "@/components/latestPosts/latestPostsSlider";
 import LatestPosts from "@/components/latestPosts/latestPosts";
-import { logEvent } from "@/components/GA/GA";
+// import { logEvent } from "@/components/GA/GA";
 
 interface Params {
   continent?: string;
@@ -50,7 +50,7 @@ const ContinentPage = () => {
       return;
     }
 
-    logEvent("Geography", "view_continent", continentDisplay);
+    // logEvent("Geography", "view_continent", continentDisplay);
 
     const fetchPosts = async () => {
       setLoading(true);
