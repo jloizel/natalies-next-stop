@@ -321,7 +321,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         setShowShareMenu((prev) => (prev === postId ? null : postId));
       }
     } catch (error) {
-      throw error;
+      console.error('Error sharing:', error);
     }
   };
 
@@ -343,16 +343,19 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
       setNewComment('');
       setCommenterName('');
     } catch (error) {
-      throw error;
+      console.error('Error adding comment:', error);
     }
   };
 
   const handleCommentDelete = async (commentId: string) => {
     try {
-      await deleteComment(commentId);
+      const response = await deleteComment(commentId);
+      console.log(response.message); // Optional: log success message
+      // Optionally, update your local state to remove the deleted comment
       setComments(comments.filter(comment => comment._id !== commentId));
     } catch (error) {
-      throw error;
+      console.error('Failed to delete comment:', error);
+      // Handle error (e.g., show a notification to the user)
     }
   };
 
