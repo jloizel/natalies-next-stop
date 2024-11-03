@@ -68,7 +68,7 @@
 .imageContainer {
   position: relative;
   overflow: hidden;
-  width: 100%; /* Container takes full width */
+  width: 100%; /* Container takes full widwth */
   height: 0; /* Initially zero height */
   padding-bottom: 100%; /* This creates a responsive square aspect ratio */
   cursor: pointer;
