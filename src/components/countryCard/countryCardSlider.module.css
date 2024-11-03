@@ -87,6 +87,7 @@
   text-transform: uppercase;
   font-weight: 500;
   border: solid 1px white;
+  white-space: nowrap;
 }
 
 .slick-dots li button:before {
