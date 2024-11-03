@@ -22,7 +22,7 @@ interface IContentBlock {
 }
 
 interface INestedContentBlock extends IContentBlock {
-  nestedNestedBlocks?: INestedContentBlock[]; // Include nestedNestedBlocks here
+  nestedNestedBlocks?: INestedContentBlock[];
 }
 
 interface ISubsection {
@@ -81,6 +81,16 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   // if (typeof document !== 'undefined') {
   //   return null;
   // }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.gtag && post) {
+      window.gtag('event', 'view_blog_post', {
+        event_category: 'Blog',
+        event_label: post.title,
+        page_path: window.location.pathname,
+      });
+    }
+  }, [post]);
 
   useEffect(() => {
     if (typeof document !== 'undefined') {

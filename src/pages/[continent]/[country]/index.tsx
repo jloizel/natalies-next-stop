@@ -36,7 +36,7 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
   useEffect(() => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'view_country_page', {
-        continent: continent,
+        // continent: continent,
         country: country,
         page_path: window.location.pathname,
       });
