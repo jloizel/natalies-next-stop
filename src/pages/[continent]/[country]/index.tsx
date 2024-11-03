@@ -33,6 +33,15 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
   // const [views, setViews] = useState<Views>({});
   const [currentPage, setCurrentPage] = useState(1); 
 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'view_country_page', {
+        continent: continent,
+        country: country,
+        page_path: window.location.pathname,
+      });
+    }
+  }, [continent, country]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
