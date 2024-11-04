@@ -11,7 +11,7 @@ import AuthProvider from '@/components/AuthProvider/AuthProvider';
 import { GA } from '@/components/GA/GA';
 import Head from 'next/head';
 import { useEffect } from 'react';
-import ReactGA from 'react-ga';
+// import ReactGA from 'react-ga';
 import { useRouter } from 'next/router';
 
 type CustomAppProps = AppProps & {
@@ -49,7 +49,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);
-  
+
   return (
     <AuthProvider>
       <Head>
