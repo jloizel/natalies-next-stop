@@ -45,14 +45,14 @@ const ContinentPage = () => {
   const continentDisplay = continentInfo ? continentInfo.display : ""; 
   const continentURL = continentInfo ? continentInfo.url : ""; 
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'view_continent_page', {
-        continent: continentDisplay, 
-        page_path: window.location.pathname, 
-      });
-    }
-  }, [continentDisplay]);
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined' && window.gtag) {
+  //     window.gtag('event', 'view_continent_page', {
+  //       continent: continentDisplay, 
+  //       page_path: window.location.pathname, 
+  //     });
+  //   }
+  // }, [continentDisplay]);
 
   useEffect(() => {
     if (!continentDisplay) {

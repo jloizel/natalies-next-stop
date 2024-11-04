@@ -3,6 +3,7 @@
 import React from "react";
 import styles from "./countryCard.module.css"; 
 import Link from "next/link";
+import ReactGA from 'react-ga4';
 
 interface Params {
   error: string;
@@ -17,6 +18,15 @@ const CountryCard: React.FC<Params> = ({error, loading, uniqueCountries, getCoun
 
   const formatCountryForURL = (country: string) => {
     return country.toLowerCase().replace(/\s+/g, "");
+  };
+
+  const handleCountryClick = (country:string) => {
+    ReactGA.event({
+        category: 'Country Page',
+        action: 'Click',
+        label: country,
+    });
+    console.log(country)
   };
 
   return (
@@ -35,6 +45,7 @@ const CountryCard: React.FC<Params> = ({error, loading, uniqueCountries, getCoun
                   href={`/${continentURL}/${formatCountryForURL(country)}`}
                   passHref
                   className={styles.countryCard}
+                  onClick={() => handleCountryClick(country)}
                 >
                   <img
                     src={getCountryImage(country)}

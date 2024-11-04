@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
+import ReactGA from 'react-ga4';
 
 interface Params {
   error: string;
@@ -23,6 +24,15 @@ const CountryCardSlider: React.FC<Params> = ({ error, loading, uniqueCountries, 
 
   const formatCountryForURL = (country: string) => {
     return country.toLowerCase().replace(/\s+/g, "");
+  };
+
+  const handleCountryClick = (country:string) => {
+    ReactGA.event({
+        category: 'Country Page',
+        action: 'Click',
+        label: country,
+    });
+    console.log(country)
   };
 
   interface ArrowProps {
@@ -85,6 +95,7 @@ const CountryCardSlider: React.FC<Params> = ({ error, loading, uniqueCountries, 
                   href={`/${continentURL}/${formatCountryForURL(country)}`}
                   passHref
                   className={styles.countryCard}
+                  onClick={() => handleCountryClick(country)}
                 >
                   <img
                     src={getCountryImage(country)}
