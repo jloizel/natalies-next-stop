@@ -10,6 +10,7 @@ import Footer from '@/components/footer/footer';
 import AuthProvider from '@/components/AuthProvider/AuthProvider';
 import { GA } from '@/components/GA/GA';
 import Head from 'next/head';
+import ReactGA from "react-ga";
 
 type CustomAppProps = AppProps & {
   Component: AppProps["Component"] & { noLayout?: boolean };
@@ -29,6 +30,9 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
   });
 
   const isTabletOrBelow = useMediaQuery(theme.breakpoints.down('md'));
+
+  ReactGA.pageview(window.location.pathname + window.location.search);
+
 
   return (
     <AuthProvider>
