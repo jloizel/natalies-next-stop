@@ -10,12 +10,17 @@ import Footer from '@/components/footer/footer';
 import AuthProvider from '@/components/AuthProvider/AuthProvider';
 import { GA } from '@/components/GA/GA';
 import Head from 'next/head';
+import { useEffect } from 'react';
+import ReactGA from 'react-ga';
+import { useRouter } from 'next/router';
 
 type CustomAppProps = AppProps & {
   Component: AppProps["Component"] & { noLayout?: boolean };
 };
 
 function MyApp({ Component, pageProps }: CustomAppProps) {
+  const router = useRouter();
+
   const theme = createTheme({
     breakpoints: {
       values: {
@@ -29,7 +34,22 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
   });
 
   const isTabletOrBelow = useMediaQuery(theme.breakpoints.down('md'));
+  
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      if (typeof window !== "undefined" && window.gtag) {
+        window.gtag('event', 'page_view', {
+          page_path: url,
+        });
+      }
+    };
 
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+  
   return (
     <AuthProvider>
       <Head>
