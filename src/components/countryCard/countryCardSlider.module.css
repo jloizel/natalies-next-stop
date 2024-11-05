@@ -91,7 +91,7 @@
 }
 
 .slick-dots li button:before {
-  color: #fff; /* Dot color */
+  color: #fff; 
 }
 
 .customNextArrow,
@@ -107,7 +107,7 @@
 
 .customNextArrow {
   position: absolute;
-  right: -30px; /* Adjust based on your needs */
+  right: -30px; 
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
@@ -118,7 +118,7 @@
 
 .customPrevArrow {
   position: absolute;
-  left: -30px; /* Adjust based on your needs */
+  left: -30px; 
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;

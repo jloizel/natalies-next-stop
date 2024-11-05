@@ -61,7 +61,6 @@ const ContactForm: FC = () => {
   
     if (hasError) return;
   
-    // Create a new FormData instance
     const formData = new FormData();
     formData.append('name', data.name);
     formData.append('email', data.email);

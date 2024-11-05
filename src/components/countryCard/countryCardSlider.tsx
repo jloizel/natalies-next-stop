@@ -69,12 +69,12 @@ const CountryCardSlider: React.FC<Params> = ({ error, loading, uniqueCountries, 
   };
 
   const settings = {
-    dots: true,  // Adds dots for navigation
+    dots: true,  
     draggable: false,
-    infinite: true,  // Enables infinite looping
-    speed: 500,  // Speed of transitions
+    infinite: true,  
+    speed: 500,  
     slidesToShow: 1,
-    slidesToScroll: 1,  // Scroll one slide at a time
+    slidesToScroll: 1,  
     nextArrow: <NextArrow />,  
     prevArrow: <PrevArrow />
   };
