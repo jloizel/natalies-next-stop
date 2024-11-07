@@ -47,7 +47,7 @@ const Map: React.FC = () => {
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
             geographies.map((geo) => {
-              const countryName = geo.properties.name; // Get the country name
+              const countryName = geo.properties.name; 
               const isVisited = visitedCountries.includes(countryName); // Check if the country is visited
               const isHovered = hoveredCountry === countryName; // Check if the current country is hovered
 
