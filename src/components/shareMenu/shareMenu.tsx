@@ -1,5 +1,3 @@
-// components/ShareMenu.tsx
-
 import React, { useState, useRef, useEffect } from 'react';
 import { IoIosLink } from "react-icons/io";
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, WhatsappShareButton, FacebookIcon, TwitterIcon, LinkedinIcon, WhatsappIcon } from 'react-share';
