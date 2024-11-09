@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-// Hardcoded admin credentials
 const ADMIN_CREDENTIALS = {
     email: process.env.ADMIN_EMAIL,
     password: process.env.ADMIN_PASSWORD,
@@ -13,12 +12,10 @@ const handler = NextAuth({
             id: "credentials",
             name: "Credentials",
             async authorize(credentials) {
-                // Check if the entered email and password match the hardcoded admin credentials
                 if (
                     credentials.email === ADMIN_CREDENTIALS.email &&
                     credentials.password === ADMIN_CREDENTIALS.password
                 ) {
-                    // Return an admin user object when login is successful
                     return {
                         id: 1,
                         name: 'Admin',
@@ -26,14 +23,13 @@ const handler = NextAuth({
                         role: 'admin',
                     };
                 } else {
-                    // Throw an error if credentials don't match
                     throw new Error("Invalid credentials");
                 }
             }
         })
     ],
     pages: {
-        error: "/dashboard/signin", // Custom error page
+        error: "/dashboard/signin", 
     },
     callbacks: {
         async jwt({ token, user }) {
@@ -51,9 +47,9 @@ const handler = NextAuth({
             return session;
         },
     },
-    secret: process.env.NEXTAUTH_SECRET, // Make sure you set this in your environment variables
+    secret: process.env.NEXTAUTH_SECRET, 
     session: {
-        strategy: 'jwt', // Using JWT for session strategy
+        strategy: 'jwt', 
     }
 });
 

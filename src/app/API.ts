@@ -2,7 +2,6 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 
 const BASE_URL = 'https://natalies-next-stop-server.vercel.app/'; 
 
-// Create an Axios instance with custom configurations
 const api: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -34,12 +33,12 @@ export interface Post {
   countryImage: string;
   title: string;
   desc: string;
-  introText: string; // New field for intro text
-  introImage: string; // New field for intro image
+  introText: string; 
+  introImage: string; 
   introImageLink: string;
   introImageCaption: string;
   previewImage: string;
-  subsections: ISubsection[]; // Updated to include subsections
+  subsections: ISubsection[]; 
   continent: string;
   country: string;
   username: string;
@@ -63,7 +62,7 @@ export const createPost = async (postData: PostInput): Promise<Post> => {
     const response: AxiosResponse<Post> = await api.post('/post/create', postData);
     return response.data;
   } catch (error) {
-    throw error; // Throw the error message from the server
+    throw error; 
   }
 };
 
@@ -72,7 +71,7 @@ export const getPostById = async (postId: string): Promise<Post | null> => {
   try {
     // console.log(`Fetching post with ID: ${postId}`);
     const response: AxiosResponse<Post> = await api.get(`/post/get/${postId}`);
-    return response.data; // Return the post directly
+    return response.data; 
   } catch (error) {
     const axiosError = error as AxiosError;
     console.error('Error fetching post:', axiosError);
@@ -81,7 +80,7 @@ export const getPostById = async (postId: string): Promise<Post | null> => {
     if (axiosError.response && axiosError.response.status === 404) {
       return null; 
     }
-    throw error; // Rethrow other errors
+    throw error; 
   }
 };
 
@@ -102,8 +101,8 @@ export const getPostsByContinent = async (continent: string): Promise<Post[]> =>
   // console.log(`Fetching posts for continent: ${continent}`);
   try {
     const response: AxiosResponse<Post[]> = await api.get(`/post/continent/${continent}`);
-    // console.log('Response from API:', response.data); // Log the response from the API
-    return response.data; // Change this line to return response.data directly
+    // console.log('Response from API:', response.data); 
+    return response.data; 
   } catch (error) {
     console.error('Error fetching posts by continent:', error);
     return [];
@@ -207,6 +206,6 @@ export const deleteComment = async (commentId: string): Promise<{ message: strin
     const response: AxiosResponse<{ message: string }> = await api.delete(`/comments/delete/${commentId}`);
     return response.data;
   } catch (error) {
-    throw error; // Handle errors as needed
+    throw error; 
   }
 };
