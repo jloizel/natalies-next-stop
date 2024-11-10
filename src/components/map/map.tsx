@@ -48,8 +48,8 @@ const Map: React.FC = () => {
           {({ geographies }) =>
             geographies.map((geo) => {
               const countryName = geo.properties.name; 
-              const isVisited = visitedCountries.includes(countryName); // Check if the country is visited
-              const isHovered = hoveredCountry === countryName; // Check if the current country is hovered
+              const isVisited = visitedCountries.includes(countryName);
+              const isHovered = hoveredCountry === countryName;
 
               return (
                 <Geography
@@ -60,15 +60,15 @@ const Map: React.FC = () => {
                   // onClick={() => handleCountryClick(countryName)}
                   style={{
                     default: {
-                      fill: isVisited ? (isHovered ? "#FF5722" : "#FFCC00") : "#D6D6DA", // Visited countries change color, others stay gray
+                      fill: isVisited ? (isHovered ? "#FF5722" : "#FFCC00") : "#D6D6DA",
                       outline: "none",
                     },
                     hover: {
-                      fill: isVisited ? "#73bfb8" : "#D6D6DA", // Hover effect for visited countries
+                      fill: isVisited ? "#73bfb8" : "#D6D6DA",
                       outline: "none",
                     },
                     pressed: {
-                      fill: "#D6D6DA", // Pressed color, if applicable
+                      fill: "#D6D6DA",
                       outline: "none",
                     }
                   }}
