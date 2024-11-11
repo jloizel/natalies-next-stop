@@ -40,12 +40,12 @@ const Search = () => {
   };
 
   const handleIconClick = () => {
-    setIsExpanded(!isExpanded); // Toggle the expansion state
+    setIsExpanded(!isExpanded); 
   };
 
   const handleClearInput = () => {
-    setSearchQuery(''); // Clear the search input
-    setFilteredPosts([]); // Clear the filtered results
+    setSearchQuery(''); 
+    setFilteredPosts([]); 
   };
 
   const handleClickOutside = (e: MouseEvent) => {
@@ -55,11 +55,10 @@ const Search = () => {
       !containerRef.current.contains(e.target as Node) &&
       searchQuery.trim() === ''
     ) {
-      setIsExpanded(false); // Collapse the container
+      setIsExpanded(false); 
     }
   };
 
-  // Attach the click listener for clicks outside the component
   useEffect(() => {
     if (isExpanded) {
       document.addEventListener('mousedown', handleClickOutside);
@@ -67,7 +66,7 @@ const Search = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     }
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside); // Cleanup the event listener
+      document.removeEventListener('mousedown', handleClickOutside); 
     };
   }, [isExpanded, searchQuery]);
 
@@ -83,7 +82,7 @@ const Search = () => {
           value={searchQuery}
           onChange={handleSearch}
           className={styles.searchInput}
-          style={{ display: isExpanded ? 'block' : 'none' }} // Only show input when expanded
+          style={{ display: isExpanded ? 'block' : 'none' }} 
         />
 
         {/* Clear button (X) visible only when there's input */}
