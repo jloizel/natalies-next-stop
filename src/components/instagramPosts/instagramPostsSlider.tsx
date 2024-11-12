@@ -56,10 +56,9 @@ const InstagramPostsSlider: React.FC = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  // Get the latest 5 posts and reverse the order so the newest one is on the left
-  const latestPosts = posts.slice(0, 5).reverse();
+  // Get the latest 5 posts with the newest one is on the left
+  const latestPosts = posts.slice(0, 5);
 
-  // Slider settings for the carousel
   const sliderSettings = {
     dots: false,
     infinite: false,
@@ -68,27 +67,25 @@ const InstagramPostsSlider: React.FC = () => {
     slidesToScroll: 1,
     responsive: [
       {
-        breakpoint: 1024,  // Tablet size
+        breakpoint: 1024,  
         settings: {
-          slidesToShow: 2,  // Show 2 cards on tablets
+          slidesToShow: 2, 
         }
       },
       {
-        breakpoint: 600,  // Mobile size
+        breakpoint: 600, 
         settings: {
-          slidesToShow: 1,  // Show 1 card on smaller devices
+          slidesToShow: 1, 
         }
       }
     ]
   };
 
-  // Function to handle opening modal
   const openModal = (url: string) => {
     setModalUrl(url);
     setIsModalOpen(true);
   };
 
-  // Function to close modal
   const closeModal = () => {
     setIsModalOpen(false);
     setModalUrl(null);
@@ -110,7 +107,7 @@ const InstagramPostsSlider: React.FC = () => {
           <div
             key={index}
             className={styles.imageContainer}
-            onClick={() => openModal(post.postUrl)} // Open modal on image click
+            onClick={() => openModal(post.postUrl)} 
           >
             <img
               src={post.imageUrl}
