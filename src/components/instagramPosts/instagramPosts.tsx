@@ -3,9 +3,8 @@ import styles from "./instagramPosts.module.css";
 import { IoLogoInstagram } from "react-icons/io5";
 import { InstagramEmbed } from 'react-social-media-embed';
 import { IoClose } from "react-icons/io5";
-import { getInstagramPosts } from '@/app/API'; // Import API functions
+import { getInstagramPosts } from '@/app/API';
 
-// Define types for the Post structure
 interface Post {
   caption: string;
   imageUrl: string;
@@ -54,16 +53,14 @@ const InstagramPosts: React.FC = () => {
   if (loading) return <p className={styles.loading}>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  // Get the latest 5 posts and reverse the order so the newest one is on the left
-  const latestPosts = posts.slice(0, 5).reverse();
+  // Get the latest 5 posts with the newest one is on the left
+  const latestPosts = posts.slice(0, 5);
 
-  // Function to open modal with the clicked post's URL
   const openModal = (postUrl: string) => {
     setCurrentPostUrl(postUrl);
     setModalOpen(true);
   };
 
-  // Function to close the modal
   const closeModal = () => {
     setModalOpen(false);
     setCurrentPostUrl(null);
@@ -99,7 +96,6 @@ const InstagramPosts: React.FC = () => {
         ))}
       </div>
 
-      {/* Modal for InstagramEmbed */}
       {modalOpen && currentPostUrl && (
         <div className={styles.modalOverlay} onClick={closeModal}>
           <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
