@@ -92,7 +92,7 @@ const CountryCardSlider: React.FC<Params> = ({ error, loading, uniqueCountries, 
               {uniqueCountries.map((country) => (
                 <Link
                   key={country}
-                  href={`/${continentURL}/${formatCountryForURL(country)}`}
+                  href={`/${formatCountryForURL(continentURL)}/${formatCountryForURL(country)}`}
                   passHref
                   className={styles.countryCard}
                   onClick={() => handleCountryClick(country)}

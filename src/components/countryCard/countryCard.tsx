@@ -42,7 +42,7 @@ const CountryCard: React.FC<Params> = ({error, loading, uniqueCountries, getCoun
               {uniqueCountries.map((country) => (
                 <Link
                   key={country}
-                  href={`/${continentURL}/${formatCountryForURL(country)}`}
+                  href={`/${formatCountryForURL(continentURL)}/${formatCountryForURL(country)}`}
                   passHref
                   className={styles.countryCard}
                   onClick={() => handleCountryClick(country)}
