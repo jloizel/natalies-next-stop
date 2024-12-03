@@ -40,6 +40,14 @@ const Map: React.FC = () => {
 
   return (
     <div className={styles.mapContainer}>
+      <div className={styles.statsContainer}>
+        <div className={styles.statText}>
+          Countries Visited: <span className={styles.stat}>{visitedCount}</span>
+        </div>
+        <div className={styles.statText}>
+          Percentage of the World Explored: <span className={styles.stat}>{percentageExplored}%</span>
+        </div> 
+      </div>
       {hoveredCountry && (
         <div className={styles.countryTooltip}>{hoveredCountry}</div>
       )}
@@ -78,14 +86,14 @@ const Map: React.FC = () => {
           }
         </Geographies>
       </ComposableMap>
-      <div className={styles.statsContainer}>
+      {/* <div className={styles.statsContainer}>
         <div className={styles.statText}>
           Countries Visited: <span className={styles.stat}>{visitedCount}</span>
         </div>
         <div className={styles.statText}>
           Percentage of the World Explored: <span className={styles.stat}>{percentageExplored}%</span>
         </div> 
-      </div>
+      </div> */}
     </div>
   );
 };

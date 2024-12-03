@@ -77,7 +77,7 @@ const ContinentPage = () => {
   }, [continentDisplay]); 
 
   // Extract unique countries from posts
-  const uniqueCountries = Array.from(new Set(posts.map(post => post.country)));
+  const uniqueCountries = Array.from(new Set(posts.map(post => post.country))).sort((a, b) => a.localeCompare(b));
 
   // Get the country image for the card from the post data
   const getCountryImage = (country: string) => {
