@@ -43,7 +43,6 @@ const Home = () => {
         </div>
       </div>
       
-      <Map/>
       {isTabletOrBelow ? 
         ( 
           <PhotoCardsSlider/>
@@ -51,6 +50,9 @@ const Home = () => {
           <PhotoCardsGrid/>
         )
       }
+      
+      <Map/>
+
       {isTabletOrBelow ? 
         ( 
           <LatestPostsSlider/>
