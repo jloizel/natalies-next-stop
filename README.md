@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<a id="readme-top"></a>
 
-## Getting Started
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/jloizel/natalies-next-stop">
+    <img src="https://github.com/jloizel/natalies-next-stop/blob/main/public/images/readme.png" alt="Logo" width="auto" height="400">
+  </a>
 
-First, run the development server:
+<h3 align="center">Natalie's Next Stop</h3>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+  <p align="center">
+    A travel blog for Natalie, showcasing her adventures around the world. This website serves as a platform for Natalie to share her travel stories inspiring others to explore new horizons.
+    <br />
+    <a href="https://github.com/jloizel/natalies-next-stop"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://www.nataliesnextstop.co.uk/">View Live Project</a>
+    ·
+    <a href="https://github.com/jloizel/natalies-next-stop/issues/new?labels=bug&template=bug-report---.md">Leave some feedback</a>
+<!--     ·
+    <a href="https://github.com/jloizel/natalies-next-stop/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a> -->
+  </p>
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<!-- ABOUT THE PROJECT -->
+## 📝 About The Project
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Natalie’s Next Stop is a personal travel blog designed to capture and share the vibrant experiences of a passionate traveler. This website serves as a creative outlet for storytelling, travel tips, and sharing visually captivating content. The blog is designed to inspire others to embrace the adventure of discovering the world.
 
-## Learn More
+This project features a clean, responsive design that prioritizes readability and visual engagement. It integrates user-friendly navigation and customizable features, allowing seamless updates to keep the content fresh and engaging. Through this project, I aimed to bring Natalie’s travel stories to life with a visually appealing and technically robust platform.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Built With (***non-exhaustive***)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<code><img src="https://github.com/jloizel/jloizel/blob/main/Assets/react-color.svg" alt="react" height="35px"/></code>
+<code><img src="https://github.com/jloizel/jloizel/blob/main/Assets/typescript-color.svg" alt="typescript" height="35px"/></code>
+<code><img src="https://github.com/jloizel/jloizel/blob/main/Assets/mongodb-color.svg" alt="mongodb" height="35px"/></code>
+<code><img src="https://github.com/jloizel/jloizel/blob/main/Assets/nextdotjs-color.svg" alt="nextJS" height="35px"/></code>
+<code><img src="https://github.com/jloizel/natalies-next-stop/blob/main/public/images/logo-sm.png" alt="NextAuth" height="35px"/></code>
 
-## Deploy on Vercel
+</br>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Responsive Design**: Ensures the blog is visually appealing and functional on all devices, including mobile, tablet, and desktop.
+- **Dynamic Blog Posts**: Easily update and manage travel stories, ensuring fresh content for readers.
+- **Interactive Map**: Highlights Natalie’s traveled countries, offering readers a visual overview of her adventures.
+- **Commenting System**: Encourages reader interaction and engagement through post comments.
+- **Instagram Integration**: Displays Natalie’s latest Instagram posts directly on the blog, using the Instagram API to keep the content fresh and visually engaging.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
