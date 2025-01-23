@@ -105,7 +105,14 @@
   color: black;
 }
 
-.instaLogo:hover {
+.email {
+  font-size: 27px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: black;
+}
+
+.instaLogo:hover, .email:hover {
   color: #2364aa;
 }
 

@@ -5,6 +5,8 @@ import Search from '../search/search';
 import { IoLogoInstagram } from "react-icons/io5";
 import { signOut, useSession } from 'next-auth/react';
 import { AiOutlineMail } from "react-icons/ai";
+import { IoMailOutline } from "react-icons/io5";
+
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,7 +41,7 @@ const NavBar = () => {
         </div>
         <div className={styles.headerRightContainer}>
           <Link className={styles.contact} href="/contact">
-            <AiOutlineMail className={styles.instaLogo}/>
+            <IoMailOutline className={styles.email}/>
           </Link>
           <a href="https://www.instagram.com/nataliemills1" target='_blank'>
             <IoLogoInstagram className={styles.instaLogo} />
