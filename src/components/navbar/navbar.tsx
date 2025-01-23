@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Search from '../search/search';
 import { IoLogoInstagram } from "react-icons/io5";
 import { signOut, useSession } from 'next-auth/react';
-import { AiOutlineMail } from "react-icons/ai";
 import { IoMailOutline } from "react-icons/io5";
 
 
