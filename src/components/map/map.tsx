@@ -9,7 +9,7 @@ const geoUrl = "/data/map.json";
 
 const visitedCountries: string[] = visitedCountriesData.visitedCountries;
 
-const TOTAL_COUNTRIES = 202;
+const TOTAL_COUNTRIES = 195;
 
 const Map: React.FC = () => {
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
