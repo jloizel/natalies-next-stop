@@ -40,8 +40,6 @@ const ContinentPage = () => {
     }
   }, [continentInfo, router]);
 
-  
-
   const continentDisplay = continentInfo ? continentInfo.display : ""; 
   const continentURL = continentInfo ? continentInfo.url : ""; 
 
