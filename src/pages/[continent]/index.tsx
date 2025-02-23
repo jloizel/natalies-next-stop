@@ -21,7 +21,7 @@ const continentNameMapping: Record<string, { display: string, url: string }> = {
   centralamerica: { display: "Central America", url: "centralamerica" },
   northamerica: { display: "North America", url: "northamerica" },
   southamerica: { display: "South America", url: "southamerica" },
-  australia: { display: "Australia", url: "australia" }
+  australia: { display: "Australiasia", url: "australiasia" }
 };
 
 const ContinentPage = () => {

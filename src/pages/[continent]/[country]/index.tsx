@@ -233,7 +233,7 @@ const CountryPage = ({ continent, country, posts }: CountryPageProps) => {
 const continentMapping: { [key: string]: string } = {
   africa: 'Africa',
   asia: 'Asia',
-  australia: 'Australia',
+  australiasia: 'Australiasia',
   europe: 'Europe',
   northamerica: 'North America',
   centralamerica: 'Central America',
@@ -279,7 +279,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 // Generate dynamic paths for countries with blogs in all continents
 export const getStaticPaths: GetStaticPaths = async () => {
-  const continents = ['Africa', 'Asia', 'Australia', 'Europe', 'North America', 'Central America', 'South America'];
+  const continents = ['Africa', 'Asia', 'Australiasia', 'Europe', 'North America', 'Central America', 'South America'];
   const posts = await Promise.all(continents.map(continent => getPostsByContinent(continent)));
 
   const paths: { params: { continent: string; country: string } }[] = [];
