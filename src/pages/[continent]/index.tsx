@@ -21,7 +21,7 @@ const continentNameMapping: Record<string, { display: string, url: string }> = {
   centralamerica: { display: "Central America", url: "centralamerica" },
   northamerica: { display: "North America", url: "northamerica" },
   southamerica: { display: "South America", url: "southamerica" },
-  australia: { display: "Australia", url: "australia" }
+  australasia: { display: "Australasia", url: "australasia" }
 };
 
 const ContinentPage = () => {
@@ -39,8 +39,6 @@ const ContinentPage = () => {
       router.push("/404");
     }
   }, [continentInfo, router]);
-
-  
 
   const continentDisplay = continentInfo ? continentInfo.display : ""; 
   const continentURL = continentInfo ? continentInfo.url : ""; 
